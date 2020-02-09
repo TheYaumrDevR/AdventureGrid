@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nifty-styles>
+    <!-- Fonts -->
+    
+    <style id="start-menu-header-font">
+	<attributes color="#ffffffff" font="Interface/Fonts/StartMenuHeader.fnt"/>
+    </style>
+    
+    <!-- Fonts End -->
+</nifty-styles>
