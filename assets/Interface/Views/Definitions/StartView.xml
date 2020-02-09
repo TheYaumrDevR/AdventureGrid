@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nifty>
+    <useStyles filename="nifty-default-styles.xml" />
+    <useControls filename="nifty-default-controls.xml" />  
+    
+    <screen id="start" controller="org.ethasia.adventuregrid.technical.jmegamestates.StartGameState">
+        <layer id="backGroundLayer" childLayout="center" backgroundImage="Interface/Views/Images/MainMenuBg.png"/>
+    </screen>
+</nifty>
