@@ -11,7 +11,9 @@
                 <panel height="13"/>
                 <control name="button" label="New Game" align="center" width="274"/>
                 <panel height="8"/>
-                <control name="button" label="Quit" align="center" width="274"/>
+                <control name="button" label="Quit" align="center" width="274">
+                    <interact onClick="onQuitButtonClicked()"/>
+                </control>
             </panel>
         </layer>
     </screen>

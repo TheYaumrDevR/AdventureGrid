@@ -35,4 +35,12 @@ public class StartGameState extends AdventureGridGameState {
     }    
     
     //</editor-fold>
+    
+    //<editor-fold defaultstate="collapsed" desc="Guid Callbacks">
+    
+    public void onQuitButtonClicked() {
+        System.exit(0);
+    }
+    
+    //</editor-fold>
 }
