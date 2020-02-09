@@ -9,9 +9,9 @@
             <panel width="50%" height="85%" align="center" valign="center" childLayout="vertical">
                 <control name="label" height="80" text="Adventure Grid" color="#ffffff" font="Interface/Fonts/StartMenuHeader.fnt"/>
                 <panel height="13"/>
-                <control name="button" label="New Game" align="center" width="274"/>
+                <control name="button" id="#newGameButton" label="@ New Game" style="adventure-grid-button" align="center" width="274"/>
                 <panel height="8"/>
-                <control name="button" label="Quit" align="center" width="274">
+                <control name="button" id="#quitGameButton" label="Ö Quit" style="adventure-grid-button" align="center" width="274">
                     <interact onClick="onQuitButtonClicked()"/>
                 </control>
             </panel>

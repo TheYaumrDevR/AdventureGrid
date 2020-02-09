@@ -4,7 +4,38 @@
     
     <style id="start-menu-header-font">
 	<attributes color="#ffffffff" font="Interface/Fonts/StartMenuHeader.fnt"/>
-    </style>
+    </style>  
+
+    <style id="start-menu-button-font">
+	<attributes color="#ffffffff" font="Interface/Fonts/StartMenuButton.fnt"/>
+    </style>    
     
     <!-- Fonts End -->
+    
+    <!-- Adventure Grid Button -->
+
+    <!-- +++++++++++++++++++++++++++++++++++++ -->
+    <!-- style for the button background panel -->
+    <!-- +++++++++++++++++++++++++++++++++++++ -->
+    <style id="adventure-grid-button#panel">
+        <attributes backgroundColor="#111111CC"
+                paddingLeft="7px" paddingRight="7px" width="100px" height="36px" childLayout="center"
+                visibleToMouse="true"/>
+        <effect>    
+                <onHover name="colorBar" 
+                    color="#b0860015"
+                    post="true"/>
+            
+                <onFocus name="border" color="#b08600" post="true"/>
+        </effect>
+    </style>
+
+    <!-- +++++++++++++++++++++++++++++++++++++ -->
+    <!-- style for the button text -->
+    <!-- +++++++++++++++++++++++++++++++++++++ -->
+    <style id="adventure-grid-button#text" base="start-menu-button-font">
+        <attributes align="left" valign="center" textHAlign="left" textVAlign="center" visibleToMouse="false"/>       
+    </style>
+
+    <!-- Adventure Grid Button End -->     
 </nifty-styles>
