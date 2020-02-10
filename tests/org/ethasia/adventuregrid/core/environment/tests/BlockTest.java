@@ -9,7 +9,7 @@ import org.junit.Test;
 public class BlockTest {
     
     @Test
-    public void testInit() {
+    public void testCreateWithType_typeIsSet() {
         Block testCandidate = new Block(BlockTypes.ROCK);
         BlockTypes blockType = testCandidate.getBlockType();
         

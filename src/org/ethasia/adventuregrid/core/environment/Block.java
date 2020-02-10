@@ -4,7 +4,7 @@ public class Block {
     
     //<editor-fold defaultstate="collapsed" desc="Fields">
     
-    private BlockTypes blockType;
+    private final BlockTypes blockType;
     
     //</editor-fold>
  
