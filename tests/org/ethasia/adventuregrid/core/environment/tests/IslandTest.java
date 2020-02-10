@@ -87,5 +87,14 @@ public class IslandTest {
         Island testCandidate = new Island(64);
         
         Block blockAt = testCandidate.getBlockAt(32, 222, 64);        
-    }    
+    } 
+    
+    @Test
+    public void testGetXzDimension_returnsSetDimension() {
+        Island testCandidate = new Island(48);
+        
+        int result = testCandidate.getXzDimension();
+        
+        assertThat(result, is(48));
+    }
 }

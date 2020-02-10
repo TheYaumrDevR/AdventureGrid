@@ -15,6 +15,15 @@ public class Island {
     
     //</editor-fold>
     
+    //<editor-fold defaultstate="collapsed" desc="Accessors">
+    
+
+    public int getXzDimension() {
+        return xzDimension;
+    }    
+    
+    //</editor-fold>
+    
     //<editor-fold defaultstate="collapsed" desc="Constructor">
     
     public Island(int xzDimension) {
