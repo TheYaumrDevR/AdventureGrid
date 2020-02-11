@@ -17,4 +17,16 @@ public class GrassyEarthBlockTest {
         assertThat(testCandidate, is(notNullValue()));     
         assertThat(testCandidate.getBlockType(), is(BlockTypes.GRASSY_EARTH));
     }    
+    
+    @Test
+    public void testGetFaceIsCovering_allAreCovering() {
+        GrassyEarthBlock testCandidate = GrassyEarthBlock.getInstance();
+        
+        assertThat(testCandidate.getRightFaceIsCovering(), is(true));
+        assertThat(testCandidate.getFrontFaceIsCovering(), is(true));
+        assertThat(testCandidate.getLeftFaceIsCovering(), is(true));
+        assertThat(testCandidate.getBackFaceIsCovering(), is(true));
+        assertThat(testCandidate.getBottomFaceIsCovering(), is(true));
+        assertThat(testCandidate.getTopFaceIsCovering(), is(true));
+    }      
 }

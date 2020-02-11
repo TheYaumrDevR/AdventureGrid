@@ -24,4 +24,32 @@ public class GrassyEarthBlock extends Block {
     }    
     
     //</editor-fold>  
+    
+    //<editor-fold defaultstate="collapsed" desc="Methods">
+    
+    public boolean getRightFaceIsCovering() {
+        return true;
+    }
+    
+    public boolean getFrontFaceIsCovering() {
+        return true;
+    }
+
+    public boolean getLeftFaceIsCovering() {
+        return true;
+    }  
+    
+    public boolean getBackFaceIsCovering() {
+        return true;
+    } 
+
+    public boolean getBottomFaceIsCovering() {
+        return true;
+    }
+    
+    public boolean getTopFaceIsCovering() {
+        return true;
+    }    
+    
+    //</editor-fold>       
 }

@@ -16,5 +16,17 @@ public class AirBlockTest {
         
         assertThat(testCandidate, is(notNullValue()));
         assertThat(testCandidate.getBlockType(), is(BlockTypes.AIR));
-    }      
+    }  
+
+    @Test
+    public void testGetFaceIsCovering_noneAreCovering() {
+        AirBlock testCandidate = AirBlock.getInstance();
+        
+        assertThat(testCandidate.getRightFaceIsCovering(), is(false));
+        assertThat(testCandidate.getFrontFaceIsCovering(), is(false));
+        assertThat(testCandidate.getLeftFaceIsCovering(), is(false));
+        assertThat(testCandidate.getBackFaceIsCovering(), is(false));
+        assertThat(testCandidate.getBottomFaceIsCovering(), is(false));
+        assertThat(testCandidate.getTopFaceIsCovering(), is(false));
+    }    
 }

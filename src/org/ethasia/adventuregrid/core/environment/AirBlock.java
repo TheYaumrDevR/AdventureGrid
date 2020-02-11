@@ -24,4 +24,32 @@ public class AirBlock extends Block {
     }    
     
     //</editor-fold>    
+    
+    //<editor-fold defaultstate="collapsed" desc="Methods">
+    
+    public boolean getRightFaceIsCovering() {
+        return false;
+    }
+    
+    public boolean getFrontFaceIsCovering() {
+        return false;
+    }
+
+    public boolean getLeftFaceIsCovering() {
+        return false;
+    }  
+    
+    public boolean getBackFaceIsCovering() {
+        return false;
+    } 
+
+    public boolean getBottomFaceIsCovering() {
+        return false;
+    }
+    
+    public boolean getTopFaceIsCovering() {
+        return false;
+    }    
+    
+    //</editor-fold>
 }
