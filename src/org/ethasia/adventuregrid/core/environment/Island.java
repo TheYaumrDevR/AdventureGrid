@@ -73,13 +73,23 @@ public class Island {
             || z >= xzDimension;
     }
     
-    public boolean blockFaceAtPositionIsHidden(BlockFaceDirections blockFaceDirections, int x, int y, int z) {
-        if (x > 0) {
-            boolean currentBlockFaceIsCovering = blocks[x][y][z].getLeftFaceIsCovering();
-            boolean neighborBlockFaceIsCovering = blocks[x - 1][y][z].getRightFaceIsCovering();              
+    public boolean blockFaceAtPositionIsHidden(BlockFaceDirections faceType, int x, int y, int z) {
+        switch (faceType) {
+            case LEFT:
+                if (x > 0) {
+                    boolean currentBlockFaceIsCovering = blocks[x][y][z].getLeftFaceIsCovering();
+                    boolean neighborBlockFaceIsCovering = blocks[x - 1][y][z].getRightFaceIsCovering();              
         
-            return currentBlockFaceIsCovering && neighborBlockFaceIsCovering;              
-        } 
+                    return currentBlockFaceIsCovering && neighborBlockFaceIsCovering;              
+                }    
+            case FRONT:
+                if (z < xzDimension - 1) {
+                    boolean currentBlockFaceIsCovering = blocks[x][y][z].getFrontFaceIsCovering();
+                    boolean neighborBlockFaceIsCovering = blocks[x][y][z + 1].getBackFaceIsCovering();
+                
+                    return currentBlockFaceIsCovering && neighborBlockFaceIsCovering;                    
+                }
+        }
         
         return false;
     }    

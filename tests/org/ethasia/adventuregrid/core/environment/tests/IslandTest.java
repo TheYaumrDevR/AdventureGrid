@@ -158,5 +158,62 @@ public class IslandTest {
         boolean result = testCandidate.blockFaceAtPositionIsHidden(BlockFaceDirections.LEFT, 0, 0, 0);
         
         assertThat(result, is(false));
+    }
+
+    @Test
+    public void testBlockFaceAtPositionIsHidden_frontFaceOfEarthIsNeighboredByCoveringFace_returnsTrue() {
+        Island testCandidate = new Island(64);
+        
+        Block testBlock = EarthBlock.getInstance();
+        Block neighbor = GrassyEarthBlock.getInstance();
+        
+        testCandidate.placeBlockAt(testBlock, 0, 0, 7);
+        testCandidate.placeBlockAt(neighbor, 0, 0, 8);
+        
+        boolean result = testCandidate.blockFaceAtPositionIsHidden(BlockFaceDirections.FRONT, 0, 0, 7);
+        
+        assertThat(result, is(true));
+    }   
+    
+    @Test
+    public void testBlockFaceAtPositionIsHidden_frontFaceOfEarthIsNeighboredByAir_returnsFalse() {
+        Island testCandidate = new Island(64);
+        
+        Block testBlock = EarthBlock.getInstance();
+        Block neighbor = AirBlock.getInstance();
+        
+        testCandidate.placeBlockAt(testBlock, 0, 0, 7);
+        testCandidate.placeBlockAt(neighbor, 0, 0, 8);
+        
+        boolean result = testCandidate.blockFaceAtPositionIsHidden(BlockFaceDirections.FRONT, 0, 0, 7);
+        
+        assertThat(result, is(false));
+    } 
+    
+    @Test
+    public void testBlockFaceAtPositionIsHidden_frontBlockFaceIsNotCovering_returnsFalse() {
+        Island testCandidate = new Island(64);
+        
+        Block testBlock = AirBlock.getInstance();
+        Block neighbor = EarthBlock.getInstance();
+        
+        testCandidate.placeBlockAt(testBlock, 0, 0, 7);
+        testCandidate.placeBlockAt(neighbor, 0, 0, 8);
+        
+        boolean result = testCandidate.blockFaceAtPositionIsHidden(BlockFaceDirections.FRONT, 0, 0, 7);
+        
+        assertThat(result, is(false));
+    } 
+    
+    @Test
+    public void testBlockFaceAtPositionIsHidden_atFrontEdgeOfIsland_returnsFalse() {
+        Island testCandidate = new Island(64);
+        
+        Block testBlock = EarthBlock.getInstance();
+        testCandidate.placeBlockAt(testBlock, 0, 0, 63);
+        
+        boolean result = testCandidate.blockFaceAtPositionIsHidden(BlockFaceDirections.FRONT, 0, 0, 63);
+        
+        assertThat(result, is(false));
     }    
 }
