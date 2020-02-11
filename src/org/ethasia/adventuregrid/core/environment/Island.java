@@ -29,6 +29,8 @@ public class Island {
     public Island(int xzDimension) {
         this.xzDimension = xzDimension;
         blocks = new Block[xzDimension][HEIGHT_IN_BLOCKS][xzDimension];
+        
+        initializeAllBlocksToAir();
     }
     
     //</editor-fold>
@@ -54,6 +56,16 @@ public class Island {
     //</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="Helper Methods">
+    
+    private void initializeAllBlocksToAir() {
+        for (int i = 0; i < xzDimension; i++) {
+            for (int j = 0; j < HEIGHT_IN_BLOCKS; j++) {
+                for (int k = 0; k < xzDimension; k++) {
+                    blocks[i][j][k] = AirBlock.getInstance();
+                }              
+            }            
+        }        
+    }
     
     private boolean positionIsOutOfIslandBounds(int x, int y, int z) {
         return x >= xzDimension 

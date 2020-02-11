@@ -9,19 +9,18 @@ import org.ethasia.adventuregrid.core.environment.Island;
 import org.ethasia.adventuregrid.core.environment.RockBlock;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.Assert.assertThat;
 import org.junit.Test;
 
 public class IslandTest {
     
     @Test
-    public void testGetBlockAt_blockIsNotInitialized_isNull() {
+    public void testGetBlockAt_blockIsNotInitialized_isAir() {
         Island testCandidate = new Island(64);
         
         Block blockAt = testCandidate.getBlockAt(63, 0, 63);
         
-        assertThat(blockAt, is(nullValue()));
+        assertThat(blockAt.getBlockType(), is(BlockTypes.AIR));
     }
     
     @Test
