@@ -1,6 +1,8 @@
 package org.ethasia.adventuregrid.core.environment.tests;
 
+import org.ethasia.adventuregrid.core.environment.AirBlock;
 import org.ethasia.adventuregrid.core.environment.Block;
+import org.ethasia.adventuregrid.core.environment.BlockFaceDirections;
 import org.ethasia.adventuregrid.core.environment.BlockPositionOutOfBoundsException;
 import org.ethasia.adventuregrid.core.environment.BlockTypes;
 import org.ethasia.adventuregrid.core.environment.EarthBlock;
@@ -100,4 +102,61 @@ public class IslandTest {
         
         assertThat(result, is(48));
     }
+    
+    @Test
+    public void testBlockFaceAtPositionIsHidden_leftFaceOfRockIsNeighboredByCoveringFace_returnsTrue() {
+        Island testCandidate = new Island(64);
+        
+        Block testBlock = RockBlock.getInstance();
+        Block neighbor = EarthBlock.getInstance();
+        
+        testCandidate.placeBlockAt(testBlock, 5, 0, 0);
+        testCandidate.placeBlockAt(neighbor, 4, 0, 0);
+        
+        boolean result = testCandidate.blockFaceAtPositionIsHidden(BlockFaceDirections.LEFT, 5, 0, 0);
+        
+        assertThat(result, is(true));
+    }
+    
+    @Test
+    public void testBlockFaceAtPositionIsHidden_leftFaceOfRockIsNeighboredByAir_returnsFalse() {
+        Island testCandidate = new Island(64);
+        
+        Block testBlock = RockBlock.getInstance();
+        Block neighbor = AirBlock.getInstance();
+        
+        testCandidate.placeBlockAt(testBlock, 5, 0, 0);
+        testCandidate.placeBlockAt(neighbor, 4, 0, 0);
+        
+        boolean result = testCandidate.blockFaceAtPositionIsHidden(BlockFaceDirections.LEFT, 5, 0, 0);
+        
+        assertThat(result, is(false));
+    }  
+    
+    @Test
+    public void testBlockFaceAtPositionIsHidden_blockFaceIsNotCovering_returnsFalse() {
+        Island testCandidate = new Island(64);
+        
+        Block testBlock = AirBlock.getInstance();
+        Block neighbor = GrassyEarthBlock.getInstance();
+        
+        testCandidate.placeBlockAt(testBlock, 5, 0, 0);
+        testCandidate.placeBlockAt(neighbor, 4, 0, 0);
+        
+        boolean result = testCandidate.blockFaceAtPositionIsHidden(BlockFaceDirections.LEFT, 5, 0, 0);
+        
+        assertThat(result, is(false));
+    }
+
+    @Test
+    public void testBlockFaceAtPositionIsHidden_atLeftEdgeOfIsland_returnsFalse() {
+        Island testCandidate = new Island(64);
+        
+        Block testBlock = RockBlock.getInstance();
+        testCandidate.placeBlockAt(testBlock, 0, 0, 0);
+        
+        boolean result = testCandidate.blockFaceAtPositionIsHidden(BlockFaceDirections.LEFT, 0, 0, 0);
+        
+        assertThat(result, is(false));
+    }    
 }

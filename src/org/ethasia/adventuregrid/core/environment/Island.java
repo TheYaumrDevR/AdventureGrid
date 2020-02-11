@@ -73,5 +73,16 @@ public class Island {
             || z >= xzDimension;
     }
     
+    public boolean blockFaceAtPositionIsHidden(BlockFaceDirections blockFaceDirections, int x, int y, int z) {
+        if (x > 0) {
+            boolean currentBlockFaceIsCovering = blocks[x][y][z].getLeftFaceIsCovering();
+            boolean neighborBlockFaceIsCovering = blocks[x - 1][y][z].getRightFaceIsCovering();              
+        
+            return currentBlockFaceIsCovering && neighborBlockFaceIsCovering;              
+        } 
+        
+        return false;
+    }    
+    
     //</editor-fold>
 }
