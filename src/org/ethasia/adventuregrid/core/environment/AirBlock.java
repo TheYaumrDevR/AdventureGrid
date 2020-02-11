@@ -27,26 +27,32 @@ public class AirBlock extends Block {
     
     //<editor-fold defaultstate="collapsed" desc="Methods">
     
+    @Override
     public boolean getRightFaceIsCovering() {
         return false;
     }
     
+    @Override
     public boolean getFrontFaceIsCovering() {
         return false;
     }
 
+    @Override
     public boolean getLeftFaceIsCovering() {
         return false;
     }  
     
+    @Override
     public boolean getBackFaceIsCovering() {
         return false;
     } 
 
+    @Override
     public boolean getBottomFaceIsCovering() {
         return false;
     }
     
+    @Override
     public boolean getTopFaceIsCovering() {
         return false;
     }    

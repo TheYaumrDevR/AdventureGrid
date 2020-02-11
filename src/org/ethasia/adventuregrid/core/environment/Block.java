@@ -23,4 +23,15 @@ public abstract class Block {
     }
     
     //</editor-fold>
+    
+    //<editor-fold defaultstate="collapsed" desc="Methods">
+    
+    public abstract boolean getRightFaceIsCovering();
+    public abstract boolean getFrontFaceIsCovering();
+    public abstract boolean getLeftFaceIsCovering();
+    public abstract boolean getBackFaceIsCovering();
+    public abstract boolean getBottomFaceIsCovering();
+    public abstract boolean getTopFaceIsCovering();  
+    
+    //</editor-fold>    
 }

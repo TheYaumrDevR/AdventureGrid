@@ -28,26 +28,32 @@ public class RockBlock extends Block {
     
     //<editor-fold defaultstate="collapsed" desc="Methods">
     
+    @Override
     public boolean getRightFaceIsCovering() {
         return true;
     }
     
+    @Override
     public boolean getFrontFaceIsCovering() {
         return true;
     }
 
+    @Override
     public boolean getLeftFaceIsCovering() {
         return true;
     }  
     
+    @Override
     public boolean getBackFaceIsCovering() {
         return true;
     } 
 
+    @Override
     public boolean getBottomFaceIsCovering() {
         return true;
     }
     
+    @Override
     public boolean getTopFaceIsCovering() {
         return true;
     }    
