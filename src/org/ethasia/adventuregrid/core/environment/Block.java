@@ -1,10 +1,10 @@
 package org.ethasia.adventuregrid.core.environment;
 
-public class Block {
+public abstract class Block {
     
     //<editor-fold defaultstate="collapsed" desc="Fields">
     
-    private final BlockTypes blockType;
+    protected final BlockTypes blockType;
     
     //</editor-fold>
  

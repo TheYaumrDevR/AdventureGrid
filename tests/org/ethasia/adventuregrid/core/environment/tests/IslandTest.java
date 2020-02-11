@@ -3,7 +3,11 @@ package org.ethasia.adventuregrid.core.environment.tests;
 import org.ethasia.adventuregrid.core.environment.Block;
 import org.ethasia.adventuregrid.core.environment.BlockPositionOutOfBoundsException;
 import org.ethasia.adventuregrid.core.environment.BlockTypes;
+import org.ethasia.adventuregrid.core.environment.EarthBlock;
+import org.ethasia.adventuregrid.core.environment.GrassyEarthBlock;
 import org.ethasia.adventuregrid.core.environment.Island;
+import org.ethasia.adventuregrid.core.environment.RockBlock;
+
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.Assert.assertThat;
@@ -23,7 +27,7 @@ public class IslandTest {
     @Test
     public void testGetBlockAt_blockIsGrassBlock_returnsBlock() {
         Island testCandidate = new Island(64);
-        Block testBlock = new Block(BlockTypes.GRASSY_EARTH);
+        Block testBlock = GrassyEarthBlock.getInstance();
         
         testCandidate.placeBlockAt(testBlock, 63, 0, 63);
         
@@ -35,7 +39,7 @@ public class IslandTest {
     @Test
     public void testPlaceBlockAt_placeAtHeight255_works() {
         Island testCandidate = new Island(64);
-        Block testBlock = new Block(BlockTypes.EARTH);   
+        Block testBlock = EarthBlock.getInstance(); 
         
         testCandidate.placeBlockAt(testBlock, 63, 255, 63);
         
@@ -47,7 +51,7 @@ public class IslandTest {
     @Test(expected = BlockPositionOutOfBoundsException.class)
     public void testPlaceBlockAt_placeAtHeight256_throwsException() {
         Island testCandidate = new Island(64);
-        Block testBlock = new Block(BlockTypes.ROCK);   
+        Block testBlock = RockBlock.getInstance();
         
         testCandidate.placeBlockAt(testBlock, 63, 256, 63);        
     }
@@ -55,7 +59,7 @@ public class IslandTest {
     @Test(expected = BlockPositionOutOfBoundsException.class)
     public void testPlaceBlockAt_placeOutsideX_throwsException() {
         Island testCandidate = new Island(64);
-        Block testBlock = new Block(BlockTypes.GRASSY_EARTH);   
+        Block testBlock = GrassyEarthBlock.getInstance();   
         
         testCandidate.placeBlockAt(testBlock, 64, 200, 24);         
     }  
@@ -63,7 +67,7 @@ public class IslandTest {
     @Test(expected = BlockPositionOutOfBoundsException.class)
     public void testPlaceBlockAt_placeOutsideZ_throwsException() {
         Island testCandidate = new Island(64);
-        Block testBlock = new Block(BlockTypes.EARTH);   
+        Block testBlock = EarthBlock.getInstance();
         
         testCandidate.placeBlockAt(testBlock, 54, 13, 64);         
     }     
