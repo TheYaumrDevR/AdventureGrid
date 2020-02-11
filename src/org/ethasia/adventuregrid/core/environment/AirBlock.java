@@ -1,28 +1,27 @@
 package org.ethasia.adventuregrid.core.environment;
 
-
-public class RockBlock extends Block {
-    
+public class AirBlock extends Block {
+ 
     //<editor-fold defaultstate="collapsed" desc="Constructors">
     
-    private RockBlock() {
-        super(BlockTypes.ROCK);
+    private AirBlock() {
+        super(BlockTypes.AIR);
     }
     
     //</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="Singleton Implementation">
     
-    private static RockBlock instance;
+    private static AirBlock instance;
     
-    public static RockBlock getInstance() {
+    public static AirBlock getInstance() {
         if (null != instance) {
             return instance;
         }
         
-        instance = new RockBlock();
+        instance = new AirBlock();
         return instance;
     }    
     
-    //</editor-fold>
+    //</editor-fold>    
 }
