@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nifty>
+    <useStyles filename="nifty-default-styles.xml" />
+    <useControls filename="nifty-default-controls.xml" /> 
+    
+    <screen id="mainGame" controller="org.ethasia.adventuregrid.technical.jmegamestates.MainGameState">
+        
+    </screen>        
+</nifty>

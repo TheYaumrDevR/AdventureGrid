@@ -20,6 +20,7 @@ public class NiftyGuiScreens {
     static {
         SCREEN_ID_BY_SCREEN = new HashMap<>();
         SCREEN_ID_BY_SCREEN.put(GuiScreens.START, "start");
+        SCREEN_ID_BY_SCREEN.put(GuiScreens.MAIN_GAME, "mainGame");
     }
     
     private static void fromBuilder(With builder) {
@@ -28,6 +29,7 @@ public class NiftyGuiScreens {
         builder.guiViewPort.addProcessor(niftyDisplay);
         
         nifty.addXml("Interface/Views/Definitions/StartView.xml");
+        nifty.addXml("Interface/Views/Definitions/MainGameView.xml");
     }
     
     public static void gotoScreen(GuiScreens screen) {
