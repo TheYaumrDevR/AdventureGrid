@@ -82,6 +82,8 @@ public class Island {
         
                     return currentBlockFaceIsCovering && neighborBlockFaceIsCovering;              
                 }    
+                
+                break;
             case FRONT:
                 if (z < xzDimension - 1) {
                     boolean currentBlockFaceIsCovering = blocks[x][y][z].getFrontFaceIsCovering();
@@ -89,13 +91,26 @@ public class Island {
                 
                     return currentBlockFaceIsCovering && neighborBlockFaceIsCovering;                    
                 }
+                
+                break;
             case RIGHT:
                 if (x < xzDimension - 1) {
                     boolean currentBlockFaceIsCovering = blocks[x][y][z].getRightFaceIsCovering();
                     boolean neighborBlockFaceIsCovering = blocks[x + 1][y][z].getLeftFaceIsCovering();
                 
                     return currentBlockFaceIsCovering && neighborBlockFaceIsCovering;                     
-                }   
+                }
+                
+                break;
+            case BACK:
+                if (z > 0) {
+                    boolean currentBlockFaceIsCovering = blocks[x][y][z].getBackFaceIsCovering();
+                    boolean neighborBlockFaceIsCovering = blocks[x][y][z - 1].getFrontFaceIsCovering();
+                
+                    return currentBlockFaceIsCovering && neighborBlockFaceIsCovering;      
+                }
+                
+                break;
         }
         
         return false;
