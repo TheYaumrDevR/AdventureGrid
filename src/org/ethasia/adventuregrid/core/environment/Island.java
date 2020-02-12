@@ -89,6 +89,13 @@ public class Island {
                 
                     return currentBlockFaceIsCovering && neighborBlockFaceIsCovering;                    
                 }
+            case RIGHT:
+                if (x < xzDimension - 1) {
+                    boolean currentBlockFaceIsCovering = blocks[x][y][z].getRightFaceIsCovering();
+                    boolean neighborBlockFaceIsCovering = blocks[x + 1][y][z].getLeftFaceIsCovering();
+                
+                    return currentBlockFaceIsCovering && neighborBlockFaceIsCovering;                     
+                }   
         }
         
         return false;
