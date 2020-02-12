@@ -120,6 +120,15 @@ public class Island {
                 }
                 
                 break;
+            case TOP:
+                if (y < HEIGHT_IN_BLOCKS - 1) {
+                    boolean currentBlockFaceIsCovering = blocks[x][y][z].getTopFaceIsCovering();
+                    boolean neighborBlockFaceIsCovering = blocks[x][y + 1][z].getBottomFaceIsCovering();
+                
+                    return currentBlockFaceIsCovering && neighborBlockFaceIsCovering;                     
+                }
+                   
+                break;
         }
         
         return false;
