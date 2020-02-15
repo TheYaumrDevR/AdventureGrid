@@ -111,5 +111,37 @@ public class Vector3Test {
         assertEquals(expectedX, testCandidate.getX(), 0.001f);
         assertEquals(expectedY, testCandidate.getY(), 0.001f);
         assertEquals(expectedZ, testCandidate.getZ(), 0.001f);        
-    }    
+    }
+
+    @Test
+    public void testAddImmutable_originalVectorIsNotChanged() {
+        Vector3 testCandidate = new Vector3(1.5f, 9.1f, 4.3f);
+        Vector3 toAdd = new Vector3(2.0f, 4.0f, 1.0f);
+        
+        Vector3 result = testCandidate.addImmutable(toAdd);
+        
+        assertThat(testCandidate.getX(), is(1.5f));
+        assertThat(testCandidate.getY(), is(9.1f));
+        assertThat(testCandidate.getZ(), is(4.3f));
+        
+        assertThat(result.getX(), is(3.5f));
+        assertThat(result.getY(), is(13.1f));
+        assertThat(result.getZ(), is(5.3f));
+    }
+    
+    @Test
+    public void testSubtractImmutable_originalVectorIsNotChanged() {
+        Vector3 testCandidate = new Vector3(1.5f, 9.1f, 4.3f);
+        Vector3 toSubtract = new Vector3(2.0f, 4.0f, 1.0f);
+
+        Vector3 result = testCandidate.subtractImmutable(toSubtract);
+        
+        assertThat(testCandidate.getX(), is(1.5f));
+        assertThat(testCandidate.getY(), is(9.1f));
+        assertThat(testCandidate.getZ(), is(4.3f));     
+        
+        assertEquals(-0.5f, result.getX(), 0.001f);
+        assertEquals(5.1f, result.getY(), 0.001f);
+        assertEquals(3.3f, result.getZ(), 0.001f);
+    }
 }

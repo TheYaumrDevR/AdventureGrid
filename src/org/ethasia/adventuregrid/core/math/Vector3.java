@@ -77,12 +77,28 @@ public class Vector3 {
         return this;
     }
     
+    public Vector3 addImmutable(final Vector3 other) {
+        float resultX = x + other.x;
+        float resultY = y + other.y;
+        float resultZ = z + other.z;
+        
+        return new Vector3(resultX, resultY, resultZ);
+    }
+    
     public Vector3 subtract(final Vector3 other) {
         x -= other.x;
         y -= other.y;
         z -= other.z;
         
         return this;
+    }    
+    
+    public Vector3 subtractImmutable(Vector3 other) {
+        float resultX = x - other.x;
+        float resultY = y - other.y;
+        float resultZ = z - other.z;
+        
+        return new Vector3(resultX, resultY, resultZ);
     }    
     
     public float dot(final Vector3 other) {
