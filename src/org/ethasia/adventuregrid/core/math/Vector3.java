@@ -2,6 +2,14 @@ package org.ethasia.adventuregrid.core.math;
 
 public class Vector3 {
     
+    //<editor-fold defaultstate="collapsed" desc="Constants">
+    
+    public static final Vector3 UNIT_X = new Vector3(1.0f, 0.f, 0.f);
+    public static final Vector3 UNIT_Y = new Vector3(0.f, 1.0f, 0.f);
+    public static final Vector3 UNIT_Z = new Vector3(0.f, 0.f, 1.0f);
+    
+    //</editor-fold>
+    
     //<editor-fold defaultstate="collapsed" desc="Properties">
     
     private float x, y, z;
