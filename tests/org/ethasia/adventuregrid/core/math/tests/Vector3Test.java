@@ -53,6 +53,25 @@ public class Vector3Test {
     }
     
     @Test
+    public void testScaleImmutable_scalesAndOriginalVectorIsNotChanged() {    
+        Vector3 testCandidate = new Vector3(4.9f, 2.3f, 0.3f);
+        
+        float expectedX = 4.9f * 0.4f;
+        float expectedY = 2.3f * 0.4f;
+        float expectedZ = 0.3f * 0.4f;   
+        
+        Vector3 result = testCandidate.scaleImmutable(0.4f);
+        
+        assertThat(testCandidate.getX(), is(4.9f));
+        assertThat(testCandidate.getY(), is(2.3f));
+        assertThat(testCandidate.getZ(), is(0.3f));   
+        
+        assertThat(result.getX(), is(expectedX));
+        assertThat(result.getY(), is(expectedY));
+        assertThat(result.getZ(), is(expectedZ));          
+    }
+    
+    @Test
     public void testNormalize_vectorIsLengthOneAfterwards() {
         Vector3 testCandidate = new Vector3(2.2f, 5.1f, 3.7f);
         

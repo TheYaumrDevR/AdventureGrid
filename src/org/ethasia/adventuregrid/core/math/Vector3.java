@@ -59,6 +59,14 @@ public class Vector3 {
         
         return this;
     }
+    
+    public Vector3 scaleImmutable(float scalar) {
+        float scaledX = x * scalar;
+        float scaledY  = y * scalar;
+        float scaledZ  = z * scalar;
+        
+        return new Vector3(scaledX, scaledY, scaledZ);
+    }    
 
     public Vector3 normalize() {
         float squaredLength = getSquaredLength();
