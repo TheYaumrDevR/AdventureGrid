@@ -35,18 +35,25 @@ public class StandardBlockVisualsBuilder {
     
     //<editor-fold defaultstate="collapsed" desc="Fields">
     
+    private Block blockToRender;
+    
     private float[] vertexBuffer;
     
     //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="Methods">
     
-    public StandardBlockVisualsBuilder setBlockToCreateDataFrom(Block testBlock) {
+    public StandardBlockVisualsBuilder setBlockToCreateDataFrom(Block value) {
+        blockToRender = value;
         return this;
     }    
     
     public void build() {
-        buildVertexBuffer();
+        if (null == blockToRender) {
+            vertexBuffer = new float[0];
+        } else {
+            buildVertexBuffer();
+        }
     }
     
     public float[] getShapeVertices() {

@@ -11,7 +11,12 @@ public class StandardBlockVisualsBuilderTest {
     
     @Test
     public void testGetShapeVertices_noBlockIsSet_resultIsEmpty() {
+        StandardBlockVisualsBuilder testCandidate = new StandardBlockVisualsBuilder();
         
+        testCandidate.build();
+        float[] result = testCandidate.getShapeVertices();
+        
+        assertThat(result.length, is(0));
     }    
     
     @Test
