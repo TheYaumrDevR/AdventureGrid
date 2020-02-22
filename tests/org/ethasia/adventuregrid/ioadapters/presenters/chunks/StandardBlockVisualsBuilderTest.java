@@ -2,6 +2,7 @@ package org.ethasia.adventuregrid.ioadapters.presenters.chunks;
 
 import org.ethasia.adventuregrid.core.environment.Block;
 import org.ethasia.adventuregrid.core.environment.EarthBlock;
+import org.ethasia.adventuregrid.core.environment.RockBlock;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
@@ -47,7 +48,30 @@ public class StandardBlockVisualsBuilderTest {
     
     @Test
     public void testGetShapeVertices_blockIsTranslated_allVerticesAreReturned() {
+        float[] expected = {
+            3.f, 6.5f, 1.5f, 3.f, 7.f, 1.5f, 2.5f, 7.f, 1.5f, 2.5f, 6.5f, 1.5f,
+            3.f, 6.5f, 1.0f, 3.f, 7.f, 1.0f, 3.f, 7.f, 1.5f, 3.f, 6.5f, 1.5f,
+            2.5f, 6.5f, 1.0f, 2.5f, 7.f, 1.0f, 3.f, 7.f, 1.0f, 3.f, 6.5f, 1.0f,
+            2.5f, 6.5f, 1.5f, 2.5f, 7.f, 1.5f, 2.5f, 7.f, 1.0f, 2.5f, 6.5f, 1.0f,
+            3.f, 6.5f, 1.0f, 3.f, 6.5f, 1.5f, 2.5f, 6.5f, 1.5f, 2.5f, 6.5f, 1.0f,
+            3.f, 7.f, 1.5f, 3.f, 7.f, 1.0f, 2.5f, 7.f, 1.0f, 2.5f, 7.f, 1.5f
+        };        
         
+        StandardBlockVisualsBuilder testCandidate = new StandardBlockVisualsBuilder();
+        Block testBlock = RockBlock.getInstance();
+
+        testCandidate.setBlockToCreateDataFrom(testBlock)
+            .setChunkPositionX(5)
+            .setChunkPositionY(13)
+            .setChunkPositionZ(2)
+            .build();    
+        
+        float[] result = testCandidate.getShapeVertices();
+        
+        assertThat(result.length, is(expected.length)); 
+        for (int i = 0; i < result.length; i++) {
+            assertThat(result[i], is(equalTo(expected[i])));
+        }
     }     
     
     @Test

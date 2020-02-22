@@ -35,6 +35,7 @@ public class StandardBlockVisualsBuilder {
     
     //<editor-fold defaultstate="collapsed" desc="Fields">
     
+    private int chunkPosX, chunkPosY, chunkPosZ;
     private Block blockToRender;
     
     private float[] vertexBuffer;
@@ -46,7 +47,22 @@ public class StandardBlockVisualsBuilder {
     public StandardBlockVisualsBuilder setBlockToCreateDataFrom(Block value) {
         blockToRender = value;
         return this;
-    }    
+    }   
+    
+    public StandardBlockVisualsBuilder setChunkPositionX(int value) {
+        chunkPosX = value;
+        return this;
+    }
+    
+    public StandardBlockVisualsBuilder setChunkPositionY(int value) {
+        chunkPosY = value;
+        return this;
+    }
+
+    public StandardBlockVisualsBuilder setChunkPositionZ(int value) {
+        chunkPosZ = value;
+        return this;
+    }      
     
     public void build() {
         if (null == blockToRender) {
@@ -70,7 +86,9 @@ public class StandardBlockVisualsBuilder {
     }
     
     private void translateVertices() {
-        Vector3 cubeCenter = new Vector3(0.25f, 0.25f, 0.25f);
+        Vector3 cubeCenter = new Vector3(0.25f + 0.5f * chunkPosX, 
+            0.25f + 0.5f * chunkPosY, 
+            0.25f + 0.5f * chunkPosZ);
         BV[0].addImmutableBufferResult(cubeCenter);
         BV[1].addImmutableBufferResult(cubeCenter);
         BV[2].addImmutableBufferResult(cubeCenter);
