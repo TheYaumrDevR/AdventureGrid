@@ -42,6 +42,7 @@ public class StandardBlockVisualsBuilder {
     private boolean rightFaceOfBlockIsCovered;
     private boolean backFaceOfBlockIsCovered;
     private boolean leftFaceOfBlockIsCovered;
+    private boolean bottomFaceOfBlockIsCovered;
     
     private float[] vertexBuffer;
     
@@ -87,7 +88,12 @@ public class StandardBlockVisualsBuilder {
     public StandardBlockVisualsBuilder setLeftFaceOfBlockIsCovered(boolean value) {
         leftFaceOfBlockIsCovered = value;
         return this;
-    }    
+    } 
+    
+    public StandardBlockVisualsBuilder setBottomFaceOfBlockIsCovered(boolean value) {
+        bottomFaceOfBlockIsCovered = value;
+        return this;
+    }     
     
     public void build() {
         if (null == blockToRender) {
@@ -214,23 +220,25 @@ public class StandardBlockVisualsBuilder {
         }        
         
         // bottom
-        vertexBuffer[currentBufferPosition] = BV[7].getBufferedResultX();
-        vertexBuffer[currentBufferPosition + 1] = BV[7].getBufferedResultY();
-        vertexBuffer[currentBufferPosition + 2] = BV[7].getBufferedResultZ();
+        if (!bottomFaceOfBlockIsCovered) {
+            vertexBuffer[currentBufferPosition] = BV[7].getBufferedResultX();
+            vertexBuffer[currentBufferPosition + 1] = BV[7].getBufferedResultY();
+            vertexBuffer[currentBufferPosition + 2] = BV[7].getBufferedResultZ();
         
-        vertexBuffer[currentBufferPosition + 3] = BV[0].getBufferedResultX();
-        vertexBuffer[currentBufferPosition + 4] = BV[0].getBufferedResultY();
-        vertexBuffer[currentBufferPosition + 5] = BV[0].getBufferedResultZ();
+            vertexBuffer[currentBufferPosition + 3] = BV[0].getBufferedResultX();
+            vertexBuffer[currentBufferPosition + 4] = BV[0].getBufferedResultY();
+            vertexBuffer[currentBufferPosition + 5] = BV[0].getBufferedResultZ();
         
-        vertexBuffer[currentBufferPosition + 6] = BV[3].getBufferedResultX();
-        vertexBuffer[currentBufferPosition + 7] = BV[3].getBufferedResultY();
-        vertexBuffer[currentBufferPosition + 8] = BV[3].getBufferedResultZ();
+            vertexBuffer[currentBufferPosition + 6] = BV[3].getBufferedResultX();
+            vertexBuffer[currentBufferPosition + 7] = BV[3].getBufferedResultY();
+            vertexBuffer[currentBufferPosition + 8] = BV[3].getBufferedResultZ();
         
-        vertexBuffer[currentBufferPosition + 9] = BV[4].getBufferedResultX();
-        vertexBuffer[currentBufferPosition + 10] = BV[4].getBufferedResultY();
-        vertexBuffer[currentBufferPosition + 11] = BV[4].getBufferedResultZ();  
+            vertexBuffer[currentBufferPosition + 9] = BV[4].getBufferedResultX();
+            vertexBuffer[currentBufferPosition + 10] = BV[4].getBufferedResultY();
+            vertexBuffer[currentBufferPosition + 11] = BV[4].getBufferedResultZ();  
         
-        currentBufferPosition += 12;
+            currentBufferPosition += 12;                    
+        }
         
         // top     
         vertexBuffer[currentBufferPosition] = BV[1].getBufferedResultX();
@@ -251,7 +259,7 @@ public class StandardBlockVisualsBuilder {
     }
     
     private int getAmountOfUncoveredFaces() {
-        int result = 2;
+        int result = 1;
         
         if (!frontFaceOfBlockIsCovered) {
             result++;
@@ -267,8 +275,12 @@ public class StandardBlockVisualsBuilder {
         
         if (!leftFaceOfBlockIsCovered) {
             result++;
-        }        
+        }  
         
+        if (!bottomFaceOfBlockIsCovered) {
+            result++;
+        }        
+
         return result;
     }
     

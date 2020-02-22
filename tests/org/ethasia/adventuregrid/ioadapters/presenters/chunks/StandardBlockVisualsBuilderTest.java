@@ -181,5 +181,32 @@ public class StandardBlockVisualsBuilderTest {
         for (int i = 0; i < result.length; i++) {
             assertThat(result[i], is(equalTo(expected[i])));
         }        
+    }
+
+    @Test
+    public void testGetShapeVertices_bottomFaceIsHidden_bottomFaceVerticesMissingInResult() {
+        float[] expected = {
+            3.f, 6.5f, 1.5f, 3.f, 7.f, 1.5f, 2.5f, 7.f, 1.5f, 2.5f, 6.5f, 1.5f,
+            3.f, 6.5f, 1.0f, 3.f, 7.f, 1.0f, 3.f, 7.f, 1.5f, 3.f, 6.5f, 1.5f,
+            2.5f, 6.5f, 1.0f, 2.5f, 7.f, 1.0f, 3.f, 7.f, 1.0f, 3.f, 6.5f, 1.0f,
+            2.5f, 6.5f, 1.5f, 2.5f, 7.f, 1.5f, 2.5f, 7.f, 1.0f, 2.5f, 6.5f, 1.0f,
+            3.f, 7.f, 1.5f, 3.f, 7.f, 1.0f, 2.5f, 7.f, 1.0f, 2.5f, 7.f, 1.5f
+        };             
+        
+        StandardBlockVisualsBuilder testCandidate = new StandardBlockVisualsBuilder();
+        Block testBlock = GrassyEarthBlock.getInstance();
+        
+        testCandidate.setBlockToCreateDataFrom(testBlock)
+            .setChunkPositionX(5)
+            .setChunkPositionY(13)
+            .setChunkPositionZ(2)
+            .setBottomFaceOfBlockIsCovered(true)
+            .build();   
+        
+        float[] result = testCandidate.getShapeVertices();
+        
+        for (int i = 0; i < result.length; i++) {
+            assertThat(result[i], is(equalTo(expected[i])));
+        }        
     }    
 }
