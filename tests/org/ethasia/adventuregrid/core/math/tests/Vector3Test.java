@@ -163,4 +163,20 @@ public class Vector3Test {
         assertEquals(5.1f, result.getY(), 0.001f);
         assertEquals(3.3f, result.getZ(), 0.001f);
     }
+    
+    @Test
+    public void testAddImmutableBufferResult_resultBufferContainsResult() {
+        Vector3 testCandidate = new Vector3(1.5f, 9.1f, 4.3f);
+        Vector3 toAdd = new Vector3(2.0f, 4.0f, 1.0f);
+        
+        testCandidate.addImmutableBufferResult(toAdd);
+        
+        assertThat(testCandidate.getBufferedResultX(), is(3.5f));
+        assertThat(testCandidate.getBufferedResultY(), is(13.1f));
+        assertThat(testCandidate.getBufferedResultZ(), is(5.3f));    
+        
+        assertThat(testCandidate.getX(), is(1.5f));
+        assertThat(testCandidate.getY(), is(9.1f));
+        assertThat(testCandidate.getZ(), is(4.3f));        
+    }
 }

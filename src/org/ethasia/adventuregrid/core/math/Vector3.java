@@ -32,7 +32,21 @@ public class Vector3 {
         this.z = z;
         
         return this;
-    }    
+    }  
+    
+    private float bufferedResultX, bufferedResultY, bufferedResultZ;
+    
+    public float getBufferedResultX() {
+        return bufferedResultX;
+    }
+
+    public float getBufferedResultY() {
+        return bufferedResultY;
+    }   
+    
+    public float getBufferedResultZ() {
+        return bufferedResultZ;
+    }
     
     //</editor-fold>
 
@@ -91,6 +105,12 @@ public class Vector3 {
         float resultZ = z + other.z;
         
         return new Vector3(resultX, resultY, resultZ);
+    }
+    
+    public void addImmutableBufferResult(final Vector3 other) {
+        bufferedResultX = x + other.x;
+        bufferedResultY = y + other.y;
+        bufferedResultZ = z + other.z;
     }
     
     public Vector3 subtract(final Vector3 other) {
