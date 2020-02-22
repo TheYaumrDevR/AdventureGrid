@@ -38,6 +38,8 @@ public class StandardBlockVisualsBuilder {
     private int chunkPosX, chunkPosY, chunkPosZ;
     private Block blockToRender;
     
+    private boolean frontFaceOfBlockIsCovered;
+    
     private float[] vertexBuffer;
     
     //</editor-fold>
@@ -62,7 +64,12 @@ public class StandardBlockVisualsBuilder {
     public StandardBlockVisualsBuilder setChunkPositionZ(int value) {
         chunkPosZ = value;
         return this;
-    }      
+    }   
+    
+    public StandardBlockVisualsBuilder setFrontFaceOfBlockIsCovered(boolean value) {
+        frontFaceOfBlockIsCovered = value;
+        return this;
+    }
     
     public void build() {
         if (null == blockToRender) {
@@ -100,109 +107,133 @@ public class StandardBlockVisualsBuilder {
     }
     
     private void fillVertexBuffer() {
-        vertexBuffer = new float[4 * 3 * 6];
+        int amountOfUncoveredFaces = getAmountOfUncoveredFaces();
+        vertexBuffer = new float[4 * 3 * amountOfUncoveredFaces];
+        int currentBufferPosition = 0;
         
         // front
-        vertexBuffer[0] = BV[0].getBufferedResultX();
-        vertexBuffer[1] = BV[0].getBufferedResultY();
-        vertexBuffer[2] = BV[0].getBufferedResultZ();
+        if (!frontFaceOfBlockIsCovered) {
+            vertexBuffer[currentBufferPosition] = BV[0].getBufferedResultX();
+            vertexBuffer[currentBufferPosition + 1] = BV[0].getBufferedResultY();
+            vertexBuffer[currentBufferPosition + 2] = BV[0].getBufferedResultZ();
         
-        vertexBuffer[3] = BV[1].getBufferedResultX();
-        vertexBuffer[4] = BV[1].getBufferedResultY();
-        vertexBuffer[5] = BV[1].getBufferedResultZ();
+            vertexBuffer[currentBufferPosition + 3] = BV[1].getBufferedResultX();
+            vertexBuffer[currentBufferPosition + 4] = BV[1].getBufferedResultY();
+            vertexBuffer[currentBufferPosition + 5] = BV[1].getBufferedResultZ();
         
-        vertexBuffer[6] = BV[2].getBufferedResultX();
-        vertexBuffer[7] = BV[2].getBufferedResultY();
-        vertexBuffer[8] = BV[2].getBufferedResultZ();
+            vertexBuffer[currentBufferPosition + 6] = BV[2].getBufferedResultX();
+            vertexBuffer[currentBufferPosition + 7] = BV[2].getBufferedResultY();
+            vertexBuffer[currentBufferPosition + 8] = BV[2].getBufferedResultZ();
         
-        vertexBuffer[9] = BV[3].getBufferedResultX();
-        vertexBuffer[10] = BV[3].getBufferedResultY();
-        vertexBuffer[11] = BV[3].getBufferedResultZ();
+            vertexBuffer[currentBufferPosition + 9] = BV[3].getBufferedResultX();
+            vertexBuffer[currentBufferPosition + 10] = BV[3].getBufferedResultY();
+            vertexBuffer[currentBufferPosition + 11] = BV[3].getBufferedResultZ();    
+            
+            currentBufferPosition += 12;
+        }
         
         // right
-        vertexBuffer[12] = BV[7].getBufferedResultX();
-        vertexBuffer[13] = BV[7].getBufferedResultY();
-        vertexBuffer[14] = BV[7].getBufferedResultZ();
+        vertexBuffer[currentBufferPosition] = BV[7].getBufferedResultX();
+        vertexBuffer[currentBufferPosition + 1] = BV[7].getBufferedResultY();
+        vertexBuffer[currentBufferPosition + 2] = BV[7].getBufferedResultZ();
         
-        vertexBuffer[15] = BV[6].getBufferedResultX();
-        vertexBuffer[16] = BV[6].getBufferedResultY();
-        vertexBuffer[17] = BV[6].getBufferedResultZ();
+        vertexBuffer[currentBufferPosition + 3] = BV[6].getBufferedResultX();
+        vertexBuffer[currentBufferPosition + 4] = BV[6].getBufferedResultY();
+        vertexBuffer[currentBufferPosition + 5] = BV[6].getBufferedResultZ();
         
-        vertexBuffer[18] = BV[1].getBufferedResultX();
-        vertexBuffer[19] = BV[1].getBufferedResultY();
-        vertexBuffer[20] = BV[1].getBufferedResultZ();
+        vertexBuffer[currentBufferPosition + 6] = BV[1].getBufferedResultX();
+        vertexBuffer[currentBufferPosition + 7] = BV[1].getBufferedResultY();
+        vertexBuffer[currentBufferPosition + 8] = BV[1].getBufferedResultZ();
         
-        vertexBuffer[21] = BV[0].getBufferedResultX();
-        vertexBuffer[22] = BV[0].getBufferedResultY();
-        vertexBuffer[23] = BV[0].getBufferedResultZ();        
+        vertexBuffer[currentBufferPosition + 9] = BV[0].getBufferedResultX();
+        vertexBuffer[currentBufferPosition + 10] = BV[0].getBufferedResultY();
+        vertexBuffer[currentBufferPosition + 11] = BV[0].getBufferedResultZ();       
+        
+        currentBufferPosition += 12;
         
         // back
-        vertexBuffer[24] = BV[4].getBufferedResultX();
-        vertexBuffer[25] = BV[4].getBufferedResultY();
-        vertexBuffer[26] = BV[4].getBufferedResultZ();
+        vertexBuffer[currentBufferPosition] = BV[4].getBufferedResultX();
+        vertexBuffer[currentBufferPosition + 1] = BV[4].getBufferedResultY();
+        vertexBuffer[currentBufferPosition + 2] = BV[4].getBufferedResultZ();
         
-        vertexBuffer[27] = BV[5].getBufferedResultX();
-        vertexBuffer[28] = BV[5].getBufferedResultY();
-        vertexBuffer[29] = BV[5].getBufferedResultZ();
+        vertexBuffer[currentBufferPosition + 3] = BV[5].getBufferedResultX();
+        vertexBuffer[currentBufferPosition + 4] = BV[5].getBufferedResultY();
+        vertexBuffer[currentBufferPosition + 5] = BV[5].getBufferedResultZ();
         
-        vertexBuffer[30] = BV[6].getBufferedResultX();
-        vertexBuffer[31] = BV[6].getBufferedResultY();
-        vertexBuffer[32] = BV[6].getBufferedResultZ();
+        vertexBuffer[currentBufferPosition + 6] = BV[6].getBufferedResultX();
+        vertexBuffer[currentBufferPosition + 7] = BV[6].getBufferedResultY();
+        vertexBuffer[currentBufferPosition + 8] = BV[6].getBufferedResultZ();
         
-        vertexBuffer[33] = BV[7].getBufferedResultX();
-        vertexBuffer[34] = BV[7].getBufferedResultY();
-        vertexBuffer[35] = BV[7].getBufferedResultZ();          
+        vertexBuffer[currentBufferPosition + 9] = BV[7].getBufferedResultX();
+        vertexBuffer[currentBufferPosition + 10] = BV[7].getBufferedResultY();
+        vertexBuffer[currentBufferPosition + 11] = BV[7].getBufferedResultZ();     
+        
+        currentBufferPosition += 12;
         
         // left
-        vertexBuffer[36] = BV[3].getBufferedResultX();
-        vertexBuffer[37] = BV[3].getBufferedResultY();
-        vertexBuffer[38] = BV[3].getBufferedResultZ();
+        vertexBuffer[currentBufferPosition] = BV[3].getBufferedResultX();
+        vertexBuffer[currentBufferPosition + 1] = BV[3].getBufferedResultY();
+        vertexBuffer[currentBufferPosition + 2] = BV[3].getBufferedResultZ();
         
-        vertexBuffer[39] = BV[2].getBufferedResultX();
-        vertexBuffer[40] = BV[2].getBufferedResultY();
-        vertexBuffer[41] = BV[2].getBufferedResultZ();
+        vertexBuffer[currentBufferPosition + 3] = BV[2].getBufferedResultX();
+        vertexBuffer[currentBufferPosition + 4] = BV[2].getBufferedResultY();
+        vertexBuffer[currentBufferPosition + 5] = BV[2].getBufferedResultZ();
         
-        vertexBuffer[42] = BV[5].getBufferedResultX();
-        vertexBuffer[43] = BV[5].getBufferedResultY();
-        vertexBuffer[44] = BV[5].getBufferedResultZ();
+        vertexBuffer[currentBufferPosition + 6] = BV[5].getBufferedResultX();
+        vertexBuffer[currentBufferPosition + 7] = BV[5].getBufferedResultY();
+        vertexBuffer[currentBufferPosition + 8] = BV[5].getBufferedResultZ();
         
-        vertexBuffer[45] = BV[4].getBufferedResultX();
-        vertexBuffer[46] = BV[4].getBufferedResultY();
-        vertexBuffer[47] = BV[4].getBufferedResultZ();           
+        vertexBuffer[currentBufferPosition + 9] = BV[4].getBufferedResultX();
+        vertexBuffer[currentBufferPosition + 10] = BV[4].getBufferedResultY();
+        vertexBuffer[currentBufferPosition + 11] = BV[4].getBufferedResultZ();  
+        
+        currentBufferPosition += 12;
         
         // bottom
-        vertexBuffer[48] = BV[7].getBufferedResultX();
-        vertexBuffer[49] = BV[7].getBufferedResultY();
-        vertexBuffer[50] = BV[7].getBufferedResultZ();
+        vertexBuffer[currentBufferPosition] = BV[7].getBufferedResultX();
+        vertexBuffer[currentBufferPosition + 1] = BV[7].getBufferedResultY();
+        vertexBuffer[currentBufferPosition + 2] = BV[7].getBufferedResultZ();
         
-        vertexBuffer[51] = BV[0].getBufferedResultX();
-        vertexBuffer[52] = BV[0].getBufferedResultY();
-        vertexBuffer[53] = BV[0].getBufferedResultZ();
+        vertexBuffer[currentBufferPosition + 3] = BV[0].getBufferedResultX();
+        vertexBuffer[currentBufferPosition + 4] = BV[0].getBufferedResultY();
+        vertexBuffer[currentBufferPosition + 5] = BV[0].getBufferedResultZ();
         
-        vertexBuffer[54] = BV[3].getBufferedResultX();
-        vertexBuffer[55] = BV[3].getBufferedResultY();
-        vertexBuffer[56] = BV[3].getBufferedResultZ();
+        vertexBuffer[currentBufferPosition + 6] = BV[3].getBufferedResultX();
+        vertexBuffer[currentBufferPosition + 7] = BV[3].getBufferedResultY();
+        vertexBuffer[currentBufferPosition + 8] = BV[3].getBufferedResultZ();
         
-        vertexBuffer[57] = BV[4].getBufferedResultX();
-        vertexBuffer[58] = BV[4].getBufferedResultY();
-        vertexBuffer[59] = BV[4].getBufferedResultZ();         
+        vertexBuffer[currentBufferPosition + 9] = BV[4].getBufferedResultX();
+        vertexBuffer[currentBufferPosition + 10] = BV[4].getBufferedResultY();
+        vertexBuffer[currentBufferPosition + 11] = BV[4].getBufferedResultZ();  
+        
+        currentBufferPosition += 12;
         
         // top     
-        vertexBuffer[60] = BV[1].getBufferedResultX();
-        vertexBuffer[61] = BV[1].getBufferedResultY();
-        vertexBuffer[62] = BV[1].getBufferedResultZ();
+        vertexBuffer[currentBufferPosition] = BV[1].getBufferedResultX();
+        vertexBuffer[currentBufferPosition + 1] = BV[1].getBufferedResultY();
+        vertexBuffer[currentBufferPosition + 2] = BV[1].getBufferedResultZ();
         
-        vertexBuffer[63] = BV[6].getBufferedResultX();
-        vertexBuffer[64] = BV[6].getBufferedResultY();
-        vertexBuffer[65] = BV[6].getBufferedResultZ();
+        vertexBuffer[currentBufferPosition + 3] = BV[6].getBufferedResultX();
+        vertexBuffer[currentBufferPosition + 4] = BV[6].getBufferedResultY();
+        vertexBuffer[currentBufferPosition + 5] = BV[6].getBufferedResultZ();
         
-        vertexBuffer[66] = BV[5].getBufferedResultX();
-        vertexBuffer[67] = BV[5].getBufferedResultY();
-        vertexBuffer[68] = BV[5].getBufferedResultZ();
+        vertexBuffer[currentBufferPosition + 6] = BV[5].getBufferedResultX();
+        vertexBuffer[currentBufferPosition + 7] = BV[5].getBufferedResultY();
+        vertexBuffer[currentBufferPosition + 8] = BV[5].getBufferedResultZ();
         
-        vertexBuffer[69] = BV[2].getBufferedResultX();
-        vertexBuffer[70] = BV[2].getBufferedResultY();
-        vertexBuffer[71] = BV[2].getBufferedResultZ();  
+        vertexBuffer[currentBufferPosition + 9] = BV[2].getBufferedResultX();
+        vertexBuffer[currentBufferPosition + 10] = BV[2].getBufferedResultY();
+        vertexBuffer[currentBufferPosition + 11] = BV[2].getBufferedResultZ();  
+    }
+    
+    private int getAmountOfUncoveredFaces() {
+        int result = 5;
+        
+        if (!frontFaceOfBlockIsCovered) {
+            result++;
+        }
+        
+        return result;
     }
     
     //</editor-fold>
