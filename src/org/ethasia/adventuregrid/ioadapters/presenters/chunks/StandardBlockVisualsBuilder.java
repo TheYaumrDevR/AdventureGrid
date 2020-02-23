@@ -46,6 +46,7 @@ public class StandardBlockVisualsBuilder {
     private boolean topFaceOfBlockIsCovered;
     
     private float[] vertexBuffer;
+    private int[] indicesBuffer;
     
     //</editor-fold>
 
@@ -104,18 +105,76 @@ public class StandardBlockVisualsBuilder {
     public void build() {
         if (null == blockToRender) {
             vertexBuffer = new float[0];
+            indicesBuffer = new int[0];
         } else {
             buildVertexBuffer();
+            buildIndicesBuffer();
         }
     }
     
     public float[] getShapeVertices() {
         return vertexBuffer;
-    }    
+    }   
+    
+    public int[] getShapeIndices() {
+        return indicesBuffer;
+    }
     
     //</editor-fold>  
     
     //<editor-fold defaultstate="collapsed" desc="Helper Methods">
+    
+    private void buildIndicesBuffer() {
+        indicesBuffer = new int[6 * 6];
+        
+        // front
+        indicesBuffer[0] = 0;
+        indicesBuffer[1] = 1;
+        indicesBuffer[2] = 2;
+        indicesBuffer[3] = 2;
+        indicesBuffer[4] = 3;
+        indicesBuffer[5] = 0;
+        
+        // right
+        indicesBuffer[6] = 4;
+        indicesBuffer[7] = 5;
+        indicesBuffer[8] = 6;
+        indicesBuffer[9] = 6;
+        indicesBuffer[10] = 7;
+        indicesBuffer[11] = 4;        
+        
+        // back
+        indicesBuffer[12] = 8;
+        indicesBuffer[13] = 9;
+        indicesBuffer[14] = 10;
+        indicesBuffer[15] = 10;
+        indicesBuffer[16] = 11;
+        indicesBuffer[17] = 8;         
+        
+        // left
+        indicesBuffer[18] = 12;
+        indicesBuffer[19] = 13;
+        indicesBuffer[20] = 14;
+        indicesBuffer[21] = 14;
+        indicesBuffer[22] = 15;
+        indicesBuffer[23] = 12;         
+        
+        // bottom
+        indicesBuffer[24] = 16;
+        indicesBuffer[25] = 17;
+        indicesBuffer[26] = 18;
+        indicesBuffer[27] = 18;
+        indicesBuffer[28] = 19;
+        indicesBuffer[29] = 16;          
+        
+        // top
+        indicesBuffer[30] = 20;
+        indicesBuffer[31] = 21;
+        indicesBuffer[32] = 22;
+        indicesBuffer[33] = 22;
+        indicesBuffer[34] = 23;
+        indicesBuffer[35] = 20;         
+    }
     
     private void buildVertexBuffer() {
         translateVertices();

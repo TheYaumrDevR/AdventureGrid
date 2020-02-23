@@ -42,7 +42,7 @@ public class StandardBlockVisualsBuilderTest {
         
         assertThat(result.length, is(expected.length));
         
-        for (int i = 0; i < result.length; i++) {
+        for (int i = 0; i < expected.length; i++) {
             assertThat(result[i], is(equalTo(expected[i])));
         }
     }
@@ -70,7 +70,7 @@ public class StandardBlockVisualsBuilderTest {
         float[] result = testCandidate.getShapeVertices();
         
         assertThat(result.length, is(expected.length)); 
-        for (int i = 0; i < result.length; i++) {
+        for (int i = 0; i < expected.length; i++) {
             assertThat(result[i], is(equalTo(expected[i])));
         }
     }     
@@ -97,7 +97,7 @@ public class StandardBlockVisualsBuilderTest {
         
         float[] result = testCandidate.getShapeVertices();
         
-        for (int i = 0; i < result.length; i++) {
+        for (int i = 0; i < expected.length; i++) {
             assertThat(result[i], is(equalTo(expected[i])));
         }        
     }
@@ -124,7 +124,7 @@ public class StandardBlockVisualsBuilderTest {
         
         float[] result = testCandidate.getShapeVertices();
         
-        for (int i = 0; i < result.length; i++) {
+        for (int i = 0; i < expected.length; i++) {
             assertThat(result[i], is(equalTo(expected[i])));
         }        
     } 
@@ -151,7 +151,7 @@ public class StandardBlockVisualsBuilderTest {
         
         float[] result = testCandidate.getShapeVertices();
         
-        for (int i = 0; i < result.length; i++) {
+        for (int i = 0; i < expected.length; i++) {
             assertThat(result[i], is(equalTo(expected[i])));
         }        
     } 
@@ -178,7 +178,7 @@ public class StandardBlockVisualsBuilderTest {
         
         float[] result = testCandidate.getShapeVertices();
         
-        for (int i = 0; i < result.length; i++) {
+        for (int i = 0; i < expected.length; i++) {
             assertThat(result[i], is(equalTo(expected[i])));
         }        
     }
@@ -205,7 +205,7 @@ public class StandardBlockVisualsBuilderTest {
         
         float[] result = testCandidate.getShapeVertices();
         
-        for (int i = 0; i < result.length; i++) {
+        for (int i = 0; i < expected.length; i++) {
             assertThat(result[i], is(equalTo(expected[i])));
         }        
     } 
@@ -232,8 +232,43 @@ public class StandardBlockVisualsBuilderTest {
         
         float[] result = testCandidate.getShapeVertices();
         
-        for (int i = 0; i < result.length; i++) {
+        for (int i = 0; i < expected.length; i++) {
             assertThat(result[i], is(equalTo(expected[i])));
         }        
-    }    
+    }
+
+    @Test
+    public void testGetShapeIndices_noBlockIsSet_returnsEmptyBuffer() {
+        StandardBlockVisualsBuilder testCandidate = new StandardBlockVisualsBuilder();
+        
+        testCandidate.build();
+        
+        int[] result = testCandidate.getShapeIndices();
+        
+        assertThat(result.length, is(0));
+    }
+    
+    @Test
+    public void testGetShapeIndices_noFaceIsHidden_allIndicesAreReturned() {
+        int[] expected = {
+            0, 1, 2, 2, 3, 0,
+            4, 5, 6, 6, 7, 4,
+            8, 9, 10, 10, 11, 8,
+            12, 13, 14, 14, 15, 12,
+            16, 17, 18, 18, 19, 16,
+            20, 21, 22, 22, 23, 20
+        };
+        
+        StandardBlockVisualsBuilder testCandidate = new StandardBlockVisualsBuilder();
+        Block testBlock = EarthBlock.getInstance();
+        
+        testCandidate.setBlockToCreateDataFrom(testBlock)
+            .build();
+
+        int[] result = testCandidate.getShapeIndices();
+        
+        for (int i = 0; i < expected.length; i++) {
+            assertThat(result[i], is(equalTo(expected[i])));
+        }        
+    }
 }
