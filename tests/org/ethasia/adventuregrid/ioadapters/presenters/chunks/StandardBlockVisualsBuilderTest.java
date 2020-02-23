@@ -321,4 +321,129 @@ public class StandardBlockVisualsBuilderTest {
             assertThat(result[i], is(equalTo(expected[i])));
         }         
     }
+    
+    @Test
+    public void testGetshapeIndices_rightFaceIsCovered_rightFaceIndicesAreNotPresent() {
+        int[] expected = {
+            120, 121, 122, 122, 123, 120,
+            124, 125, 126, 126, 127, 124,
+            128, 129, 130, 130, 131, 128,
+            132, 133, 134, 134, 135, 132,
+            136, 137, 138, 138, 139, 136
+        }; 
+        
+        StandardBlockVisualsBuilder testCandidate = new StandardBlockVisualsBuilder();
+        Block testBlock = GrassyEarthBlock.getInstance(); 
+        
+        testCandidate.setBlockToCreateDataFrom(testBlock)
+            .setRightFaceOfBlockIsCovered(true)
+            .setRenderIndexInChunk(5)
+            .build();
+        
+        int[] result = testCandidate.getShapeIndices();
+        
+        for (int i = 0; i < expected.length; i++) {
+            assertThat(result[i], is(equalTo(expected[i])));
+        }         
+    }  
+    
+    @Test
+    public void testGetshapeIndices_backFaceIsCovered_backFaceIndicesAreNotPresent() {
+        int[] expected = {
+            120, 121, 122, 122, 123, 120,
+            124, 125, 126, 126, 127, 124,
+            128, 129, 130, 130, 131, 128,
+            132, 133, 134, 134, 135, 132,
+            136, 137, 138, 138, 139, 136
+        }; 
+        
+        StandardBlockVisualsBuilder testCandidate = new StandardBlockVisualsBuilder();
+        Block testBlock = GrassyEarthBlock.getInstance(); 
+        
+        testCandidate.setBlockToCreateDataFrom(testBlock)
+            .setBackFaceOfBlockIsCovered(true)
+            .setRenderIndexInChunk(5)
+            .build();
+        
+        int[] result = testCandidate.getShapeIndices();
+        
+        for (int i = 0; i < expected.length; i++) {
+            assertThat(result[i], is(equalTo(expected[i])));
+        }         
+    } 
+    
+    @Test
+    public void testGetshapeIndices_leftFaceIsCovered_leftFaceIndicesAreNotPresent() {
+        int[] expected = {
+            120, 121, 122, 122, 123, 120,
+            124, 125, 126, 126, 127, 124,
+            128, 129, 130, 130, 131, 128,
+            132, 133, 134, 134, 135, 132,
+            136, 137, 138, 138, 139, 136
+        }; 
+        
+        StandardBlockVisualsBuilder testCandidate = new StandardBlockVisualsBuilder();
+        Block testBlock = GrassyEarthBlock.getInstance(); 
+        
+        testCandidate.setBlockToCreateDataFrom(testBlock)
+            .setLeftFaceOfBlockIsCovered(true)
+            .setRenderIndexInChunk(5)
+            .build();
+        
+        int[] result = testCandidate.getShapeIndices();
+        
+        for (int i = 0; i < expected.length; i++) {
+            assertThat(result[i], is(equalTo(expected[i])));
+        }         
+    } 
+    
+    @Test
+    public void testGetshapeIndices_bottomFaceIsCovered_bottomFaceIndicesAreNotPresent() {
+        int[] expected = {
+            120, 121, 122, 122, 123, 120,
+            124, 125, 126, 126, 127, 124,
+            128, 129, 130, 130, 131, 128,
+            132, 133, 134, 134, 135, 132,
+            136, 137, 138, 138, 139, 136
+        }; 
+        
+        StandardBlockVisualsBuilder testCandidate = new StandardBlockVisualsBuilder();
+        Block testBlock = GrassyEarthBlock.getInstance(); 
+        
+        testCandidate.setBlockToCreateDataFrom(testBlock)
+            .setBottomFaceOfBlockIsCovered(true)
+            .setRenderIndexInChunk(5)
+            .build();
+        
+        int[] result = testCandidate.getShapeIndices();
+        
+        for (int i = 0; i < expected.length; i++) {
+            assertThat(result[i], is(equalTo(expected[i])));
+        }         
+    }
+
+    @Test
+    public void testGetshapeIndices_topFaceIsCovered_topFaceIndicesAreNotPresent() {
+        int[] expected = {
+            120, 121, 122, 122, 123, 120,
+            124, 125, 126, 126, 127, 124,
+            128, 129, 130, 130, 131, 128,
+            132, 133, 134, 134, 135, 132,
+            136, 137, 138, 138, 139, 136
+        }; 
+        
+        StandardBlockVisualsBuilder testCandidate = new StandardBlockVisualsBuilder();
+        Block testBlock = GrassyEarthBlock.getInstance(); 
+        
+        testCandidate.setBlockToCreateDataFrom(testBlock)
+            .setTopFaceOfBlockIsCovered(true)
+            .setRenderIndexInChunk(5)
+            .build();
+        
+        int[] result = testCandidate.getShapeIndices();
+        
+        for (int i = 0; i < expected.length; i++) {
+            assertThat(result[i], is(equalTo(expected[i])));
+        }         
+    }    
 }
