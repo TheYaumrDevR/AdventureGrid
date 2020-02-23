@@ -271,4 +271,29 @@ public class StandardBlockVisualsBuilderTest {
             assertThat(result[i], is(equalTo(expected[i])));
         }        
     }
+    
+    @Test
+    public void testGetShapeIndices_sixthBlockInChunk_indicesAreTranslatedByBlockIndex() {
+        int[] expected = {
+            120, 121, 122, 122, 123, 120,
+            124, 125, 126, 126, 127, 124,
+            128, 129, 130, 130, 131, 128,
+            132, 133, 134, 134, 135, 132,
+            136, 137, 138, 138, 139, 136,
+            140, 141, 142, 142, 143, 140
+        };        
+        
+        StandardBlockVisualsBuilder testCandidate = new StandardBlockVisualsBuilder();
+        Block testBlock = RockBlock.getInstance(); 
+        
+        testCandidate.setBlockToCreateDataFrom(testBlock)
+            .setRenderIndexInChunk(5)
+            .build();
+        
+        int[] result = testCandidate.getShapeIndices();
+        
+        for (int i = 0; i < expected.length; i++) {
+            assertThat(result[i], is(equalTo(expected[i])));
+        }         
+    }
 }

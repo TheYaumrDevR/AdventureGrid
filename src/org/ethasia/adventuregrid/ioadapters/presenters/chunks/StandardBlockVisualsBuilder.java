@@ -36,6 +36,7 @@ public class StandardBlockVisualsBuilder {
     //<editor-fold defaultstate="collapsed" desc="Fields">
     
     private int chunkPosX, chunkPosY, chunkPosZ;
+    private int renderIndexInChunk;
     private Block blockToRender;
     
     private boolean frontFaceOfBlockIsCovered;
@@ -100,7 +101,12 @@ public class StandardBlockVisualsBuilder {
     public StandardBlockVisualsBuilder setTopFaceOfBlockIsCovered(boolean value) {
         topFaceOfBlockIsCovered = value;
         return this;
-    }    
+    } 
+    
+    public StandardBlockVisualsBuilder setRenderIndexInChunk(int value) {
+        renderIndexInChunk = value;
+        return this;
+    }
     
     public void build() {
         if (null == blockToRender) {
@@ -126,54 +132,55 @@ public class StandardBlockVisualsBuilder {
     
     private void buildIndicesBuffer() {
         indicesBuffer = new int[6 * 6];
+        int renderIndexOffset = renderIndexInChunk * 24;
         
         // front
-        indicesBuffer[0] = 0;
-        indicesBuffer[1] = 1;
-        indicesBuffer[2] = 2;
-        indicesBuffer[3] = 2;
-        indicesBuffer[4] = 3;
-        indicesBuffer[5] = 0;
+        indicesBuffer[0] = 0 + renderIndexOffset;
+        indicesBuffer[1] = 1 + renderIndexOffset;
+        indicesBuffer[2] = 2 + renderIndexOffset;
+        indicesBuffer[3] = 2 + renderIndexOffset;
+        indicesBuffer[4] = 3 + renderIndexOffset;
+        indicesBuffer[5] = 0 + renderIndexOffset;
         
         // right
-        indicesBuffer[6] = 4;
-        indicesBuffer[7] = 5;
-        indicesBuffer[8] = 6;
-        indicesBuffer[9] = 6;
-        indicesBuffer[10] = 7;
-        indicesBuffer[11] = 4;        
+        indicesBuffer[6] = 4 + renderIndexOffset;
+        indicesBuffer[7] = 5 + renderIndexOffset;
+        indicesBuffer[8] = 6 + renderIndexOffset;
+        indicesBuffer[9] = 6 + renderIndexOffset;
+        indicesBuffer[10] = 7 + renderIndexOffset;
+        indicesBuffer[11] = 4 + renderIndexOffset;        
         
         // back
-        indicesBuffer[12] = 8;
-        indicesBuffer[13] = 9;
-        indicesBuffer[14] = 10;
-        indicesBuffer[15] = 10;
-        indicesBuffer[16] = 11;
-        indicesBuffer[17] = 8;         
+        indicesBuffer[12] = 8 + renderIndexOffset;
+        indicesBuffer[13] = 9 + renderIndexOffset;
+        indicesBuffer[14] = 10 + renderIndexOffset;
+        indicesBuffer[15] = 10 + renderIndexOffset;
+        indicesBuffer[16] = 11 + renderIndexOffset;
+        indicesBuffer[17] = 8 + renderIndexOffset;         
         
         // left
-        indicesBuffer[18] = 12;
-        indicesBuffer[19] = 13;
-        indicesBuffer[20] = 14;
-        indicesBuffer[21] = 14;
-        indicesBuffer[22] = 15;
-        indicesBuffer[23] = 12;         
+        indicesBuffer[18] = 12 + renderIndexOffset;
+        indicesBuffer[19] = 13 + renderIndexOffset;
+        indicesBuffer[20] = 14 + renderIndexOffset;
+        indicesBuffer[21] = 14 + renderIndexOffset;
+        indicesBuffer[22] = 15 + renderIndexOffset;
+        indicesBuffer[23] = 12 + renderIndexOffset;         
         
         // bottom
-        indicesBuffer[24] = 16;
-        indicesBuffer[25] = 17;
-        indicesBuffer[26] = 18;
-        indicesBuffer[27] = 18;
-        indicesBuffer[28] = 19;
-        indicesBuffer[29] = 16;          
+        indicesBuffer[24] = 16 + renderIndexOffset;
+        indicesBuffer[25] = 17 + renderIndexOffset;
+        indicesBuffer[26] = 18 + renderIndexOffset;
+        indicesBuffer[27] = 18 + renderIndexOffset;
+        indicesBuffer[28] = 19 + renderIndexOffset;
+        indicesBuffer[29] = 16 + renderIndexOffset;          
         
         // top
-        indicesBuffer[30] = 20;
-        indicesBuffer[31] = 21;
-        indicesBuffer[32] = 22;
-        indicesBuffer[33] = 22;
-        indicesBuffer[34] = 23;
-        indicesBuffer[35] = 20;         
+        indicesBuffer[30] = 20 + renderIndexOffset;
+        indicesBuffer[31] = 21 + renderIndexOffset;
+        indicesBuffer[32] = 22 + renderIndexOffset;
+        indicesBuffer[33] = 22 + renderIndexOffset;
+        indicesBuffer[34] = 23 + renderIndexOffset;
+        indicesBuffer[35] = 20 + renderIndexOffset;         
     }
     
     private void buildVertexBuffer() {
