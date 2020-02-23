@@ -296,4 +296,29 @@ public class StandardBlockVisualsBuilderTest {
             assertThat(result[i], is(equalTo(expected[i])));
         }         
     }
+    
+    @Test
+    public void testGetshapeIndices_frontFaceIsCovered_frontFaceIndicesAreNotPresent() {
+        int[] expected = {
+            120, 121, 122, 122, 123, 120,
+            124, 125, 126, 126, 127, 124,
+            128, 129, 130, 130, 131, 128,
+            132, 133, 134, 134, 135, 132,
+            136, 137, 138, 138, 139, 136
+        }; 
+        
+        StandardBlockVisualsBuilder testCandidate = new StandardBlockVisualsBuilder();
+        Block testBlock = GrassyEarthBlock.getInstance(); 
+        
+        testCandidate.setBlockToCreateDataFrom(testBlock)
+            .setFrontFaceOfBlockIsCovered(true)
+            .setRenderIndexInChunk(5)
+            .build();
+        
+        int[] result = testCandidate.getShapeIndices();
+        
+        for (int i = 0; i < expected.length; i++) {
+            assertThat(result[i], is(equalTo(expected[i])));
+        }         
+    }
 }

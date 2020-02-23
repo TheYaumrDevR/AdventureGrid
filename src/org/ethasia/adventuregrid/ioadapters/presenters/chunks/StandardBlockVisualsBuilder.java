@@ -131,56 +131,84 @@ public class StandardBlockVisualsBuilder {
     //<editor-fold defaultstate="collapsed" desc="Helper Methods">
     
     private void buildIndicesBuffer() {
-        indicesBuffer = new int[6 * 6];
+        int amountOfUnCoveredFaces = getAmountOfUncoveredFaces();
+        indicesBuffer = new int[6 * amountOfUnCoveredFaces];
+        
         int renderIndexOffset = renderIndexInChunk * 24;
+        int faceOffset = 0;
+        int currentBufferIndex = 0;
         
-        // front
-        indicesBuffer[0] = 0 + renderIndexOffset;
-        indicesBuffer[1] = 1 + renderIndexOffset;
-        indicesBuffer[2] = 2 + renderIndexOffset;
-        indicesBuffer[3] = 2 + renderIndexOffset;
-        indicesBuffer[4] = 3 + renderIndexOffset;
-        indicesBuffer[5] = 0 + renderIndexOffset;
+        if (!frontFaceOfBlockIsCovered) {
+            indicesBuffer[currentBufferIndex] = 0 + faceOffset + renderIndexOffset;
+            indicesBuffer[currentBufferIndex + 1] = 1 + faceOffset + renderIndexOffset;
+            indicesBuffer[currentBufferIndex + 2] = 2 + faceOffset + renderIndexOffset;
+            indicesBuffer[currentBufferIndex + 3] = 2 + faceOffset + renderIndexOffset;
+            indicesBuffer[currentBufferIndex + 4] = 3 + faceOffset + renderIndexOffset;
+            indicesBuffer[currentBufferIndex + 5] = 0 + faceOffset + renderIndexOffset;     
+            
+            currentBufferIndex += 6;
+            faceOffset += 4;
+        }
         
-        // right
-        indicesBuffer[6] = 4 + renderIndexOffset;
-        indicesBuffer[7] = 5 + renderIndexOffset;
-        indicesBuffer[8] = 6 + renderIndexOffset;
-        indicesBuffer[9] = 6 + renderIndexOffset;
-        indicesBuffer[10] = 7 + renderIndexOffset;
-        indicesBuffer[11] = 4 + renderIndexOffset;        
+        if (!rightFaceOfBlockIsCovered) {
+            indicesBuffer[currentBufferIndex] = 0 + faceOffset + renderIndexOffset;
+            indicesBuffer[currentBufferIndex + 1] = 1 + faceOffset + renderIndexOffset;
+            indicesBuffer[currentBufferIndex + 2] = 2 + faceOffset + renderIndexOffset;
+            indicesBuffer[currentBufferIndex + 3] = 2 + faceOffset + renderIndexOffset;
+            indicesBuffer[currentBufferIndex + 4] = 3 + faceOffset + renderIndexOffset;
+            indicesBuffer[currentBufferIndex + 5] = 0 + faceOffset + renderIndexOffset;     
+            
+            currentBufferIndex += 6;
+            faceOffset += 4;
+        }       
         
-        // back
-        indicesBuffer[12] = 8 + renderIndexOffset;
-        indicesBuffer[13] = 9 + renderIndexOffset;
-        indicesBuffer[14] = 10 + renderIndexOffset;
-        indicesBuffer[15] = 10 + renderIndexOffset;
-        indicesBuffer[16] = 11 + renderIndexOffset;
-        indicesBuffer[17] = 8 + renderIndexOffset;         
+        if (!backFaceOfBlockIsCovered) {
+            indicesBuffer[currentBufferIndex] = 0 + faceOffset + renderIndexOffset;
+            indicesBuffer[currentBufferIndex + 1] = 1 + faceOffset + renderIndexOffset;
+            indicesBuffer[currentBufferIndex + 2] = 2 + faceOffset + renderIndexOffset;
+            indicesBuffer[currentBufferIndex + 3] = 2 + faceOffset + renderIndexOffset;
+            indicesBuffer[currentBufferIndex + 4] = 3 + faceOffset + renderIndexOffset;
+            indicesBuffer[currentBufferIndex + 5] = 0 + faceOffset + renderIndexOffset;     
+            
+            currentBufferIndex += 6;
+            faceOffset += 4;
+        }            
         
-        // left
-        indicesBuffer[18] = 12 + renderIndexOffset;
-        indicesBuffer[19] = 13 + renderIndexOffset;
-        indicesBuffer[20] = 14 + renderIndexOffset;
-        indicesBuffer[21] = 14 + renderIndexOffset;
-        indicesBuffer[22] = 15 + renderIndexOffset;
-        indicesBuffer[23] = 12 + renderIndexOffset;         
+        if (!leftFaceOfBlockIsCovered) {
+            indicesBuffer[currentBufferIndex] = 0 + faceOffset + renderIndexOffset;
+            indicesBuffer[currentBufferIndex + 1] = 1 + faceOffset + renderIndexOffset;
+            indicesBuffer[currentBufferIndex + 2] = 2 + faceOffset + renderIndexOffset;
+            indicesBuffer[currentBufferIndex + 3] = 2 + faceOffset + renderIndexOffset;
+            indicesBuffer[currentBufferIndex + 4] = 3 + faceOffset + renderIndexOffset;
+            indicesBuffer[currentBufferIndex + 5] = 0 + faceOffset + renderIndexOffset;     
+            
+            currentBufferIndex += 6;
+            faceOffset += 4;
+        }            
         
-        // bottom
-        indicesBuffer[24] = 16 + renderIndexOffset;
-        indicesBuffer[25] = 17 + renderIndexOffset;
-        indicesBuffer[26] = 18 + renderIndexOffset;
-        indicesBuffer[27] = 18 + renderIndexOffset;
-        indicesBuffer[28] = 19 + renderIndexOffset;
-        indicesBuffer[29] = 16 + renderIndexOffset;          
+        if (!bottomFaceOfBlockIsCovered) {
+            indicesBuffer[currentBufferIndex] = 0 + faceOffset + renderIndexOffset;
+            indicesBuffer[currentBufferIndex + 1] = 1 + faceOffset + renderIndexOffset;
+            indicesBuffer[currentBufferIndex + 2] = 2 + faceOffset + renderIndexOffset;
+            indicesBuffer[currentBufferIndex + 3] = 2 + faceOffset + renderIndexOffset;
+            indicesBuffer[currentBufferIndex + 4] = 3 + faceOffset + renderIndexOffset;
+            indicesBuffer[currentBufferIndex + 5] = 0 + faceOffset + renderIndexOffset;     
+            
+            currentBufferIndex += 6;
+            faceOffset += 4;
+        }           
         
-        // top
-        indicesBuffer[30] = 20 + renderIndexOffset;
-        indicesBuffer[31] = 21 + renderIndexOffset;
-        indicesBuffer[32] = 22 + renderIndexOffset;
-        indicesBuffer[33] = 22 + renderIndexOffset;
-        indicesBuffer[34] = 23 + renderIndexOffset;
-        indicesBuffer[35] = 20 + renderIndexOffset;         
+        if (!topFaceOfBlockIsCovered) {
+            indicesBuffer[currentBufferIndex] = 0 + faceOffset + renderIndexOffset;
+            indicesBuffer[currentBufferIndex + 1] = 1 + faceOffset + renderIndexOffset;
+            indicesBuffer[currentBufferIndex + 2] = 2 + faceOffset + renderIndexOffset;
+            indicesBuffer[currentBufferIndex + 3] = 2 + faceOffset + renderIndexOffset;
+            indicesBuffer[currentBufferIndex + 4] = 3 + faceOffset + renderIndexOffset;
+            indicesBuffer[currentBufferIndex + 5] = 0 + faceOffset + renderIndexOffset;     
+            
+            currentBufferIndex += 6;
+            faceOffset += 4;
+        }           
     }
     
     private void buildVertexBuffer() {
