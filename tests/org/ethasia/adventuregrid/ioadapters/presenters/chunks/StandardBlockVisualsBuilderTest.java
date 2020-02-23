@@ -236,6 +236,27 @@ public class StandardBlockVisualsBuilderTest {
             assertThat(result[i], is(equalTo(expected[i])));
         }        
     }
+    
+    @Test
+    public void testGetShapeVertices_fourFacesAreHidden_resultOnlyHas24Vertices() {
+        StandardBlockVisualsBuilder testCandidate = new StandardBlockVisualsBuilder();
+        Block testBlock = GrassyEarthBlock.getInstance();
+        
+        testCandidate.setBlockToCreateDataFrom(testBlock)
+            .setChunkPositionX(5)
+            .setChunkPositionY(13)
+            .setChunkPositionZ(2)
+            .setTopFaceOfBlockIsCovered(true)
+            .setLeftFaceOfBlockIsCovered(true)
+            .setFrontFaceOfBlockIsCovered(true)
+            .setRightFaceOfBlockIsCovered(true)
+            .setBlockToCreateDataFrom(testBlock)
+            .build();   
+        
+        float[] result = testCandidate.getShapeVertices();
+
+        assertThat(result.length, is(24));
+    }    
 
     @Test
     public void testGetShapeIndices_noBlockIsSet_returnsEmptyBuffer() {
