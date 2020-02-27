@@ -490,6 +490,116 @@ public class StandardBlockVisualsBuilderTest {
         float[] result = testCandidate.getShapeNormals();
         
         assertFloatsAreEqual(result, expected);
+    }   
+    
+    @Test
+    public void testGetShapeNormals_rightFaceIsCovered_rightFaceNormalsAreNotReturned() {
+        float[] expected = {
+            0.f, 0.f, 1.f, 0.f, 0.f, 1.f, 0.f, 0.f, 1.f, 0.f, 0.f, 1.f,
+            0.f, 0.f, -1.f, 0.f, 0.f, -1.f, 0.f, 0.f, -1.f, 0.f, 0.f, -1.f,
+            -1.f, 0.f, 0.f, -1.f, 0.f, 0.f, -1.f, 0.f, 0.f, -1.f, 0.f, 0.f,
+            0.f, -1.f, 0.f, 0.f, -1.f, 0.f, 0.f, -1.f, 0.f, 0.f, -1.f, 0.f,
+            0.f, 1.f, 0.f, 0.f, 1.f, 0.f, 0.f, 1.f, 0.f, 0.f, 1.f, 0.f
+        };
+        
+        StandardBlockVisualsBuilder testCandidate = new StandardBlockVisualsBuilder();
+        Block testBlock = EarthBlock.getInstance();   
+        
+        testCandidate.setBlockToCreateDataFrom(testBlock)
+            .setRightFaceOfBlockIsCovered(true)
+            .build();
+        
+        float[] result = testCandidate.getShapeNormals();
+        
+        assertFloatsAreEqual(result, expected);
+    }
+
+    @Test
+    public void testGetShapeNormals_backFaceIsCovered_backFaceNormalsAreNotReturned() {
+        float[] expected = {
+            0.f, 0.f, 1.f, 0.f, 0.f, 1.f, 0.f, 0.f, 1.f, 0.f, 0.f, 1.f,
+            1.f, 0.f, 0.f, 1.f, 0.f, 0.f, 1.f, 0.f, 0.f, 1.f, 0.f, 0.f,
+            -1.f, 0.f, 0.f, -1.f, 0.f, 0.f, -1.f, 0.f, 0.f, -1.f, 0.f, 0.f,
+            0.f, -1.f, 0.f, 0.f, -1.f, 0.f, 0.f, -1.f, 0.f, 0.f, -1.f, 0.f,
+            0.f, 1.f, 0.f, 0.f, 1.f, 0.f, 0.f, 1.f, 0.f, 0.f, 1.f, 0.f
+        };
+        
+        StandardBlockVisualsBuilder testCandidate = new StandardBlockVisualsBuilder();
+        Block testBlock = EarthBlock.getInstance();   
+        
+        testCandidate.setBlockToCreateDataFrom(testBlock)
+            .setBackFaceOfBlockIsCovered(true)
+            .build();
+        
+        float[] result = testCandidate.getShapeNormals();
+        
+        assertFloatsAreEqual(result, expected);
+    }  
+    
+    @Test
+    public void testGetShapeNormals_leftFaceIsCovered_leftFaceNormalsAreNotReturned() {
+        float[] expected = {
+            0.f, 0.f, 1.f, 0.f, 0.f, 1.f, 0.f, 0.f, 1.f, 0.f, 0.f, 1.f,
+            1.f, 0.f, 0.f, 1.f, 0.f, 0.f, 1.f, 0.f, 0.f, 1.f, 0.f, 0.f,
+            0.f, 0.f, -1.f, 0.f, 0.f, -1.f, 0.f, 0.f, -1.f, 0.f, 0.f, -1.f,
+            0.f, -1.f, 0.f, 0.f, -1.f, 0.f, 0.f, -1.f, 0.f, 0.f, -1.f, 0.f,
+            0.f, 1.f, 0.f, 0.f, 1.f, 0.f, 0.f, 1.f, 0.f, 0.f, 1.f, 0.f
+        };
+        
+        StandardBlockVisualsBuilder testCandidate = new StandardBlockVisualsBuilder();
+        Block testBlock = EarthBlock.getInstance();   
+        
+        testCandidate.setBlockToCreateDataFrom(testBlock)
+            .setLeftFaceOfBlockIsCovered(true)
+            .build();
+        
+        float[] result = testCandidate.getShapeNormals();
+        
+        assertFloatsAreEqual(result, expected);
+    }
+
+    @Test
+    public void testGetShapeNormals_bottomFaceIsCovered_bottomFaceNormalsAreNotReturned() {
+        float[] expected = {
+            0.f, 0.f, 1.f, 0.f, 0.f, 1.f, 0.f, 0.f, 1.f, 0.f, 0.f, 1.f,
+            1.f, 0.f, 0.f, 1.f, 0.f, 0.f, 1.f, 0.f, 0.f, 1.f, 0.f, 0.f,
+            0.f, 0.f, -1.f, 0.f, 0.f, -1.f, 0.f, 0.f, -1.f, 0.f, 0.f, -1.f,
+            -1.f, 0.f, 0.f, -1.f, 0.f, 0.f, -1.f, 0.f, 0.f, -1.f, 0.f, 0.f,
+            0.f, 1.f, 0.f, 0.f, 1.f, 0.f, 0.f, 1.f, 0.f, 0.f, 1.f, 0.f
+        };
+        
+        StandardBlockVisualsBuilder testCandidate = new StandardBlockVisualsBuilder();
+        Block testBlock = EarthBlock.getInstance();   
+        
+        testCandidate.setBlockToCreateDataFrom(testBlock)
+            .setBottomFaceOfBlockIsCovered(true)
+            .build();
+        
+        float[] result = testCandidate.getShapeNormals();
+        
+        assertFloatsAreEqual(result, expected);
+    }   
+    
+    @Test
+    public void testGetShapeNormals_topFaceIsCovered_topFaceNormalsAreNotReturned() {
+        float[] expected = {
+            0.f, 0.f, 1.f, 0.f, 0.f, 1.f, 0.f, 0.f, 1.f, 0.f, 0.f, 1.f,
+            1.f, 0.f, 0.f, 1.f, 0.f, 0.f, 1.f, 0.f, 0.f, 1.f, 0.f, 0.f,
+            0.f, 0.f, -1.f, 0.f, 0.f, -1.f, 0.f, 0.f, -1.f, 0.f, 0.f, -1.f,
+            -1.f, 0.f, 0.f, -1.f, 0.f, 0.f, -1.f, 0.f, 0.f, -1.f, 0.f, 0.f,
+            0.f, -1.f, 0.f, 0.f, -1.f, 0.f, 0.f, -1.f, 0.f, 0.f, -1.f, 0.f
+        };
+        
+        StandardBlockVisualsBuilder testCandidate = new StandardBlockVisualsBuilder();
+        Block testBlock = EarthBlock.getInstance();   
+        
+        testCandidate.setBlockToCreateDataFrom(testBlock)
+            .setTopFaceOfBlockIsCovered(true)
+            .build();
+        
+        float[] result = testCandidate.getShapeNormals();
+        
+        assertFloatsAreEqual(result, expected);
     }    
     
     //<editor-fold defaultstate="collapsed" desc="Helper Methods">
