@@ -385,94 +385,118 @@ public class StandardBlockVisualsBuilder {
     }
     
     private void buildNormalsBuffer() {
-        int faces = 6;
+        int faces = getAmountOfUncoveredFaces();
         int verticesPerFace = 4;
         
         normalsBuffer = new float[faces * verticesPerFace * 3];
         
+        int currentBufferIndex = 0;
+        
         // front
-        normalsBuffer[0] = 0.f;
-        normalsBuffer[1] = 0.f;
-        normalsBuffer[2] = 1.f;
-        normalsBuffer[3] = 0.f;
-        normalsBuffer[4] = 0.f;
-        normalsBuffer[5] = 1.f;
-        normalsBuffer[6] = 0.f;
-        normalsBuffer[7] = 0.f;
-        normalsBuffer[8] = 1.f;
-        normalsBuffer[9] = 0.f;
-        normalsBuffer[10] = 0.f;
-        normalsBuffer[11] = 1.f;
+        if (!frontFaceOfBlockIsCovered) {
+            normalsBuffer[currentBufferIndex] = 0.f;
+            normalsBuffer[currentBufferIndex + 1] = 0.f;
+            normalsBuffer[currentBufferIndex + 2] = 1.f;
+            normalsBuffer[currentBufferIndex + 3] = 0.f;
+            normalsBuffer[currentBufferIndex + 4] = 0.f;
+            normalsBuffer[currentBufferIndex + 5] = 1.f;
+            normalsBuffer[currentBufferIndex + 6] = 0.f;
+            normalsBuffer[currentBufferIndex + 7] = 0.f;
+            normalsBuffer[currentBufferIndex + 8] = 1.f;
+            normalsBuffer[currentBufferIndex + 9] = 0.f;
+            normalsBuffer[currentBufferIndex + 10] = 0.f;
+            normalsBuffer[currentBufferIndex + 11] = 1.f;     
+            
+            currentBufferIndex += 12;
+        }
         
         // right
-        normalsBuffer[12] = 1.f;
-        normalsBuffer[13] = 0.f;
-        normalsBuffer[14] = 0.f;
-        normalsBuffer[15] = 1.f;
-        normalsBuffer[16] = 0.f;
-        normalsBuffer[17] = 0.f;
-        normalsBuffer[18] = 1.f;
-        normalsBuffer[19] = 0.f;
-        normalsBuffer[20] = 0.f;
-        normalsBuffer[21] = 1.f;
-        normalsBuffer[22] = 0.f;
-        normalsBuffer[23] = 0.f;
+        if (!rightFaceOfBlockIsCovered) {
+            normalsBuffer[currentBufferIndex] = 1.f;
+            normalsBuffer[currentBufferIndex + 1] = 0.f;
+            normalsBuffer[currentBufferIndex + 2] = 0.f;
+            normalsBuffer[currentBufferIndex + 3] = 1.f;
+            normalsBuffer[currentBufferIndex + 4] = 0.f;
+            normalsBuffer[currentBufferIndex + 5] = 0.f;
+            normalsBuffer[currentBufferIndex + 6] = 1.f;
+            normalsBuffer[currentBufferIndex + 7] = 0.f;
+            normalsBuffer[currentBufferIndex + 8] = 0.f;
+            normalsBuffer[currentBufferIndex + 9] = 1.f;
+            normalsBuffer[currentBufferIndex + 10] = 0.f;
+            normalsBuffer[currentBufferIndex + 11] = 0.f;
+        
+            currentBufferIndex += 12;
+        }
 
         // back
-        normalsBuffer[24] = 0.f;
-        normalsBuffer[25] = 0.f;
-        normalsBuffer[26] = -1.f;
-        normalsBuffer[27] = 0.f;
-        normalsBuffer[28] = 0.f;
-        normalsBuffer[29] = -1.f;
-        normalsBuffer[30] = 0.f;
-        normalsBuffer[31] = 0.f;
-        normalsBuffer[32] = -1.f;
-        normalsBuffer[33] = 0.f;
-        normalsBuffer[34] = 0.f;
-        normalsBuffer[35] = -1.f; 
+        if (!backFaceOfBlockIsCovered) {
+            normalsBuffer[currentBufferIndex] = 0.f;
+            normalsBuffer[currentBufferIndex + 1] = 0.f;
+            normalsBuffer[currentBufferIndex + 2] = -1.f;
+            normalsBuffer[currentBufferIndex + 3] = 0.f;
+            normalsBuffer[currentBufferIndex + 4] = 0.f;
+            normalsBuffer[currentBufferIndex + 5] = -1.f;
+            normalsBuffer[currentBufferIndex + 6] = 0.f;
+            normalsBuffer[currentBufferIndex + 7] = 0.f;
+            normalsBuffer[currentBufferIndex + 8] = -1.f;
+            normalsBuffer[currentBufferIndex + 9] = 0.f;
+            normalsBuffer[currentBufferIndex + 10] = 0.f;
+            normalsBuffer[currentBufferIndex + 11] = -1.f; 
+        
+            currentBufferIndex += 12;            
+        }
 
         // left
-        normalsBuffer[36] = -1.f;
-        normalsBuffer[37] = 0.f;
-        normalsBuffer[38] = 0.f;
-        normalsBuffer[39] = -1.f;
-        normalsBuffer[40] = 0.f;
-        normalsBuffer[41] = 0.f;
-        normalsBuffer[42] = -1.f;
-        normalsBuffer[43] = 0.f;
-        normalsBuffer[44] = 0.f;
-        normalsBuffer[45] = -1.f;
-        normalsBuffer[46] = 0.f;
-        normalsBuffer[47] = 0.f; 
+        if (!leftFaceOfBlockIsCovered) {
+            normalsBuffer[currentBufferIndex] = -1.f;
+            normalsBuffer[currentBufferIndex + 1] = 0.f;
+            normalsBuffer[currentBufferIndex + 2] = 0.f;
+            normalsBuffer[currentBufferIndex + 3] = -1.f;
+            normalsBuffer[currentBufferIndex + 4] = 0.f;
+            normalsBuffer[currentBufferIndex + 5] = 0.f;
+            normalsBuffer[currentBufferIndex + 6] = -1.f;
+            normalsBuffer[currentBufferIndex + 7] = 0.f;
+            normalsBuffer[currentBufferIndex + 8] = 0.f;
+            normalsBuffer[currentBufferIndex + 9] = -1.f;
+            normalsBuffer[currentBufferIndex + 10] = 0.f;
+            normalsBuffer[currentBufferIndex + 11] = 0.f; 
+        
+            currentBufferIndex += 12;            
+        }        
 
         // bottom
-        normalsBuffer[48] = 0.f;
-        normalsBuffer[49] = -1.f;
-        normalsBuffer[50] = 0.f;
-        normalsBuffer[51] = 0.f;
-        normalsBuffer[52] = -1.f;
-        normalsBuffer[53] = 0.f;
-        normalsBuffer[54] = 0.f;
-        normalsBuffer[55] = -1.f;
-        normalsBuffer[56] = 0.f;
-        normalsBuffer[57] = 0.f;
-        normalsBuffer[58] = -1.f;
-        normalsBuffer[59] = 0.f; 
+        if (!bottomFaceOfBlockIsCovered) {
+            normalsBuffer[currentBufferIndex] = 0.f;
+            normalsBuffer[currentBufferIndex + 1] = -1.f;
+            normalsBuffer[currentBufferIndex + 2] = 0.f;
+            normalsBuffer[currentBufferIndex + 3] = 0.f;
+            normalsBuffer[currentBufferIndex + 4] = -1.f;
+            normalsBuffer[currentBufferIndex + 5] = 0.f;
+            normalsBuffer[currentBufferIndex + 6] = 0.f;
+            normalsBuffer[currentBufferIndex + 7] = -1.f;
+            normalsBuffer[currentBufferIndex + 8] = 0.f;
+            normalsBuffer[currentBufferIndex + 9] = 0.f;
+            normalsBuffer[currentBufferIndex + 10] = -1.f;
+            normalsBuffer[currentBufferIndex + 11] = 0.f; 
+        
+            currentBufferIndex += 12;            
+        }        
 
         // top
-        normalsBuffer[60] = 0.f;
-        normalsBuffer[61] = 1.f;
-        normalsBuffer[62] = 0.f;
-        normalsBuffer[63] = 0.f;
-        normalsBuffer[64] = 1.f;
-        normalsBuffer[65] = 0.f;
-        normalsBuffer[66] = 0.f;
-        normalsBuffer[67] = 1.f;
-        normalsBuffer[68] = 0.f;
-        normalsBuffer[69] = 0.f;
-        normalsBuffer[70] = 1.f;
-        normalsBuffer[71] = 0.f;         
+        if (!topFaceOfBlockIsCovered) {
+            normalsBuffer[currentBufferIndex] = 0.f;
+            normalsBuffer[currentBufferIndex + 1] = 1.f;
+            normalsBuffer[currentBufferIndex + 2] = 0.f;
+            normalsBuffer[currentBufferIndex + 3] = 0.f;
+            normalsBuffer[currentBufferIndex + 4] = 1.f;
+            normalsBuffer[currentBufferIndex + 5] = 0.f;
+            normalsBuffer[currentBufferIndex + 6] = 0.f;
+            normalsBuffer[currentBufferIndex + 7] = 1.f;
+            normalsBuffer[currentBufferIndex + 8] = 0.f;
+            normalsBuffer[currentBufferIndex + 9] = 0.f;
+            normalsBuffer[currentBufferIndex + 10] = 1.f;
+            normalsBuffer[currentBufferIndex + 11] = 0.f;            
+        }        
     }
     
     //</editor-fold>

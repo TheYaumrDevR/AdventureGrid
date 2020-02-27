@@ -470,6 +470,28 @@ public class StandardBlockVisualsBuilderTest {
         assertFloatsAreEqual(result, expected);
     }
     
+    @Test
+    public void testGetShapeNormals_frontFaceIsCovered_frontFaceNormalsAreNotReturned() {
+        float[] expected = {
+            1.f, 0.f, 0.f, 1.f, 0.f, 0.f, 1.f, 0.f, 0.f, 1.f, 0.f, 0.f,
+            0.f, 0.f, -1.f, 0.f, 0.f, -1.f, 0.f, 0.f, -1.f, 0.f, 0.f, -1.f,
+            -1.f, 0.f, 0.f, -1.f, 0.f, 0.f, -1.f, 0.f, 0.f, -1.f, 0.f, 0.f,
+            0.f, -1.f, 0.f, 0.f, -1.f, 0.f, 0.f, -1.f, 0.f, 0.f, -1.f, 0.f,
+            0.f, 1.f, 0.f, 0.f, 1.f, 0.f, 0.f, 1.f, 0.f, 0.f, 1.f, 0.f
+        };
+        
+        StandardBlockVisualsBuilder testCandidate = new StandardBlockVisualsBuilder();
+        Block testBlock = RockBlock.getInstance();   
+        
+        testCandidate.setBlockToCreateDataFrom(testBlock)
+            .setFrontFaceOfBlockIsCovered(true)
+            .build();
+        
+        float[] result = testCandidate.getShapeNormals();
+        
+        assertFloatsAreEqual(result, expected);
+    }    
+    
     //<editor-fold defaultstate="collapsed" desc="Helper Methods">
     
     private void assertFloatsAreEqual(float[] result, float[] expected) {
