@@ -41,11 +41,8 @@ public class StandardBlockVisualsBuilderTest {
         
         float[] result = testCandidate.getShapeVertices();
         
-        assertThat(result.length, is(expected.length));
-        
-        for (int i = 0; i < expected.length; i++) {
-            assertThat(result[i], is(equalTo(expected[i])));
-        }
+        assertThat(result.length, is(expected.length));      
+        assertFloatsAreEqual(result, expected);    
     }
     
     @Test
@@ -71,9 +68,7 @@ public class StandardBlockVisualsBuilderTest {
         float[] result = testCandidate.getShapeVertices();
         
         assertThat(result.length, is(expected.length)); 
-        for (int i = 0; i < expected.length; i++) {
-            assertThat(result[i], is(equalTo(expected[i])));
-        }
+        assertFloatsAreEqual(result, expected);    
     }     
     
     @Test
@@ -98,9 +93,7 @@ public class StandardBlockVisualsBuilderTest {
         
         float[] result = testCandidate.getShapeVertices();
         
-        for (int i = 0; i < expected.length; i++) {
-            assertThat(result[i], is(equalTo(expected[i])));
-        }        
+        assertFloatsAreEqual(result, expected);            
     }
 
     @Test
@@ -125,9 +118,7 @@ public class StandardBlockVisualsBuilderTest {
         
         float[] result = testCandidate.getShapeVertices();
         
-        for (int i = 0; i < expected.length; i++) {
-            assertThat(result[i], is(equalTo(expected[i])));
-        }        
+        assertFloatsAreEqual(result, expected);            
     } 
     
     @Test
@@ -152,9 +143,7 @@ public class StandardBlockVisualsBuilderTest {
         
         float[] result = testCandidate.getShapeVertices();
         
-        for (int i = 0; i < expected.length; i++) {
-            assertThat(result[i], is(equalTo(expected[i])));
-        }        
+        assertFloatsAreEqual(result, expected);           
     } 
     
     @Test
@@ -179,9 +168,7 @@ public class StandardBlockVisualsBuilderTest {
         
         float[] result = testCandidate.getShapeVertices();
         
-        for (int i = 0; i < expected.length; i++) {
-            assertThat(result[i], is(equalTo(expected[i])));
-        }        
+        assertFloatsAreEqual(result, expected);            
     }
 
     @Test
@@ -206,9 +193,7 @@ public class StandardBlockVisualsBuilderTest {
         
         float[] result = testCandidate.getShapeVertices();
         
-        for (int i = 0; i < expected.length; i++) {
-            assertThat(result[i], is(equalTo(expected[i])));
-        }        
+        assertFloatsAreEqual(result, expected);        
     } 
     
     @Test
@@ -233,9 +218,7 @@ public class StandardBlockVisualsBuilderTest {
         
         float[] result = testCandidate.getShapeVertices();
         
-        for (int i = 0; i < expected.length; i++) {
-            assertThat(result[i], is(equalTo(expected[i])));
-        }        
+        assertFloatsAreEqual(result, expected);
     }
     
     @Test
@@ -289,9 +272,7 @@ public class StandardBlockVisualsBuilderTest {
 
         int[] result = testCandidate.getShapeIndices();
         
-        for (int i = 0; i < expected.length; i++) {
-            assertThat(result[i], is(equalTo(expected[i])));
-        }        
+        assertIntegersAreEqual(result, expected);       
     }
     
     @Test
@@ -314,9 +295,7 @@ public class StandardBlockVisualsBuilderTest {
         
         int[] result = testCandidate.getShapeIndices();
         
-        for (int i = 0; i < expected.length; i++) {
-            assertThat(result[i], is(equalTo(expected[i])));
-        }         
+        assertIntegersAreEqual(result, expected);         
     }
     
     @Test
@@ -339,9 +318,7 @@ public class StandardBlockVisualsBuilderTest {
         
         int[] result = testCandidate.getShapeIndices();
         
-        for (int i = 0; i < expected.length; i++) {
-            assertThat(result[i], is(equalTo(expected[i])));
-        }         
+        assertIntegersAreEqual(result, expected);        
     }
     
     @Test
@@ -364,9 +341,7 @@ public class StandardBlockVisualsBuilderTest {
         
         int[] result = testCandidate.getShapeIndices();
         
-        for (int i = 0; i < expected.length; i++) {
-            assertThat(result[i], is(equalTo(expected[i])));
-        }         
+        assertIntegersAreEqual(result, expected);        
     }  
     
     @Test
@@ -389,9 +364,7 @@ public class StandardBlockVisualsBuilderTest {
         
         int[] result = testCandidate.getShapeIndices();
         
-        for (int i = 0; i < expected.length; i++) {
-            assertThat(result[i], is(equalTo(expected[i])));
-        }         
+        assertIntegersAreEqual(result, expected);         
     } 
     
     @Test
@@ -414,9 +387,7 @@ public class StandardBlockVisualsBuilderTest {
         
         int[] result = testCandidate.getShapeIndices();
         
-        for (int i = 0; i < expected.length; i++) {
-            assertThat(result[i], is(equalTo(expected[i])));
-        }         
+        assertIntegersAreEqual(result, expected);        
     } 
     
     @Test
@@ -439,9 +410,7 @@ public class StandardBlockVisualsBuilderTest {
         
         int[] result = testCandidate.getShapeIndices();
         
-        for (int i = 0; i < expected.length; i++) {
-            assertThat(result[i], is(equalTo(expected[i])));
-        }         
+        assertIntegersAreEqual(result, expected);
     }
 
     @Test
@@ -464,9 +433,7 @@ public class StandardBlockVisualsBuilderTest {
         
         int[] result = testCandidate.getShapeIndices();
         
-        for (int i = 0; i < expected.length; i++) {
-            assertThat(result[i], is(equalTo(expected[i])));
-        }         
+        assertIntegersAreEqual(result, expected);        
     } 
     
     @Test
@@ -500,8 +467,22 @@ public class StandardBlockVisualsBuilderTest {
         
         float[] result = testCandidate.getShapeNormals();
         
+        assertFloatsAreEqual(result, expected);
+    }
+    
+    //<editor-fold defaultstate="collapsed" desc="Helper Methods">
+    
+    private void assertFloatsAreEqual(float[] result, float[] expected) {
         for (int i = 0; i < expected.length; i++) {
             assertThat(result[i], is(equalTo(expected[i])));
         }        
     }
+    
+    private void assertIntegersAreEqual(int[] result, int[] expected) {
+        for (int i = 0; i < expected.length; i++) {
+            assertThat(result[i], is(equalTo(expected[i])));
+        }        
+    }    
+    
+    //</editor-fold>
 }
