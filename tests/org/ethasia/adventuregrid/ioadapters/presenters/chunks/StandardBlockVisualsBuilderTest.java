@@ -4,6 +4,7 @@ import org.ethasia.adventuregrid.core.environment.Block;
 import org.ethasia.adventuregrid.core.environment.EarthBlock;
 import org.ethasia.adventuregrid.core.environment.GrassyEarthBlock;
 import org.ethasia.adventuregrid.core.environment.RockBlock;
+
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
@@ -466,5 +467,41 @@ public class StandardBlockVisualsBuilderTest {
         for (int i = 0; i < expected.length; i++) {
             assertThat(result[i], is(equalTo(expected[i])));
         }         
-    }    
+    } 
+    
+    @Test
+    public void testGetShapeNormals_noBlockIsSet_returnsEmptyBuffer() {
+        StandardBlockVisualsBuilder testCandidate = new StandardBlockVisualsBuilder();
+        Block testBlock = EarthBlock.getInstance();
+        
+        testCandidate.build();
+        
+        float[] result = testCandidate.getShapeNormals();
+        
+        assertThat(result.length, is(0));
+    }
+    
+    @Test
+    public void testGetShapeNormals_noBlockFacesCovered_returnsFullNormalsBuffer() {
+        float[] expected = {
+            0.f, 0.f, 1.f, 0.f, 0.f, 1.f, 0.f, 0.f, 1.f, 0.f, 0.f, 1.f,
+            1.f, 0.f, 0.f, 1.f, 0.f, 0.f, 1.f, 0.f, 0.f, 1.f, 0.f, 0.f,
+            0.f, 0.f, -1.f, 0.f, 0.f, -1.f, 0.f, 0.f, -1.f, 0.f, 0.f, -1.f,
+            -1.f, 0.f, 0.f, -1.f, 0.f, 0.f, -1.f, 0.f, 0.f, -1.f, 0.f, 0.f,
+            0.f, -1.f, 0.f, 0.f, -1.f, 0.f, 0.f, -1.f, 0.f, 0.f, -1.f, 0.f,
+            0.f, 1.f, 0.f, 0.f, 1.f, 0.f, 0.f, 1.f, 0.f, 0.f, 1.f, 0.f
+        };
+        
+        StandardBlockVisualsBuilder testCandidate = new StandardBlockVisualsBuilder();
+        Block testBlock = EarthBlock.getInstance();   
+        
+        testCandidate.setBlockToCreateDataFrom(testBlock)
+            .build();
+        
+        float[] result = testCandidate.getShapeNormals();
+        
+        for (int i = 0; i < expected.length; i++) {
+            assertThat(result[i], is(equalTo(expected[i])));
+        }        
+    }
 }
