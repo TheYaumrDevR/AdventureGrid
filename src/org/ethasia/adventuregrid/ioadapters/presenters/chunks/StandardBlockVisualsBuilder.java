@@ -392,111 +392,49 @@ public class StandardBlockVisualsBuilder {
         
         int currentBufferIndex = 0;
         
-        // front
         if (!frontFaceOfBlockIsCovered) {
-            normalsBuffer[currentBufferIndex] = 0.f;
-            normalsBuffer[currentBufferIndex + 1] = 0.f;
-            normalsBuffer[currentBufferIndex + 2] = 1.f;
-            normalsBuffer[currentBufferIndex + 3] = 0.f;
-            normalsBuffer[currentBufferIndex + 4] = 0.f;
-            normalsBuffer[currentBufferIndex + 5] = 1.f;
-            normalsBuffer[currentBufferIndex + 6] = 0.f;
-            normalsBuffer[currentBufferIndex + 7] = 0.f;
-            normalsBuffer[currentBufferIndex + 8] = 1.f;
-            normalsBuffer[currentBufferIndex + 9] = 0.f;
-            normalsBuffer[currentBufferIndex + 10] = 0.f;
-            normalsBuffer[currentBufferIndex + 11] = 1.f;     
-            
+            addNormalForFaceWithValueStartingAtIndex(0.f, 0.f, 1.f, currentBufferIndex); 
             currentBufferIndex += 12;
         }
         
-        // right
         if (!rightFaceOfBlockIsCovered) {
-            normalsBuffer[currentBufferIndex] = 1.f;
-            normalsBuffer[currentBufferIndex + 1] = 0.f;
-            normalsBuffer[currentBufferIndex + 2] = 0.f;
-            normalsBuffer[currentBufferIndex + 3] = 1.f;
-            normalsBuffer[currentBufferIndex + 4] = 0.f;
-            normalsBuffer[currentBufferIndex + 5] = 0.f;
-            normalsBuffer[currentBufferIndex + 6] = 1.f;
-            normalsBuffer[currentBufferIndex + 7] = 0.f;
-            normalsBuffer[currentBufferIndex + 8] = 0.f;
-            normalsBuffer[currentBufferIndex + 9] = 1.f;
-            normalsBuffer[currentBufferIndex + 10] = 0.f;
-            normalsBuffer[currentBufferIndex + 11] = 0.f;
-        
+            addNormalForFaceWithValueStartingAtIndex(1.f, 0.f, 0.f, currentBufferIndex); 
             currentBufferIndex += 12;
         }
 
-        // back
         if (!backFaceOfBlockIsCovered) {
-            normalsBuffer[currentBufferIndex] = 0.f;
-            normalsBuffer[currentBufferIndex + 1] = 0.f;
-            normalsBuffer[currentBufferIndex + 2] = -1.f;
-            normalsBuffer[currentBufferIndex + 3] = 0.f;
-            normalsBuffer[currentBufferIndex + 4] = 0.f;
-            normalsBuffer[currentBufferIndex + 5] = -1.f;
-            normalsBuffer[currentBufferIndex + 6] = 0.f;
-            normalsBuffer[currentBufferIndex + 7] = 0.f;
-            normalsBuffer[currentBufferIndex + 8] = -1.f;
-            normalsBuffer[currentBufferIndex + 9] = 0.f;
-            normalsBuffer[currentBufferIndex + 10] = 0.f;
-            normalsBuffer[currentBufferIndex + 11] = -1.f; 
-        
+            addNormalForFaceWithValueStartingAtIndex(0.f, 0.f, -1.f, currentBufferIndex); 
             currentBufferIndex += 12;            
         }
 
-        // left
         if (!leftFaceOfBlockIsCovered) {
-            normalsBuffer[currentBufferIndex] = -1.f;
-            normalsBuffer[currentBufferIndex + 1] = 0.f;
-            normalsBuffer[currentBufferIndex + 2] = 0.f;
-            normalsBuffer[currentBufferIndex + 3] = -1.f;
-            normalsBuffer[currentBufferIndex + 4] = 0.f;
-            normalsBuffer[currentBufferIndex + 5] = 0.f;
-            normalsBuffer[currentBufferIndex + 6] = -1.f;
-            normalsBuffer[currentBufferIndex + 7] = 0.f;
-            normalsBuffer[currentBufferIndex + 8] = 0.f;
-            normalsBuffer[currentBufferIndex + 9] = -1.f;
-            normalsBuffer[currentBufferIndex + 10] = 0.f;
-            normalsBuffer[currentBufferIndex + 11] = 0.f; 
-        
+            addNormalForFaceWithValueStartingAtIndex(-1.f, 0.f, 0.f, currentBufferIndex); 
             currentBufferIndex += 12;            
         }        
 
-        // bottom
         if (!bottomFaceOfBlockIsCovered) {
-            normalsBuffer[currentBufferIndex] = 0.f;
-            normalsBuffer[currentBufferIndex + 1] = -1.f;
-            normalsBuffer[currentBufferIndex + 2] = 0.f;
-            normalsBuffer[currentBufferIndex + 3] = 0.f;
-            normalsBuffer[currentBufferIndex + 4] = -1.f;
-            normalsBuffer[currentBufferIndex + 5] = 0.f;
-            normalsBuffer[currentBufferIndex + 6] = 0.f;
-            normalsBuffer[currentBufferIndex + 7] = -1.f;
-            normalsBuffer[currentBufferIndex + 8] = 0.f;
-            normalsBuffer[currentBufferIndex + 9] = 0.f;
-            normalsBuffer[currentBufferIndex + 10] = -1.f;
-            normalsBuffer[currentBufferIndex + 11] = 0.f; 
-        
+            addNormalForFaceWithValueStartingAtIndex(0.f, -1.f, 0.f, currentBufferIndex); 
             currentBufferIndex += 12;            
         }        
 
-        // top
         if (!topFaceOfBlockIsCovered) {
-            normalsBuffer[currentBufferIndex] = 0.f;
-            normalsBuffer[currentBufferIndex + 1] = 1.f;
-            normalsBuffer[currentBufferIndex + 2] = 0.f;
-            normalsBuffer[currentBufferIndex + 3] = 0.f;
-            normalsBuffer[currentBufferIndex + 4] = 1.f;
-            normalsBuffer[currentBufferIndex + 5] = 0.f;
-            normalsBuffer[currentBufferIndex + 6] = 0.f;
-            normalsBuffer[currentBufferIndex + 7] = 1.f;
-            normalsBuffer[currentBufferIndex + 8] = 0.f;
-            normalsBuffer[currentBufferIndex + 9] = 0.f;
-            normalsBuffer[currentBufferIndex + 10] = 1.f;
-            normalsBuffer[currentBufferIndex + 11] = 0.f;            
+            addNormalForFaceWithValueStartingAtIndex(0.f, 1.f, 0.f, currentBufferIndex);         
         }        
+    }
+    
+    private void addNormalForFaceWithValueStartingAtIndex(float normalX, float normalY, float normalZ, int index) {
+        normalsBuffer[index] = normalX;
+        normalsBuffer[index + 1] = normalY;
+        normalsBuffer[index + 2] = normalZ;
+        normalsBuffer[index + 3] = normalX;
+        normalsBuffer[index + 4] = normalY;
+        normalsBuffer[index + 5] = normalZ;
+        normalsBuffer[index + 6] = normalX;
+        normalsBuffer[index + 7] = normalY;
+        normalsBuffer[index + 8] = normalZ;
+        normalsBuffer[index + 9] = normalX;
+        normalsBuffer[index + 10] = normalY;
+        normalsBuffer[index + 11] = normalZ;         
     }
     
     //</editor-fold>
