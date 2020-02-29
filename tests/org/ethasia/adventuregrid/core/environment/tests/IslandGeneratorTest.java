@@ -17,27 +17,16 @@ public class IslandGeneratorTest {
         Island result = testCandidate.generateIsland(64);
         
         assertThat(result.getXzDimension(), is(64));
-        
+        assertThatLayersFromToAreOfType(0, 126, result, BlockTypes.ROCK); 
+        assertThatLayersFromToAreOfType(126, 127, result, BlockTypes.EARTH); 
+        assertThatLayersFromToAreOfType(127, 128, result, BlockTypes.GRASSY_EARTH);       
+    }
+    
+    private void assertThatLayersFromToAreOfType(int fromHeight, int toHeight, Island result, BlockTypes expected) {
         for (int i = 0; i < 64; i++) {
             for (int j = 0; j < 64; j++) {
-                for (int k = 0; k < 126; k++) {
-                    assertThat(result.getBlockAt(i, k, j).getBlockType(), is(BlockTypes.ROCK));
-                }
-            }
-        }
-        
-        for (int i = 0; i < 64; i++) {
-            for (int j = 0; j < 64; j++) {
-                for (int k = 126; k < 127; k++) {
-                    assertThat(result.getBlockAt(i, k, j).getBlockType(), is(BlockTypes.EARTH));
-                }
-            }
-        } 
-        
-        for (int i = 0; i < 64; i++) {
-            for (int j = 0; j < 64; j++) {
-                for (int k = 127; k < 128; k++) {
-                    assertThat(result.getBlockAt(i, k, j).getBlockType(), is(BlockTypes.GRASSY_EARTH));
+                for (int k = fromHeight; k < toHeight; k++) {
+                    assertThat(result.getBlockAt(i, k, j).getBlockType(), is(expected));
                 }
             }
         }        
