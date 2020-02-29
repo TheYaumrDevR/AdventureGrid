@@ -19,12 +19,12 @@ public class RockBlockUvCoordinates extends BlockUvCoordinates {
     //<editor-fold defaultstate="collapsed" desc="Fields">
     
     private final float[] uvCoordinates = {
-        0.25f, 0.015625f, 0.1875f, 0.015625f, 0.1875f, 0, 0.25f, 0, // Back
-        0.25f, 0.015625f, 0.1875f, 0.015625f, 0.1875f, 0, 0.25f, 0, // Right
         0.25f, 0.015625f, 0.1875f, 0.015625f, 0.1875f, 0, 0.25f, 0, // Front
+        0.25f, 0.015625f, 0.1875f, 0.015625f, 0.1875f, 0, 0.25f, 0, // Right
+        0.25f, 0.015625f, 0.1875f, 0.015625f, 0.1875f, 0, 0.25f, 0, // Back
         0.25f, 0.015625f, 0.1875f, 0.015625f, 0.1875f, 0, 0.25f, 0, // Left
-        0.25f, 0, 0.25f, 0.015625f, 0.1875f, 0.015625f, 0.1875f, 0, // Top
-        0.1875f, 0.015625f, 0.1875f, 0, 0.25f, 0, 0.25f, 0.015625f // Bottom     
+        0.1875f, 0.015625f, 0.1875f, 0, 0.25f, 0, 0.25f, 0.015625f, // Bottom 
+        0.25f, 0, 0.25f, 0.015625f, 0.1875f, 0.015625f, 0.1875f, 0 // Top  
     };
     
     //</editor-fold>    
