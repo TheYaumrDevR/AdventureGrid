@@ -1,7 +1,6 @@
 package org.ethasia.adventuregrid.ioadapters.presenters.chunks;
 
 import org.ethasia.adventuregrid.core.environment.Block;
-import org.ethasia.adventuregrid.core.environment.BlockTypes;
 import org.ethasia.adventuregrid.core.math.Vector3;
 
 public class StandardBlockVisualsBuilder {
