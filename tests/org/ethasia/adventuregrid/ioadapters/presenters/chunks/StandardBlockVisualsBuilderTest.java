@@ -1,5 +1,6 @@
 package org.ethasia.adventuregrid.ioadapters.presenters.chunks;
 
+import java.util.Arrays;
 import org.ethasia.adventuregrid.core.environment.Block;
 import org.ethasia.adventuregrid.core.environment.EarthBlock;
 import org.ethasia.adventuregrid.core.environment.GrassyEarthBlock;
@@ -641,17 +642,131 @@ public class StandardBlockVisualsBuilderTest {
         float[] result = testCandidate.getBlockUvCoordinates();
         
         assertFloatsAreEqual(result, expected);        
+    }
+
+    @Test
+    public void testGetBlockUvCoordinates_frontFaceIsHidden_frontFaceUvsAreNotCalculated() {
+        float[] uvCoordinates = GrassyEarthBlockUvCoordinates.getInstance().getUvCoordinates();
+        float[] expected = Arrays.copyOfRange(uvCoordinates, 8, uvCoordinates.length);
+        
+        StandardBlockVisualsBuilder testCandidate = new StandardBlockVisualsBuilder();
+        Block testBlock = GrassyEarthBlock.getInstance(); 
+
+        testCandidate.setBlockToCreateDataFrom(testBlock)
+            .setFrontFaceOfBlockIsCovered(true)
+            .build();     
+        
+        float[] result = testCandidate.getBlockUvCoordinates();
+        
+        assertFloatsAreEqual(result, expected);        
+    } 
+
+    @Test
+    public void testGetBlockUvCoordinates_rightFaceIsHidden_rightFaceUvsAreNotCalculated() {
+        float[] uvCoordinates = GrassyEarthBlockUvCoordinates.getInstance().getUvCoordinates();
+        float[] expected = new float[40];
+        System.arraycopy(uvCoordinates, 0, expected, 0, 8);
+        System.arraycopy(uvCoordinates, 16, expected, 8, 32);
+        
+        StandardBlockVisualsBuilder testCandidate = new StandardBlockVisualsBuilder();
+        Block testBlock = GrassyEarthBlock.getInstance(); 
+
+        testCandidate.setBlockToCreateDataFrom(testBlock)
+            .setRightFaceOfBlockIsCovered(true)
+            .build();     
+        
+        float[] result = testCandidate.getBlockUvCoordinates();
+        
+        assertFloatsAreEqual(result, expected);        
+    }
+    
+    @Test
+    public void testGetBlockUvCoordinates_backFaceIsHidden_backFaceUvsAreNotCalculated() {
+        float[] uvCoordinates = GrassyEarthBlockUvCoordinates.getInstance().getUvCoordinates();
+        float[] expected = new float[40];
+        System.arraycopy(uvCoordinates, 0, expected, 0, 16);
+        System.arraycopy(uvCoordinates, 24, expected, 16, 24);
+        
+        StandardBlockVisualsBuilder testCandidate = new StandardBlockVisualsBuilder();
+        Block testBlock = GrassyEarthBlock.getInstance(); 
+
+        testCandidate.setBlockToCreateDataFrom(testBlock)
+            .setBackFaceOfBlockIsCovered(true)
+            .build();     
+        
+        float[] result = testCandidate.getBlockUvCoordinates();
+        
+        assertFloatsAreEqual(result, expected);        
+    }
+
+    @Test
+    public void testGetBlockUvCoordinates_leftFaceIsHidden_leftFaceUvsAreNotCalculated() {
+        float[] uvCoordinates = GrassyEarthBlockUvCoordinates.getInstance().getUvCoordinates();
+        float[] expected = new float[40];
+        System.arraycopy(uvCoordinates, 0, expected, 0, 24);
+        System.arraycopy(uvCoordinates, 32, expected, 24, 16);
+        
+        StandardBlockVisualsBuilder testCandidate = new StandardBlockVisualsBuilder();
+        Block testBlock = GrassyEarthBlock.getInstance(); 
+
+        testCandidate.setBlockToCreateDataFrom(testBlock)
+            .setLeftFaceOfBlockIsCovered(true)
+            .build();     
+        
+        float[] result = testCandidate.getBlockUvCoordinates();
+        
+        assertFloatsAreEqual(result, expected);        
+    } 
+
+    @Test
+    public void testGetBlockUvCoordinates_bottomFaceIsHidden_bottomFaceUvsAreNotCalculated() {
+        float[] uvCoordinates = GrassyEarthBlockUvCoordinates.getInstance().getUvCoordinates();
+        float[] expected = new float[40];
+        System.arraycopy(uvCoordinates, 0, expected, 0, 32);
+        System.arraycopy(uvCoordinates, 40, expected, 32, 8);
+        
+        StandardBlockVisualsBuilder testCandidate = new StandardBlockVisualsBuilder();
+        Block testBlock = GrassyEarthBlock.getInstance(); 
+
+        testCandidate.setBlockToCreateDataFrom(testBlock)
+            .setBottomFaceOfBlockIsCovered(true)
+            .build();     
+        
+        float[] result = testCandidate.getBlockUvCoordinates();
+        
+        assertFloatsAreEqual(result, expected);        
+    }
+    
+    @Test
+    public void testGetBlockUvCoordinates_topFaceIsHidden_topFaceUvsAreNotCalculated() {
+        float[] uvCoordinates = GrassyEarthBlockUvCoordinates.getInstance().getUvCoordinates();
+        float[] expected = Arrays.copyOfRange(uvCoordinates, 0, uvCoordinates.length - 8);
+        
+        StandardBlockVisualsBuilder testCandidate = new StandardBlockVisualsBuilder();
+        Block testBlock = GrassyEarthBlock.getInstance(); 
+
+        testCandidate.setBlockToCreateDataFrom(testBlock)
+            .setTopFaceOfBlockIsCovered(true)
+            .build();     
+        
+        float[] result = testCandidate.getBlockUvCoordinates();
+        
+        assertFloatsAreEqual(result, expected);        
     }    
     
     //<editor-fold defaultstate="collapsed" desc="Helper Methods">
     
     private void assertFloatsAreEqual(float[] result, float[] expected) {
+        assertThat(result.length, is(expected.length));
+        
         for (int i = 0; i < expected.length; i++) {
             assertThat(result[i], is(equalTo(expected[i])));
         }        
     }
     
     private void assertIntegersAreEqual(int[] result, int[] expected) {
+        assertThat(result.length, is(expected.length));
+        
         for (int i = 0; i < expected.length; i++) {
             assertThat(result[i], is(equalTo(expected[i])));
         }        
