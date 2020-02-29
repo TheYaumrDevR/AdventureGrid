@@ -600,6 +600,47 @@ public class StandardBlockVisualsBuilderTest {
         float[] result = testCandidate.getShapeNormals();
         
         assertFloatsAreEqual(result, expected);
+    }   
+    
+    @Test
+    public void testGetBlockUvCoordinates_noBlockIsSet_returnsEmptyBuffer() {
+        StandardBlockVisualsBuilder testCandidate = new StandardBlockVisualsBuilder();
+        
+        testCandidate.build();
+        
+        float[] result = testCandidate.getBlockUvCoordinates();
+        
+        assertThat(result.length, is(0));
+    }
+    
+    @Test
+    public void testGetBlockUvCoordinates_earthBlockIsSet_returnsEarthBlockUvs() {
+        float[] expected = EarthBlockUvCoordinates.getInstance().getUvCoordinates();
+        
+        StandardBlockVisualsBuilder testCandidate = new StandardBlockVisualsBuilder();
+        Block testBlock = EarthBlock.getInstance(); 
+
+        testCandidate.setBlockToCreateDataFrom(testBlock)
+            .build();     
+        
+        float[] result = testCandidate.getBlockUvCoordinates();
+        
+        assertFloatsAreEqual(result, expected);        
+    }
+    
+    @Test
+    public void testGetBlockUvCoordinates_grassyEarthBlockIsSet_returnsGrassyEarthBlockUvs() {
+        float[] expected = GrassyEarthBlockUvCoordinates.getInstance().getUvCoordinates();
+        
+        StandardBlockVisualsBuilder testCandidate = new StandardBlockVisualsBuilder();
+        Block testBlock = GrassyEarthBlock.getInstance(); 
+
+        testCandidate.setBlockToCreateDataFrom(testBlock)
+            .build();     
+        
+        float[] result = testCandidate.getBlockUvCoordinates();
+        
+        assertFloatsAreEqual(result, expected);        
     }    
     
     //<editor-fold defaultstate="collapsed" desc="Helper Methods">

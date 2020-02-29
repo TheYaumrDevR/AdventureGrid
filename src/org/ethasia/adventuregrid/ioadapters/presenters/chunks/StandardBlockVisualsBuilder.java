@@ -1,6 +1,7 @@
 package org.ethasia.adventuregrid.ioadapters.presenters.chunks;
 
 import org.ethasia.adventuregrid.core.environment.Block;
+import org.ethasia.adventuregrid.core.environment.BlockTypes;
 import org.ethasia.adventuregrid.core.math.Vector3;
 
 public class StandardBlockVisualsBuilder {
@@ -49,6 +50,7 @@ public class StandardBlockVisualsBuilder {
     private float[] vertexBuffer;
     private int[] indicesBuffer;
     private float[] normalsBuffer;
+    private float[] uvBuffer;
     
     //</editor-fold>
 
@@ -114,10 +116,12 @@ public class StandardBlockVisualsBuilder {
             vertexBuffer = new float[0];
             indicesBuffer = new int[0];
             normalsBuffer = new float[0];
+            uvBuffer = new float [0];
         } else {
             buildVertexBuffer();
             buildIndicesBuffer();
             buildNormalsBuffer();
+            buildUvBuffer();
         }
     }
     
@@ -131,6 +135,10 @@ public class StandardBlockVisualsBuilder {
     
     public float[] getShapeNormals() {
         return normalsBuffer;
+    }
+    
+    public float[] getBlockUvCoordinates() {
+        return uvBuffer;
     }
     
     //</editor-fold>  
@@ -435,6 +443,14 @@ public class StandardBlockVisualsBuilder {
         normalsBuffer[index + 9] = normalX;
         normalsBuffer[index + 10] = normalY;
         normalsBuffer[index + 11] = normalZ;         
+    }
+    
+    private void buildUvBuffer() {
+        
+        // int faces = 6;
+        // int uvPerFace = 4;
+
+        uvBuffer = BlockUvCoordinates.fromBlockType(blockToRender.getBlockType()).getUvCoordinates();
     }
     
     //</editor-fold>
