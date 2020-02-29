@@ -426,83 +426,58 @@ public class StandardBlockVisualsBuilder {
         } else {
             uvBuffer = new float[faces * uvPerFace * 2];
             int currentBufferIndex = 0;
+            int currentSourceBufferIndex = 0;
             
             if (!frontFaceOfBlockIsCovered) {
-                uvBuffer[currentBufferIndex] = blockUvCoordinates[0];
-                uvBuffer[currentBufferIndex + 1] = blockUvCoordinates[1];
-                uvBuffer[currentBufferIndex + 2] = blockUvCoordinates[2];
-                uvBuffer[currentBufferIndex + 3] = blockUvCoordinates[3];
-                uvBuffer[currentBufferIndex + 4] = blockUvCoordinates[4];
-                uvBuffer[currentBufferIndex + 5] = blockUvCoordinates[5];
-                uvBuffer[currentBufferIndex + 6] = blockUvCoordinates[6];
-                uvBuffer[currentBufferIndex + 7] = blockUvCoordinates[7];
+                copyUvCoordinatesFromSourceBufferToUvBuffer(currentBufferIndex, blockUvCoordinates, currentSourceBufferIndex);
                 
                 currentBufferIndex += 8;
             }
             
             if (!rightFaceOfBlockIsCovered) {
-                uvBuffer[currentBufferIndex] = blockUvCoordinates[8];
-                uvBuffer[currentBufferIndex + 1] = blockUvCoordinates[9];
-                uvBuffer[currentBufferIndex + 2] = blockUvCoordinates[10];
-                uvBuffer[currentBufferIndex + 3] = blockUvCoordinates[11];
-                uvBuffer[currentBufferIndex + 4] = blockUvCoordinates[12];
-                uvBuffer[currentBufferIndex + 5] = blockUvCoordinates[13];
-                uvBuffer[currentBufferIndex + 6] = blockUvCoordinates[14];
-                uvBuffer[currentBufferIndex + 7] = blockUvCoordinates[15];
+                currentSourceBufferIndex = 8;
+                copyUvCoordinatesFromSourceBufferToUvBuffer(currentBufferIndex, blockUvCoordinates, currentSourceBufferIndex);
                 
                 currentBufferIndex += 8;
             }
 
             if (!backFaceOfBlockIsCovered) {
-                uvBuffer[currentBufferIndex] = blockUvCoordinates[16];
-                uvBuffer[currentBufferIndex + 1] = blockUvCoordinates[17];
-                uvBuffer[currentBufferIndex + 2] = blockUvCoordinates[18];
-                uvBuffer[currentBufferIndex + 3] = blockUvCoordinates[19];
-                uvBuffer[currentBufferIndex + 4] = blockUvCoordinates[20];
-                uvBuffer[currentBufferIndex + 5] = blockUvCoordinates[21];
-                uvBuffer[currentBufferIndex + 6] = blockUvCoordinates[22];
-                uvBuffer[currentBufferIndex + 7] = blockUvCoordinates[23];
+                currentSourceBufferIndex = 16;
+                copyUvCoordinatesFromSourceBufferToUvBuffer(currentBufferIndex, blockUvCoordinates, currentSourceBufferIndex);
                 
                 currentBufferIndex += 8;
             }
             
             if (!leftFaceOfBlockIsCovered) {
-                uvBuffer[currentBufferIndex] = blockUvCoordinates[24];
-                uvBuffer[currentBufferIndex + 1] = blockUvCoordinates[25];
-                uvBuffer[currentBufferIndex + 2] = blockUvCoordinates[26];
-                uvBuffer[currentBufferIndex + 3] = blockUvCoordinates[27];
-                uvBuffer[currentBufferIndex + 4] = blockUvCoordinates[28];
-                uvBuffer[currentBufferIndex + 5] = blockUvCoordinates[29];
-                uvBuffer[currentBufferIndex + 6] = blockUvCoordinates[30];
-                uvBuffer[currentBufferIndex + 7] = blockUvCoordinates[31];
+                currentSourceBufferIndex = 24;
+                copyUvCoordinatesFromSourceBufferToUvBuffer(currentBufferIndex, blockUvCoordinates, currentSourceBufferIndex);
                 
                 currentBufferIndex += 8;
             }
 
             if (!bottomFaceOfBlockIsCovered) {
-                uvBuffer[currentBufferIndex] = blockUvCoordinates[32];
-                uvBuffer[currentBufferIndex + 1] = blockUvCoordinates[33];
-                uvBuffer[currentBufferIndex + 2] = blockUvCoordinates[34];
-                uvBuffer[currentBufferIndex + 3] = blockUvCoordinates[35];
-                uvBuffer[currentBufferIndex + 4] = blockUvCoordinates[36];
-                uvBuffer[currentBufferIndex + 5] = blockUvCoordinates[37];
-                uvBuffer[currentBufferIndex + 6] = blockUvCoordinates[38];
-                uvBuffer[currentBufferIndex + 7] = blockUvCoordinates[39];
+                currentSourceBufferIndex = 32;
+                copyUvCoordinatesFromSourceBufferToUvBuffer(currentBufferIndex, blockUvCoordinates, currentSourceBufferIndex);
                 
                 currentBufferIndex += 8;
             }
 
             if (!topFaceOfBlockIsCovered) {
-                uvBuffer[currentBufferIndex] = blockUvCoordinates[40];
-                uvBuffer[currentBufferIndex + 1] = blockUvCoordinates[41];
-                uvBuffer[currentBufferIndex + 2] = blockUvCoordinates[42];
-                uvBuffer[currentBufferIndex + 3] = blockUvCoordinates[43];
-                uvBuffer[currentBufferIndex + 4] = blockUvCoordinates[44];
-                uvBuffer[currentBufferIndex + 5] = blockUvCoordinates[45];
-                uvBuffer[currentBufferIndex + 6] = blockUvCoordinates[46];
-                uvBuffer[currentBufferIndex + 7] = blockUvCoordinates[47];
+                currentSourceBufferIndex = 40;
+                copyUvCoordinatesFromSourceBufferToUvBuffer(currentBufferIndex, blockUvCoordinates, currentSourceBufferIndex);
             }            
         }
+    }
+    
+    private void copyUvCoordinatesFromSourceBufferToUvBuffer(int destintationBufferStartingIndex, float[] sourceBuffer, int sourceDataStartingIndex) {
+        uvBuffer[destintationBufferStartingIndex] = sourceBuffer[sourceDataStartingIndex];
+        uvBuffer[destintationBufferStartingIndex + 1] = sourceBuffer[sourceDataStartingIndex + 1];
+        uvBuffer[destintationBufferStartingIndex + 2] = sourceBuffer[sourceDataStartingIndex + 2];
+        uvBuffer[destintationBufferStartingIndex + 3] = sourceBuffer[sourceDataStartingIndex + 3];
+        uvBuffer[destintationBufferStartingIndex + 4] = sourceBuffer[sourceDataStartingIndex + 4];
+        uvBuffer[destintationBufferStartingIndex + 5] = sourceBuffer[sourceDataStartingIndex + 5];
+        uvBuffer[destintationBufferStartingIndex + 6] = sourceBuffer[sourceDataStartingIndex + 6];
+        uvBuffer[destintationBufferStartingIndex + 7] = sourceBuffer[sourceDataStartingIndex + 7];        
     }
     
     private int getAmountOfUncoveredFaces() {
