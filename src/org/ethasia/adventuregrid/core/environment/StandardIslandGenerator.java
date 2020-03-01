@@ -1,6 +1,8 @@
 package org.ethasia.adventuregrid.core.environment;
 
-public class IslandGenerator {
+import org.ethasia.adventuregrid.core.input.IslandGenerator;
+
+public class StandardIslandGenerator implements IslandGenerator {
     
     //<editor-fold defaultstate="collapsed" desc="Fields">
     
@@ -10,6 +12,7 @@ public class IslandGenerator {
     
     //<editor-fold defaultstate="collapsed" desc="Methods">
     
+    @Override
     public Island generateIsland(int edgeLength) {
         result =  new Island(edgeLength);
    

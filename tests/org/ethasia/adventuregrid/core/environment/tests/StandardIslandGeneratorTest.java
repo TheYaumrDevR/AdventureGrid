@@ -2,17 +2,17 @@ package org.ethasia.adventuregrid.core.environment.tests;
 
 import org.ethasia.adventuregrid.core.environment.BlockTypes;
 import org.ethasia.adventuregrid.core.environment.Island;
-import org.ethasia.adventuregrid.core.environment.IslandGenerator;
+import org.ethasia.adventuregrid.core.environment.StandardIslandGenerator;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import org.junit.Test;
 
-public class IslandGeneratorTest {
+public class StandardIslandGeneratorTest {
     
     @Test
     public void testGenerateIsland_generatesIslandWithRockAndEarthLayer() {
-        IslandGenerator testCandidate = new IslandGenerator();
+        StandardIslandGenerator testCandidate = new StandardIslandGenerator();
         
         Island result = testCandidate.generateIsland(64);
         
