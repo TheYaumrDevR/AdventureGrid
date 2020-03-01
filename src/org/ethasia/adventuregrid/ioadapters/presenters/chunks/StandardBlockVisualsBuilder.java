@@ -144,61 +144,6 @@ public class StandardBlockVisualsBuilder {
     
     //<editor-fold defaultstate="collapsed" desc="Helper Methods">
     
-    private void buildIndicesBuffer() {
-        int amountOfUnCoveredFaces = getAmountOfUncoveredFaces();
-        indicesBuffer = new int[6 * amountOfUnCoveredFaces];
-        
-        int faceOffset = 0;
-        int currentBufferIndex = 0;
-        
-        if (!frontFaceOfBlockIsCovered) {
-            addNextFaceIndicesToBuffer(currentBufferIndex, faceOffset);
-            currentBufferIndex += 6;
-            faceOffset += 4;
-        }
-        
-        if (!rightFaceOfBlockIsCovered) {
-            addNextFaceIndicesToBuffer(currentBufferIndex, faceOffset);
-            currentBufferIndex += 6;
-            faceOffset += 4;
-        }       
-        
-        if (!backFaceOfBlockIsCovered) {
-            addNextFaceIndicesToBuffer(currentBufferIndex, faceOffset);
-            currentBufferIndex += 6;
-            faceOffset += 4;
-        }            
-        
-        if (!leftFaceOfBlockIsCovered) {
-            addNextFaceIndicesToBuffer(currentBufferIndex, faceOffset);
-            currentBufferIndex += 6;
-            faceOffset += 4;
-        }            
-        
-        if (!bottomFaceOfBlockIsCovered) {
-            addNextFaceIndicesToBuffer(currentBufferIndex, faceOffset);
-            currentBufferIndex += 6;
-            faceOffset += 4;
-        }           
-        
-        if (!topFaceOfBlockIsCovered) {
-            addNextFaceIndicesToBuffer(currentBufferIndex, faceOffset);
-            currentBufferIndex += 6;
-            faceOffset += 4;
-        }           
-    }
-    
-    private void addNextFaceIndicesToBuffer(int currentBufferIndex, int faceOffset) {
-        int renderIndexOffset = renderIndexInChunk * 24;
-        
-        indicesBuffer[currentBufferIndex] = 0 + faceOffset + renderIndexOffset;
-        indicesBuffer[currentBufferIndex + 1] = 1 + faceOffset + renderIndexOffset;
-        indicesBuffer[currentBufferIndex + 2] = 2 + faceOffset + renderIndexOffset;
-        indicesBuffer[currentBufferIndex + 3] = 2 + faceOffset + renderIndexOffset;
-        indicesBuffer[currentBufferIndex + 4] = 3 + faceOffset + renderIndexOffset;
-        indicesBuffer[currentBufferIndex + 5] = 0 + faceOffset + renderIndexOffset;         
-    }
-    
     private void buildVertexBuffer() {
         translateVertices();
         fillVertexBuffer();
@@ -360,6 +305,61 @@ public class StandardBlockVisualsBuilder {
         vertexBuffer[currentBufferPosition + 10] = BV[2].getBufferedResultY();
         vertexBuffer[currentBufferPosition + 11] = BV[2].getBufferedResultZ();            
     }
+    
+    private void buildIndicesBuffer() {
+        int amountOfUnCoveredFaces = getAmountOfUncoveredFaces();
+        indicesBuffer = new int[6 * amountOfUnCoveredFaces];
+        
+        int faceOffset = 0;
+        int currentBufferIndex = 0;
+        
+        if (!frontFaceOfBlockIsCovered) {
+            addNextFaceIndicesToBuffer(currentBufferIndex, faceOffset);
+            currentBufferIndex += 6;
+            faceOffset += 4;
+        }
+        
+        if (!rightFaceOfBlockIsCovered) {
+            addNextFaceIndicesToBuffer(currentBufferIndex, faceOffset);
+            currentBufferIndex += 6;
+            faceOffset += 4;
+        }       
+        
+        if (!backFaceOfBlockIsCovered) {
+            addNextFaceIndicesToBuffer(currentBufferIndex, faceOffset);
+            currentBufferIndex += 6;
+            faceOffset += 4;
+        }            
+        
+        if (!leftFaceOfBlockIsCovered) {
+            addNextFaceIndicesToBuffer(currentBufferIndex, faceOffset);
+            currentBufferIndex += 6;
+            faceOffset += 4;
+        }            
+        
+        if (!bottomFaceOfBlockIsCovered) {
+            addNextFaceIndicesToBuffer(currentBufferIndex, faceOffset);
+            currentBufferIndex += 6;
+            faceOffset += 4;
+        }           
+        
+        if (!topFaceOfBlockIsCovered) {
+            addNextFaceIndicesToBuffer(currentBufferIndex, faceOffset);
+            currentBufferIndex += 6;
+            faceOffset += 4;
+        }           
+    }
+    
+    private void addNextFaceIndicesToBuffer(int currentBufferIndex, int faceOffset) {
+        int renderIndexOffset = renderIndexInChunk * 24;
+        
+        indicesBuffer[currentBufferIndex] = 0 + faceOffset + renderIndexOffset;
+        indicesBuffer[currentBufferIndex + 1] = 1 + faceOffset + renderIndexOffset;
+        indicesBuffer[currentBufferIndex + 2] = 2 + faceOffset + renderIndexOffset;
+        indicesBuffer[currentBufferIndex + 3] = 2 + faceOffset + renderIndexOffset;
+        indicesBuffer[currentBufferIndex + 4] = 3 + faceOffset + renderIndexOffset;
+        indicesBuffer[currentBufferIndex + 5] = 0 + faceOffset + renderIndexOffset;         
+    }    
     
     private void buildNormalsBuffer() {
         int faces = getAmountOfUncoveredFaces();
