@@ -8,6 +8,8 @@ import org.ethasia.adventuregrid.technical.jmegamestates.StartGameState;
 public class AdventureGrid extends SimpleApplication {
 
     public static void main(String[] args) {
+        Dependencies.inject();
+        
         AdventureGrid app = new AdventureGrid();
         app.start();
     }

@@ -16,4 +16,16 @@ public class Dependencies {
         
         AdventureGridGameState.setStateManager(provider.getStateManager());
     }
+    
+    public static void inject() {
+        injectInteractorDependencies();
+    }
+    
+    //<editor-fold defaultstate="collapsed" desc="Helper Methods">
+    
+    private static void injectInteractorDependencies() {
+        
+    }
+    
+    //</editor-fold>
 }
