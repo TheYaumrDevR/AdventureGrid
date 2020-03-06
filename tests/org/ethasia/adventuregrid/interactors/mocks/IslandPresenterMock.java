@@ -13,6 +13,10 @@ public class IslandPresenterMock implements IslandPresenter {
         return lastPresentIslandCallParameter;
     }
     
+    public static void resetMock() {
+        lastPresentIslandCallParameter = null;
+    }
+    
     //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="Mock Implementations">

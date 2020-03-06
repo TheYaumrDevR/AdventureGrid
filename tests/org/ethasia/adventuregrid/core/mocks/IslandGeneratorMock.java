@@ -13,6 +13,10 @@ public class IslandGeneratorMock implements IslandGenerator {
         return lastGenerateIslandCallParameter;
     }
     
+    public static void resetMock() {
+        lastGenerateIslandCallParameter = 0;
+    }
+    
     //</editor-fold> 
 
     //<editor-fold defaultstate="collapsed" desc="IslandGenerator Overrides">
