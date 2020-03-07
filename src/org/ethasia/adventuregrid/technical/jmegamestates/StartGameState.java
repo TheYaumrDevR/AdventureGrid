@@ -36,7 +36,7 @@ public class StartGameState extends AdventureGridGameState {
     
     //</editor-fold>
     
-    //<editor-fold defaultstate="collapsed" desc="Guid Callbacks">
+    //<editor-fold defaultstate="collapsed" desc="GUI Callbacks">
     
     public void onNewGameButtonClicked() {
         AdventureGridGameState.setGameState(new MainGameState());

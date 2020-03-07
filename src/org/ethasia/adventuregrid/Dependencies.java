@@ -3,6 +3,8 @@ package org.ethasia.adventuregrid;
 import com.jme3.app.SimpleApplication;
 import org.ethasia.adventuregrid.core.CoreClassesFactory;
 import org.ethasia.adventuregrid.core.RealCoreClassesFactory;
+import org.ethasia.adventuregrid.interactors.IoAdaptersFactoryForInteractors;
+import org.ethasia.adventuregrid.ioadapters.presenters.RealIoAdaptersFactoryForInteractors;
 import org.ethasia.adventuregrid.technical.jmegamestates.AdventureGridGameState;
 import org.ethasia.adventuregrid.technical.niftygui.NiftyGuiScreens;
 
@@ -31,7 +33,7 @@ public class Dependencies {
     }
     
     private static void injectInteractorDependencies() {
-        
+        IoAdaptersFactoryForInteractors.setInstance(new RealIoAdaptersFactoryForInteractors());
     }
     
     //</editor-fold>

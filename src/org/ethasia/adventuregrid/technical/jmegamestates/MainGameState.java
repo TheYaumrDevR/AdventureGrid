@@ -5,6 +5,7 @@ import com.jme3.app.state.AppStateManager;
 import com.jme3.math.ColorRGBA;
 import de.lessvoid.nifty.Nifty;
 import de.lessvoid.nifty.screen.Screen;
+import org.ethasia.adventuregrid.interactors.EnterNewIslandInteractor;
 import org.ethasia.adventuregrid.ioadapters.presenters.GuiScreens;
 import org.ethasia.adventuregrid.technical.niftygui.NiftyGuiScreens;
 
@@ -21,7 +22,17 @@ public class MainGameState extends AdventureGridGameState {
         mainGameState.getViewPort().setBackgroundColor(new ColorRGBA(0.56f, 0.853f, 1.f, 1.0f));
     }
     
-    //</editor-fold>     
+    //</editor-fold>    
+    
+    //<editor-fold defaultstate="collapsed" desc="AbstractAppState Overrides">
+    
+    @Override
+    public void stateAttached(AppStateManager stateManager) {
+        EnterNewIslandInteractor enterStartingIslandInteractor = new EnterNewIslandInteractor();
+        enterStartingIslandInteractor.setupNewIsland();
+    }
+    
+    //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="ScreenController Overrides">
     
