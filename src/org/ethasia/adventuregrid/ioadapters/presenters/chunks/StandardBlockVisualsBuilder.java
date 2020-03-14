@@ -3,7 +3,7 @@ package org.ethasia.adventuregrid.ioadapters.presenters.chunks;
 import org.ethasia.adventuregrid.core.environment.Block;
 import org.ethasia.adventuregrid.core.math.Vector3;
 
-public class StandardBlockVisualsBuilder {
+public class StandardBlockVisualsBuilder extends BlockVisualsBuilder {
     
     //<editor-fold defaultstate="collapsed" desc="Constants">
     
@@ -52,64 +52,76 @@ public class StandardBlockVisualsBuilder {
     private float[] uvBuffer;
     
     //</editor-fold>
-
+    
     //<editor-fold defaultstate="collapsed" desc="Methods">
     
+    @Override
     public StandardBlockVisualsBuilder setBlockToCreateDataFrom(Block value) {
         blockToRender = value;
         return this;
     }   
     
+    @Override
     public StandardBlockVisualsBuilder setChunkPositionX(int value) {
         chunkPosX = value;
         return this;
     }
     
+    @Override
     public StandardBlockVisualsBuilder setChunkPositionY(int value) {
         chunkPosY = value;
         return this;
     }
 
+    @Override
     public StandardBlockVisualsBuilder setChunkPositionZ(int value) {
         chunkPosZ = value;
         return this;
     }   
     
+    @Override
     public StandardBlockVisualsBuilder setFrontFaceOfBlockIsCovered(boolean value) {
         frontFaceOfBlockIsCovered = value;
         return this;
     }
     
+    @Override
     public StandardBlockVisualsBuilder setRightFaceOfBlockIsCovered(boolean value) {
         rightFaceOfBlockIsCovered = value;
         return this;
     } 
     
+    @Override
     public StandardBlockVisualsBuilder setBackFaceOfBlockIsCovered(boolean value) {
         backFaceOfBlockIsCovered = value;
         return this;
     }
     
+    @Override
     public StandardBlockVisualsBuilder setLeftFaceOfBlockIsCovered(boolean value) {
         leftFaceOfBlockIsCovered = value;
         return this;
     } 
     
+    @Override
     public StandardBlockVisualsBuilder setBottomFaceOfBlockIsCovered(boolean value) {
         bottomFaceOfBlockIsCovered = value;
         return this;
     } 
 
+    @Override
     public StandardBlockVisualsBuilder setTopFaceOfBlockIsCovered(boolean value) {
         topFaceOfBlockIsCovered = value;
         return this;
     } 
     
+    @Override
     public StandardBlockVisualsBuilder setRenderIndexInChunk(int value) {
         renderIndexInChunk = value;
         return this;
     }
     
+    @Override
     public void build() {
         if (null == blockToRender) {
             vertexBuffer = new float[0];
@@ -124,18 +136,22 @@ public class StandardBlockVisualsBuilder {
         }
     }
     
+    @Override
     public float[] getShapeVertices() {
         return vertexBuffer;
     }   
     
+    @Override
     public int[] getShapeIndices() {
         return indicesBuffer;
     }
     
+    @Override
     public float[] getShapeNormals() {
         return normalsBuffer;
     }
     
+    @Override
     public float[] getBlockUvCoordinates() {
         return uvBuffer;
     }
