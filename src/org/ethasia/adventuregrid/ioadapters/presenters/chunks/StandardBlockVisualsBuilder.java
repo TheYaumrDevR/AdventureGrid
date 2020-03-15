@@ -36,7 +36,7 @@ public class StandardBlockVisualsBuilder extends BlockVisualsBuilder {
     //<editor-fold defaultstate="collapsed" desc="Fields">
     
     private int chunkPosX, chunkPosY, chunkPosZ;
-    private int renderIndexInChunk;
+    private int renderIndexOffsetInChunk;
     private Block blockToRender;
     
     private boolean frontFaceOfBlockIsCovered;
@@ -117,7 +117,7 @@ public class StandardBlockVisualsBuilder extends BlockVisualsBuilder {
     
     @Override
     public StandardBlockVisualsBuilder setRenderIndexInChunk(int value) {
-        renderIndexInChunk = value;
+        renderIndexOffsetInChunk = value;
         return this;
     }
     
@@ -367,14 +367,12 @@ public class StandardBlockVisualsBuilder extends BlockVisualsBuilder {
     }
     
     private void addNextFaceIndicesToBuffer(int currentBufferIndex, int faceOffset) {
-        int renderIndexOffset = renderIndexInChunk * 24;
-        
-        indicesBuffer[currentBufferIndex] = 0 + faceOffset + renderIndexOffset;
-        indicesBuffer[currentBufferIndex + 1] = 1 + faceOffset + renderIndexOffset;
-        indicesBuffer[currentBufferIndex + 2] = 2 + faceOffset + renderIndexOffset;
-        indicesBuffer[currentBufferIndex + 3] = 2 + faceOffset + renderIndexOffset;
-        indicesBuffer[currentBufferIndex + 4] = 3 + faceOffset + renderIndexOffset;
-        indicesBuffer[currentBufferIndex + 5] = 0 + faceOffset + renderIndexOffset;         
+        indicesBuffer[currentBufferIndex] = 0 + faceOffset + renderIndexOffsetInChunk;
+        indicesBuffer[currentBufferIndex + 1] = 1 + faceOffset + renderIndexOffsetInChunk;
+        indicesBuffer[currentBufferIndex + 2] = 2 + faceOffset + renderIndexOffsetInChunk;
+        indicesBuffer[currentBufferIndex + 3] = 2 + faceOffset + renderIndexOffsetInChunk;
+        indicesBuffer[currentBufferIndex + 4] = 3 + faceOffset + renderIndexOffsetInChunk;
+        indicesBuffer[currentBufferIndex + 5] = 0 + faceOffset + renderIndexOffsetInChunk;         
     }    
     
     private void buildNormalsBuffer() {
