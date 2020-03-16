@@ -47,6 +47,7 @@ public abstract class BlockVisualsBuilder {
     public abstract int[] getShapeIndices();
     public abstract float[] getShapeNormals();
     public abstract float[] getBlockUvCoordinates();   
+    public abstract int getAmountOfAddedIndices();
     
     //</editor-fold>
 }

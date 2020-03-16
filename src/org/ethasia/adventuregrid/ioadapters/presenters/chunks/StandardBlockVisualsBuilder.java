@@ -156,6 +156,11 @@ public class StandardBlockVisualsBuilder extends BlockVisualsBuilder {
         return uvBuffer;
     }
     
+    @Override
+    public int getAmountOfAddedIndices() {
+        return getAmountOfUncoveredFaces() * 4;
+    }
+    
     //</editor-fold>  
     
     //<editor-fold defaultstate="collapsed" desc="Helper Methods">

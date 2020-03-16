@@ -752,7 +752,49 @@ public class StandardBlockVisualsBuilderTest {
         float[] result = testCandidate.getBlockUvCoordinates();
         
         assertFloatsAreEqual(result, expected);        
-    }    
+    }  
+    
+    @Test
+    public void testGetAmountOfAddedIndices_allFacesVisible_added24() {        
+        StandardBlockVisualsBuilder testCandidate = new StandardBlockVisualsBuilder();
+        Block testBlock = EarthBlock.getInstance();
+        
+        testCandidate.setBlockToCreateDataFrom(testBlock)
+            .build();        
+        
+        int result = testCandidate.getAmountOfAddedIndices();
+        
+        assertThat(result, is(24));
+    }
+    
+    @Test
+    public void testGetAmountOfAddedIndices_oneFaceHidden_added20() {        
+        StandardBlockVisualsBuilder testCandidate = new StandardBlockVisualsBuilder();
+        Block testBlock = EarthBlock.getInstance();
+        
+        testCandidate.setBlockToCreateDataFrom(testBlock)
+            .setLeftFaceOfBlockIsCovered(true)
+            .build();        
+        
+        int result = testCandidate.getAmountOfAddedIndices();
+        
+        assertThat(result, is(20));
+    } 
+    
+    @Test
+    public void testGetAmountOfAddedIndices_oneFaceHidden_added16() {        
+        StandardBlockVisualsBuilder testCandidate = new StandardBlockVisualsBuilder();
+        Block testBlock = EarthBlock.getInstance();
+        
+        testCandidate.setBlockToCreateDataFrom(testBlock)
+            .setLeftFaceOfBlockIsCovered(true)
+            .setTopFaceOfBlockIsCovered(true)
+            .build();        
+        
+        int result = testCandidate.getAmountOfAddedIndices();
+        
+        assertThat(result, is(16));
+    }     
     
     //<editor-fold defaultstate="collapsed" desc="Helper Methods">
     

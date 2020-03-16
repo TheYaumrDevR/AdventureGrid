@@ -70,7 +70,7 @@ public class StandardIslandPresenter implements IslandPresenter {
                                         floatBuffersOfBlocksInChunk.add(blockVisualsBuilder.getBlockUvCoordinates());
                                         intBuffersOfBlocksInChunk.add(blockVisualsBuilder.getShapeIndices());
                                     
-                                        currentBlockRenderIndex += 24;                                        
+                                        currentBlockRenderIndex += blockVisualsBuilder.getAmountOfAddedIndices();                                        
                                     }
                                 }
                             }    
