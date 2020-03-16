@@ -23,7 +23,6 @@ public class StandardIslandPresenter implements IslandPresenter {
     
     @Override
     public void presentIsland(Island island) {
-        VisualChunkData dataToRender = new VisualChunkData();
         ChunkRenderer chunkRenderer = TechnicalsFactory.getInstance().getChunkRendererInstance();
         
         int chunksPerEdge = 0;
@@ -37,13 +36,14 @@ public class StandardIslandPresenter implements IslandPresenter {
         for (int i = 0; i < chunksPerEdge; i++) {
             for (int j = 0; j < chunksPerEdge; j++) {
                 
+                VisualChunkData dataToRender = new VisualChunkData();
                 floatBuffersOfBlocksInChunk.clear();
                 intBuffersOfBlocksInChunk.clear();
                 int currentBlockRenderIndex = 0;
                 
                 for (int x = CHUNK_EDGE_LENGTH_IN_BLOCKS * i; x < CHUNK_EDGE_LENGTH_IN_BLOCKS * (i + 1); x++) {
-                    for (int y = CHUNK_EDGE_LENGTH_IN_BLOCKS * j; y < CHUNK_EDGE_LENGTH_IN_BLOCKS * (j + 1); y++) {
-                        for (int z = 0; z < Island.HEIGHT_IN_BLOCKS; z++) {
+                    for (int z = CHUNK_EDGE_LENGTH_IN_BLOCKS * j; z < CHUNK_EDGE_LENGTH_IN_BLOCKS * (j + 1); z++) {
+                        for (int y = 0; y < Island.HEIGHT_IN_BLOCKS; y++) {
                             if (x < island.getXzDimension() && y < island.getXzDimension()) {
                                 if (island.getBlockAt(x, y, z).getBlockType() != BlockTypes.AIR) {
                                     int inChunkX = x - CHUNK_EDGE_LENGTH_IN_BLOCKS * i;
@@ -78,21 +78,23 @@ public class StandardIslandPresenter implements IslandPresenter {
                     }                    
                 }
                 
-                dataToRender.setUpWithNumberOfBlocksInChunk(intBuffersOfBlocksInChunk.size());
-                dataToRender.setWorldPosition(i, j);
+                if (intBuffersOfBlocksInChunk.size() > 0) {
+                    dataToRender.setUpWithNumberOfBlocksInChunk(intBuffersOfBlocksInChunk.size());
+                    dataToRender.setWorldPosition(i, j);
                 
-                for (int k = 0; k < floatBuffersOfBlocksInChunk.size(); k += 3) {
-                    dataToRender.addVerticesToTemporaryBuffer(floatBuffersOfBlocksInChunk.get(k));
-                    dataToRender.addNormalsToTemporaryBuffer(floatBuffersOfBlocksInChunk.get(k + 1));
-                    dataToRender.addUvCoordinatesToTemporaryBuffer(floatBuffersOfBlocksInChunk.get(k + 2));
+                    for (int k = 0; k < floatBuffersOfBlocksInChunk.size(); k += 3) {
+                        dataToRender.addVerticesToTemporaryBuffer(floatBuffersOfBlocksInChunk.get(k));
+                        dataToRender.addNormalsToTemporaryBuffer(floatBuffersOfBlocksInChunk.get(k + 1));
+                        dataToRender.addUvCoordinatesToTemporaryBuffer(floatBuffersOfBlocksInChunk.get(k + 2));
+                    }
+                
+                    for (int k = 0; k < intBuffersOfBlocksInChunk.size(); k++) {
+                        dataToRender.addIndicesToTemporaryBuffer(intBuffersOfBlocksInChunk.get(k));
+                    }
+                
+                    dataToRender.buildChunkData();
+                    chunkRenderer.renderChunk(dataToRender);                    
                 }
-                
-                for (int k = 0; k < intBuffersOfBlocksInChunk.size(); k++) {
-                    dataToRender.addIndicesToTemporaryBuffer(intBuffersOfBlocksInChunk.get(k));
-                }
-                
-                dataToRender.buildChunkData();
-                chunkRenderer.renderChunk(dataToRender);
             }            
         }
     }    
