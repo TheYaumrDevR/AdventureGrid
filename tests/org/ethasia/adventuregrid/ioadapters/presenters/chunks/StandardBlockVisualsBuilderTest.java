@@ -291,7 +291,7 @@ public class StandardBlockVisualsBuilderTest {
         Block testBlock = RockBlock.getInstance(); 
         
         testCandidate.setBlockToCreateDataFrom(testBlock)
-            .setRenderIndexInChunk(5)
+            .setRenderIndexInChunk(120)
             .build();
         
         int[] result = testCandidate.getShapeIndices();
@@ -314,7 +314,7 @@ public class StandardBlockVisualsBuilderTest {
         
         testCandidate.setBlockToCreateDataFrom(testBlock)
             .setFrontFaceOfBlockIsCovered(true)
-            .setRenderIndexInChunk(5)
+            .setRenderIndexInChunk(120)
             .build();
         
         int[] result = testCandidate.getShapeIndices();
@@ -337,7 +337,7 @@ public class StandardBlockVisualsBuilderTest {
         
         testCandidate.setBlockToCreateDataFrom(testBlock)
             .setRightFaceOfBlockIsCovered(true)
-            .setRenderIndexInChunk(5)
+            .setRenderIndexInChunk(120)
             .build();
         
         int[] result = testCandidate.getShapeIndices();
@@ -360,7 +360,7 @@ public class StandardBlockVisualsBuilderTest {
         
         testCandidate.setBlockToCreateDataFrom(testBlock)
             .setBackFaceOfBlockIsCovered(true)
-            .setRenderIndexInChunk(5)
+            .setRenderIndexInChunk(120)
             .build();
         
         int[] result = testCandidate.getShapeIndices();
@@ -383,7 +383,7 @@ public class StandardBlockVisualsBuilderTest {
         
         testCandidate.setBlockToCreateDataFrom(testBlock)
             .setLeftFaceOfBlockIsCovered(true)
-            .setRenderIndexInChunk(5)
+            .setRenderIndexInChunk(120)
             .build();
         
         int[] result = testCandidate.getShapeIndices();
@@ -406,7 +406,7 @@ public class StandardBlockVisualsBuilderTest {
         
         testCandidate.setBlockToCreateDataFrom(testBlock)
             .setBottomFaceOfBlockIsCovered(true)
-            .setRenderIndexInChunk(5)
+            .setRenderIndexInChunk(120)
             .build();
         
         int[] result = testCandidate.getShapeIndices();
@@ -429,7 +429,7 @@ public class StandardBlockVisualsBuilderTest {
         
         testCandidate.setBlockToCreateDataFrom(testBlock)
             .setTopFaceOfBlockIsCovered(true)
-            .setRenderIndexInChunk(5)
+            .setRenderIndexInChunk(120)
             .build();
         
         int[] result = testCandidate.getShapeIndices();
