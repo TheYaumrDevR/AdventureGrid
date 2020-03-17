@@ -3,10 +3,12 @@ package org.ethasia.adventuregrid.technical.jmegamestates;
 import com.jme3.app.Application;
 import com.jme3.app.state.AppStateManager;
 import com.jme3.math.ColorRGBA;
+import com.jme3.scene.Node;
 import de.lessvoid.nifty.Nifty;
 import de.lessvoid.nifty.screen.Screen;
 import org.ethasia.adventuregrid.interactors.EnterNewIslandInteractor;
 import org.ethasia.adventuregrid.ioadapters.presenters.GuiScreens;
+import org.ethasia.adventuregrid.ioadapters.presenters.TechnicalsFactory;
 import org.ethasia.adventuregrid.technical.niftygui.NiftyGuiScreens;
 
 public class MainGameState extends AdventureGridGameState {
@@ -19,7 +21,11 @@ public class MainGameState extends AdventureGridGameState {
         NiftyGuiScreens.gotoScreen(GuiScreens.MAIN_GAME);
         flyCam.setEnabled(true);
         flyCam.setDragToRotate(false);
+        flyCam.setMoveSpeed(12);
         mainGameState.getViewPort().setBackgroundColor(new ColorRGBA(0.56f, 0.853f, 1.f, 1.0f));
+        
+        Node chunksRootNode = TechnicalsFactory.getInstance().getChunkRendererInstance().getRootNode();
+        mainGameState.getRootNode().attachChild(chunksRootNode);        
     }
     
     //</editor-fold>    
@@ -30,6 +36,11 @@ public class MainGameState extends AdventureGridGameState {
     public void stateAttached(AppStateManager stateManager) {
         EnterNewIslandInteractor enterStartingIslandInteractor = new EnterNewIslandInteractor();
         enterStartingIslandInteractor.setupNewIsland();
+    }
+    
+    @Override
+    public void stateDetached(AppStateManager stateManager) {
+        mainGameState.getRootNode().detachAllChildren();
     }
     
     //</editor-fold>

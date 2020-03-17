@@ -44,8 +44,8 @@ public class StandardIslandPresenter implements IslandPresenter {
                 for (int x = CHUNK_EDGE_LENGTH_IN_BLOCKS * i; x < CHUNK_EDGE_LENGTH_IN_BLOCKS * (i + 1); x++) {
                     for (int z = CHUNK_EDGE_LENGTH_IN_BLOCKS * j; z < CHUNK_EDGE_LENGTH_IN_BLOCKS * (j + 1); z++) {
                         for (int y = 0; y < Island.HEIGHT_IN_BLOCKS; y++) {
-                            if (x < island.getXzDimension() && y < island.getXzDimension()) {
-                                if (island.getBlockAt(x, y, z).getBlockType() != BlockTypes.AIR) {
+                            if (x < island.getXzDimension() && z < island.getXzDimension()) {
+                                if (island.getBlockAt(x, y, z).getBlockType() != BlockTypes.AIR) {                                    
                                     int inChunkX = x - CHUNK_EDGE_LENGTH_IN_BLOCKS * i;
                                     int inChunkZ = z - CHUNK_EDGE_LENGTH_IN_BLOCKS * j;
                                     

@@ -26,8 +26,8 @@ public class ChunkRendererImpl implements ChunkRenderer {
     
     public ChunkRendererImpl(AssetManager assetManager) {
         rootNode = new Node();
-        blockTextureAtlas = loadTextureAtlas();
         this.assetManager = assetManager;
+        blockTextureAtlas = loadTextureAtlas();
     }
     
     //</editor-fold>

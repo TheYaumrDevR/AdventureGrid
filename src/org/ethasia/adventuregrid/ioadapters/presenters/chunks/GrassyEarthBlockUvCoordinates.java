@@ -19,10 +19,10 @@ public class GrassyEarthBlockUvCoordinates extends BlockUvCoordinates {
     //<editor-fold defaultstate="collapsed" desc="Fields">
     
     private final float[] uvCoordinates = {
-        0.125f, 0.015625f, 0.0625f, 0.015625f, 0.0625f, 0, 0.125f, 0, // Front
-        0.125f, 0.015625f, 0.0625f, 0.015625f, 0.0625f, 0, 0.125f, 0, // Right
-        0.125f, 0.015625f, 0.0625f, 0.015625f, 0.0625f, 0, 0.125f, 0, // Back
-        0.125f, 0.015625f, 0.0625f, 0.015625f, 0.0625f, 0, 0.125f, 0, // Left
+        0.125f, 0.015625f, 0.125f, 0, 0.0625f, 0, 0.0625f, 0.015625f, // Front
+        0.125f, 0.015625f, 0.125f, 0, 0.0625f, 0, 0.0625f, 0.015625f, // Right
+        0.125f, 0.015625f, 0.125f, 0, 0.0625f, 0, 0.0625f, 0.015625f, // Back
+        0.125f, 0.015625f, 0.125f, 0, 0.0625f, 0, 0.0625f, 0.015625f, // Left
         0, 0.015625f, 0, 0, 0.0625f, 0, 0.0625f, 0.015625f, // Bottom 
         0.1875f, 0, 0.1875f, 0.015625f, 0.125f, 0.015625f, 0.125f, 0 // Top
     };

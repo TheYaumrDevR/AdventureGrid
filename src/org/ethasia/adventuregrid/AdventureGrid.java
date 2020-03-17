@@ -11,11 +11,11 @@ public class AdventureGrid extends SimpleApplication {
         AdventureGrid app = new AdventureGrid();
         
         app.start();
-        Dependencies.inject(app.assetManager);
     }
 
     @Override
     public void simpleInitApp() {
+        Dependencies.inject(assetManager);
         Dependencies.injectEngineGlobals(this);
         AdventureGridGameState.setGameState(new StartGameState());
     }
