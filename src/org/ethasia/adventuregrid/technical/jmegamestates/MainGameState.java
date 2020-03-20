@@ -3,10 +3,8 @@ package org.ethasia.adventuregrid.technical.jmegamestates;
 import com.jme3.app.Application;
 import com.jme3.app.state.AppStateManager;
 import com.jme3.bullet.BulletAppState;
-import com.jme3.bullet.collision.shapes.CapsuleCollisionShape;
-import com.jme3.bullet.control.CharacterControl;
+import com.jme3.bullet.control.BetterCharacterControl;
 import com.jme3.math.ColorRGBA;
-import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
 import com.jme3.scene.Node;
 import de.lessvoid.nifty.Nifty;
@@ -21,7 +19,7 @@ public class MainGameState extends AdventureGridGameState {
     //<editor-fold defaultstate="collapsed" desc="Fields">
     
     private BulletAppState bulletAppState;  
-    private CharacterControl player;
+    private PlayerCharacterControl playerCharacterControl;
     private Camera camera;
     
     //</editor-fold>
@@ -34,26 +32,21 @@ public class MainGameState extends AdventureGridGameState {
         NiftyGuiScreens.gotoScreen(GuiScreens.MAIN_GAME);
         flyCam.setEnabled(true);
         flyCam.setDragToRotate(false);
-        flyCam.setMoveSpeed(12);
         camera = app.getCamera();
-        camera.setFrustumNear(camera.getFrustumNear() / 2.f);
+        camera.setFrustumPerspective(45f, (float) camera.getWidth() / camera.getHeight(), 0.125f, 1000f);
         mainGameState.getViewPort().setBackgroundColor(new ColorRGBA(0.56f, 0.853f, 1.f, 1.0f));
         
         Node chunksRootNode = TechnicalsFactory.getInstance().getChunkRendererInstance().getRootNode();
-        mainGameState.getRootNode().attachChild(chunksRootNode);   
+        mainGameState.getRootNode().attachChild(chunksRootNode);     
         
-        CapsuleCollisionShape playerCollisionShape = new CapsuleCollisionShape(0.25f, 1.f);
-        player = new CharacterControl(playerCollisionShape, 0.05f);      
+        playerCharacterControl = new PlayerCharacterControl();
         
         bulletAppState = new BulletAppState();
         stateManager.attach(bulletAppState);
-        bulletAppState.getPhysicsSpace().addAll(chunksRootNode);
-        bulletAppState.getPhysicsSpace().add(player);
+        bulletAppState.getPhysicsSpace().addAll(chunksRootNode);     
         
-        player.setJumpSpeed(20);
-        player.setFallSpeed(30);
-        player.setGravity(new Vector3f(0,-30f,0));
-        player.setPhysicsLocation(new Vector3f(16.f, 66.f, 16.f));        
+        playerCharacterControl.placeOnScene(bulletAppState);
+        playerCharacterControl.bindControlToKeys(app.getInputManager());
     }
     
     //</editor-fold>    
@@ -70,11 +63,12 @@ public class MainGameState extends AdventureGridGameState {
     public void stateDetached(AppStateManager stateManager) {
         mainGameState.getRootNode().detachAllChildren();
         stateManager.detach(bulletAppState);
+        playerCharacterControl.unbindKeys(mainGameState.getInputManager());
     }
     
     @Override
     public void update(float tpf) {
-        camera.setLocation(player.getPhysicsLocation());
+        playerCharacterControl.update(camera);
     }   
     
     //</editor-fold>
