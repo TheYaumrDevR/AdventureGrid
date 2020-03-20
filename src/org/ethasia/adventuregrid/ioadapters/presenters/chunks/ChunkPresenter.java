@@ -55,15 +55,15 @@ public class ChunkPresenter {
     private void fillRenderDataForOneChunk(Island island, int chunkPositionXInIsland, int chunkPositionYInIsland) {
         int amountOfVerticesAdded = 0;
         
-        for (int x = CHUNK_EDGE_LENGTH_IN_BLOCKS * chunkPositionXInIsland; x < CHUNK_EDGE_LENGTH_IN_BLOCKS * (chunkPositionXInIsland + 1); x++) {
-            for (int z = CHUNK_EDGE_LENGTH_IN_BLOCKS * chunkPositionYInIsland; z < CHUNK_EDGE_LENGTH_IN_BLOCKS * (chunkPositionYInIsland + 1); z++) {
-                for (int y = 0; y < Island.HEIGHT_IN_BLOCKS; y++) {
-                    if (x < island.getXzDimension() && z < island.getXzDimension()) {
-                        if (island.getBlockAt(x, y, z).getBlockType() != BlockTypes.AIR) {                                    
-                            int inChunkX = x - CHUNK_EDGE_LENGTH_IN_BLOCKS * chunkPositionXInIsland;
-                            int inChunkZ = z - CHUNK_EDGE_LENGTH_IN_BLOCKS * chunkPositionYInIsland;
+        for (int islandX = CHUNK_EDGE_LENGTH_IN_BLOCKS * chunkPositionXInIsland; islandX < CHUNK_EDGE_LENGTH_IN_BLOCKS * (chunkPositionXInIsland + 1); islandX++) {
+            for (int islandZ = CHUNK_EDGE_LENGTH_IN_BLOCKS * chunkPositionYInIsland; islandZ < CHUNK_EDGE_LENGTH_IN_BLOCKS * (chunkPositionYInIsland + 1); islandZ++) {
+                for (int islandY = 0; islandY < Island.HEIGHT_IN_BLOCKS; islandY++) {
+                    if (islandX < island.getXzDimension() && islandZ < island.getXzDimension()) {
+                        if (island.getBlockAt(islandX, islandY, islandZ).getBlockType() != BlockTypes.AIR) {                                    
+                            int inChunkX = islandX - CHUNK_EDGE_LENGTH_IN_BLOCKS * chunkPositionXInIsland;
+                            int inChunkZ = islandZ - CHUNK_EDGE_LENGTH_IN_BLOCKS * chunkPositionYInIsland;
                                     
-                            BlockVisualsBuilder blockVisualsBuilder = buildBlockVisualsFromBlock(island, x, y, z, inChunkX, inChunkZ, amountOfVerticesAdded);
+                            BlockVisualsBuilder blockVisualsBuilder = buildBlockVisualsFromBlock(island, islandX, islandY, islandZ, inChunkX, inChunkZ, amountOfVerticesAdded);
                                     
                             if (blockVisualsBuilder.getShapeVertices().length > 0) {
                                 fillBuffersWithVisualRenderData(blockVisualsBuilder);
