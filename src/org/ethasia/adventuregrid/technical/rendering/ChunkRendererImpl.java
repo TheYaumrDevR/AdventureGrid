@@ -2,6 +2,9 @@ package org.ethasia.adventuregrid.technical.rendering;
 
 import com.jme3.asset.AssetManager;
 import com.jme3.asset.TextureKey;
+import com.jme3.bullet.collision.shapes.CollisionShape;
+import com.jme3.bullet.control.RigidBodyControl;
+import com.jme3.bullet.util.CollisionShapeFactory;
 import com.jme3.material.Material;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
@@ -44,6 +47,7 @@ public class ChunkRendererImpl implements ChunkRenderer {
             rootNode.attachChild(chunkGeometry);
         } else {
             Geometry chunkGeometry = createChunkGeometry(chunkData);
+            addCollisionShapeToChunk(chunkGeometry);
             rootNode.attachChild(chunkGeometry);
         }        
     }
@@ -86,7 +90,13 @@ public class ChunkRendererImpl implements ChunkRenderer {
         geometry.setLocalTranslation(chunkData.getWorldX() * StandardIslandPresenter.CHUNK_EDGE_LENGTH_IN_BLOCKS * 0.5f, 0, chunkData.getWorldY() * StandardIslandPresenter.CHUNK_EDGE_LENGTH_IN_BLOCKS * 0.5f);
         
         return geometry;
-    }     
+    }   
+    
+    private void addCollisionShapeToChunk(Geometry chunkGeometry) {
+        CollisionShape chunkCollisionShape = CollisionShapeFactory.createMeshShape(chunkGeometry);
+        RigidBodyControl chunkRigidBody = new RigidBodyControl(chunkCollisionShape, 0);
+        chunkGeometry.addControl(chunkRigidBody);
+    }
     
     private String getUniqueChunkName(VisualChunkData chunkData) {
         int chunkPositionX = chunkData.getWorldX();
