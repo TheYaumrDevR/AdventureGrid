@@ -3,6 +3,7 @@ package org.ethasia.adventuregrid.technical.jmegamestates;
 import com.jme3.app.Application;
 import com.jme3.app.state.AppStateManager;
 import com.jme3.math.ColorRGBA;
+import com.jme3.math.Vector3f;
 import com.jme3.scene.Node;
 import de.lessvoid.nifty.Nifty;
 import de.lessvoid.nifty.screen.Screen;
@@ -22,6 +23,7 @@ public class MainGameState extends AdventureGridGameState {
         flyCam.setEnabled(true);
         flyCam.setDragToRotate(false);
         flyCam.setMoveSpeed(12);
+        app.getCamera().setLocation(new Vector3f(16.f, 66.f, 16.f));
         mainGameState.getViewPort().setBackgroundColor(new ColorRGBA(0.56f, 0.853f, 1.f, 1.0f));
         
         Node chunksRootNode = TechnicalsFactory.getInstance().getChunkRendererInstance().getRootNode();
