@@ -8,7 +8,7 @@ import org.ethasia.adventuregrid.interactors.IoAdaptersFactoryForInteractors;
 import org.ethasia.adventuregrid.ioadapters.presenters.RealIoAdaptersFactoryForInteractors;
 import org.ethasia.adventuregrid.ioadapters.presenters.TechnicalsFactory;
 import org.ethasia.adventuregrid.technical.RealTechnicalsFactory;
-import org.ethasia.adventuregrid.technical.jmegamestates.AdventureGridGameState;
+import org.ethasia.adventuregrid.technical.jme.gamestates.AdventureGridGameState;
 import org.ethasia.adventuregrid.technical.niftygui.NiftyGuiScreens;
 
 public class Dependencies {

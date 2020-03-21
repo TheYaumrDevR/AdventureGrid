@@ -1,9 +1,8 @@
-package org.ethasia.adventuregrid.technical.jmegamestates;
+package org.ethasia.adventuregrid.technical.jme.gamestates;
 
 import com.jme3.app.Application;
 import com.jme3.app.state.AppStateManager;
 import com.jme3.bullet.BulletAppState;
-import com.jme3.bullet.control.BetterCharacterControl;
 import com.jme3.math.ColorRGBA;
 import com.jme3.renderer.Camera;
 import com.jme3.scene.Node;

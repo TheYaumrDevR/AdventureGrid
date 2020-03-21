@@ -4,7 +4,7 @@
     <useStyles filename="Interface/Views/Definitions/StyleDefinitions.xml" />
     <useControls filename="nifty-default-controls.xml" />  
     
-    <screen id="start" controller="org.ethasia.adventuregrid.technical.jmegamestates.StartGameState">
+    <screen id="start" controller="org.ethasia.adventuregrid.technical.jme.gamestates.StartGameState">
         <layer id="backGroundLayer" childLayout="center" backgroundImage="Interface/Views/Images/MainMenuBg.png">
             <panel width="50%" height="85%" align="center" valign="center" childLayout="vertical">
                 <control name="label" height="80" text="Adventure Grid" color="#ffffff" font="Interface/Fonts/StartMenuHeader.fnt"/>

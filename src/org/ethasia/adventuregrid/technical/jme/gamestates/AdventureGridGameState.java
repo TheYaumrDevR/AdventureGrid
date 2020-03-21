@@ -1,4 +1,4 @@
-package org.ethasia.adventuregrid.technical.jmegamestates;
+package org.ethasia.adventuregrid.technical.jme.gamestates;
 
 import com.jme3.app.Application;
 import com.jme3.app.SimpleApplication;

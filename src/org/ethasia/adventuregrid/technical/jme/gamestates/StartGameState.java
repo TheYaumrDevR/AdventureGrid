@@ -1,5 +1,7 @@
-package org.ethasia.adventuregrid.technical.jmegamestates;
+package org.ethasia.adventuregrid.technical.jme.gamestates;
 
+import org.ethasia.adventuregrid.technical.jme.gamestates.MainGameState;
+import org.ethasia.adventuregrid.technical.jme.gamestates.AdventureGridGameState;
 import com.jme3.app.Application;
 import com.jme3.app.state.AppStateManager;
 import de.lessvoid.nifty.Nifty;
