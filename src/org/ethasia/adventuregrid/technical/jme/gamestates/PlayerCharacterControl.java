@@ -76,7 +76,7 @@ public class PlayerCharacterControl implements ActionListener {
     }
     
     public void update(Camera camera) {
-        camDir.set(camera.getDirection()).multLocal(0.028125f);
+        camDir.set(camera.getLeft()).crossLocal(Vector3f.UNIT_Y).multLocal(0.0421875f);
         camLeft.set(camera.getLeft()).multLocal(0.028125f);
         walkDirection.set(0, 0, 0);
         

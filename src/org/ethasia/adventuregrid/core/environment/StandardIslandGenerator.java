@@ -28,8 +28,8 @@ public class StandardIslandGenerator implements IslandGenerator {
     //<editor-fold defaultstate="collapsed" desc="Helper Methods">
     
     private void fillLayersFromToWithBlock(int from, int to, Block block) {
-        for (int i = 0; i < 64; i++) {
-            for (int j = 0; j < 64; j++) {
+        for (int i = 0; i < result.getXzDimension(); i++) {
+            for (int j = 0; j < result.getXzDimension(); j++) {
                 for (int k = from; k < to; k++) {
                     result.placeBlockAt(block, i, k, j);
                 }
