@@ -4,6 +4,8 @@
     <useControls filename="nifty-default-controls.xml" /> 
     
     <screen id="mainGame" controller="org.ethasia.adventuregrid.technical.jme.gamestates.MainGameState">
-        
+	<layer id="#crosshairLayer" backgroundColor="#00000000" childLayout="center">
+            <image filename="Interface/HUD/Crosshair.png" align="center" valign="center" />
+	</layer>        
     </screen>        
 </nifty>
