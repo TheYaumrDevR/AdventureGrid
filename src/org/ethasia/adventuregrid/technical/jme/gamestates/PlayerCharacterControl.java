@@ -9,11 +9,13 @@ import com.jme3.input.controls.ActionListener;
 import com.jme3.input.controls.KeyTrigger;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
+import org.ethasia.adventuregrid.technical.jme.connectors.SoundEffectsImpl;
 
 public class PlayerCharacterControl implements ActionListener {
     
     //<editor-fold defaultstate="collapsed" desc="Fields">
     
+    private final SoundEffectsImpl soundEffects;
     private final CharacterControl player;   
     
     private final Vector3f walkDirection;
@@ -36,6 +38,7 @@ public class PlayerCharacterControl implements ActionListener {
         walkDirection = new Vector3f();
         camDir = new Vector3f();
         camLeft = new Vector3f();
+        soundEffects = new SoundEffectsImpl();
     }
     
     //</editor-fold>
@@ -82,15 +85,19 @@ public class PlayerCharacterControl implements ActionListener {
         
         if (moveLeft) {
             walkDirection.addLocal(camLeft);
+            soundEffects.playWalkOnRockSoundEffect();
         }
         if (moveRight) {
             walkDirection.addLocal(camLeft.negate());
+            soundEffects.playWalkOnRockSoundEffect();
         }
         if (moveUp) {
             walkDirection.addLocal(camDir);
+            soundEffects.playWalkOnRockSoundEffect();
         }
         if (moveDown) {
             walkDirection.addLocal(camDir.negate());
+            soundEffects.playWalkOnRockSoundEffect();
         }        
         
         player.setWalkDirection(walkDirection);

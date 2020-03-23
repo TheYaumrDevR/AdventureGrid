@@ -8,6 +8,7 @@ import org.ethasia.adventuregrid.interactors.IoAdaptersFactoryForInteractors;
 import org.ethasia.adventuregrid.ioadapters.presenters.RealIoAdaptersFactoryForInteractors;
 import org.ethasia.adventuregrid.ioadapters.presenters.TechnicalsFactory;
 import org.ethasia.adventuregrid.technical.RealTechnicalsFactory;
+import org.ethasia.adventuregrid.technical.jme.connectors.SoundEffectsImpl;
 import org.ethasia.adventuregrid.technical.jme.gamestates.AdventureGridGameState;
 import org.ethasia.adventuregrid.technical.niftygui.NiftyGuiScreens;
 
@@ -41,6 +42,7 @@ public class Dependencies {
     }
     
     private static void injectTechnicalDependencies(AssetManager assetManager) {
+        SoundEffectsImpl.setAssetManager(assetManager);
         TechnicalsFactory.setInstance(new RealTechnicalsFactory(assetManager));
     }    
     
