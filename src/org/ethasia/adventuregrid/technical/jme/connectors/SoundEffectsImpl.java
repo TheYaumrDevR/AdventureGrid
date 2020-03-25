@@ -44,11 +44,13 @@ public class SoundEffectsImpl {
     //<editor-fold defaultstate="collapsed" desc="Helper Methods">
     
     private void initAudioNodes() {
-        walkOnRockSound = new AudioNode(assetManager, "Sounds/FootStepsRock.wav", AudioData.DataType.Buffer);
+        walkOnRockSound = null;
         
-        walkOnRockSound.setPositional(false);
-        walkOnRockSound.setReverbEnabled(false);
-        walkOnRockSound.setLooping(false);   
+        if (null != walkOnRockSound) {
+            walkOnRockSound.setPositional(false);
+            walkOnRockSound.setReverbEnabled(false);
+            walkOnRockSound.setLooping(false);             
+        }  
     }
     
     //</editor-fold>    
