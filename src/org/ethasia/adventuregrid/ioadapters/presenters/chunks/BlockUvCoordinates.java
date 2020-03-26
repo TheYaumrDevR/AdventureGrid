@@ -14,6 +14,8 @@ public abstract class BlockUvCoordinates {
                 return EarthBlockUvCoordinates.getInstance();
             case ROCK:
                 return RockBlockUvCoordinates.getInstance(); 
+            case PORTAL:
+                return PortalBlockUvCoordinates.getInstance();
             default:
                 throw new UnsupportedOperationException("UV coordinates for block type " + blockType + " not found. Please add them.");
         }

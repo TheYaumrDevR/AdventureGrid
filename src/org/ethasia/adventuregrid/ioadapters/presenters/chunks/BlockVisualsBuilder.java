@@ -21,6 +21,8 @@ public abstract class BlockVisualsBuilder {
                 return standardBlockVisualsBuilder;
             case ROCK:
                 return standardBlockVisualsBuilder;
+            case PORTAL:
+                return standardBlockVisualsBuilder;
         }
         
         throw new RuntimeException("BlockVisualsBuilder#fromBlockType does not return an instance for block type: " + blockType);

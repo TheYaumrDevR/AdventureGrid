@@ -5,5 +5,6 @@ public enum BlockTypes {
     AIR,
     GRASSY_EARTH,
     EARTH,
-    ROCK
+    ROCK,
+    PORTAL
 }
