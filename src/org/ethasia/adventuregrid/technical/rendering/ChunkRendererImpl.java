@@ -6,6 +6,7 @@ import com.jme3.bullet.collision.shapes.CollisionShape;
 import com.jme3.bullet.control.RigidBodyControl;
 import com.jme3.bullet.util.CollisionShapeFactory;
 import com.jme3.material.Material;
+import com.jme3.material.RenderState;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 import com.jme3.texture.Texture;
@@ -83,8 +84,9 @@ public class ChunkRendererImpl implements ChunkRenderer {
         
         Geometry geometry = new Geometry(uniqueChunkName, chunkMesh);
         Material material = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md"); 
+        material.getAdditionalRenderState().setBlendMode(RenderState.BlendMode.Alpha);
         material.setTexture("ColorMap", blockTextureAtlas);
-        material.setFloat("AlphaDiscardThreshold", 0.9961f);
+        material.setFloat("AlphaDiscardThreshold", 0.00961f);
         geometry.setMaterial(material);
         
         geometry.setLocalTranslation(chunkData.getWorldX() * StandardIslandPresenter.CHUNK_EDGE_LENGTH_IN_BLOCKS * 0.5f, 0, chunkData.getWorldY() * StandardIslandPresenter.CHUNK_EDGE_LENGTH_IN_BLOCKS * 0.5f);

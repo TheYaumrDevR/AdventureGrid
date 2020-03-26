@@ -19,6 +19,7 @@ public class StandardIslandGenerator implements IslandGenerator {
         fillLayersFromToWithBlock(0, 126, RockBlock.getInstance());
         fillLayersFromToWithBlock(126, 127, EarthBlock.getInstance());
         fillLayersFromToWithBlock(127, 128, GrassyEarthBlock.getInstance());
+        addPortals();
         
         return result;
     }
@@ -35,6 +36,30 @@ public class StandardIslandGenerator implements IslandGenerator {
                 }
             }
         }         
+    }
+    
+    private void addPortals() {
+        Block blockToPlace = PortalBlock.getInstance();
+        
+        result.placeBlockAt(blockToPlace, 31, 128, 2);
+        result.placeBlockAt(blockToPlace, 31, 129, 2);
+        result.placeBlockAt(blockToPlace, 32, 128, 2);
+        result.placeBlockAt(blockToPlace, 32, 129, 2);
+        
+        result.placeBlockAt(blockToPlace, 2, 128, 31);
+        result.placeBlockAt(blockToPlace, 2, 129, 31);
+        result.placeBlockAt(blockToPlace, 2, 128, 32);
+        result.placeBlockAt(blockToPlace, 2, 129, 32);  
+        
+        result.placeBlockAt(blockToPlace, 31, 128, 61);
+        result.placeBlockAt(blockToPlace, 31, 129, 61);
+        result.placeBlockAt(blockToPlace, 32, 128, 61);
+        result.placeBlockAt(blockToPlace, 32, 129, 61);       
+        
+        result.placeBlockAt(blockToPlace, 61, 128, 31);
+        result.placeBlockAt(blockToPlace, 61, 129, 31);
+        result.placeBlockAt(blockToPlace, 61, 128, 32);
+        result.placeBlockAt(blockToPlace, 61, 129, 32);        
     }
     
     //</editor-fold>
