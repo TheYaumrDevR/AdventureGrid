@@ -44,7 +44,7 @@ public class SoundEffectsImpl {
     //<editor-fold defaultstate="collapsed" desc="Helper Methods">
     
     private void initAudioNodes() {
-        walkOnRockSound = null;
+        walkOnRockSound = new AudioNode(assetManager, "Sounds/FootStepsGrass.wav", AudioData.DataType.Buffer);
         
         if (null != walkOnRockSound) {
             walkOnRockSound.setPositional(false);
