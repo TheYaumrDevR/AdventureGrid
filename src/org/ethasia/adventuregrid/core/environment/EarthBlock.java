@@ -6,6 +6,7 @@ public class EarthBlock extends Block {
     
     private EarthBlock() {
         super(BlockTypes.EARTH);
+        faceHidingStrategy = new SolidBlockFaceHidingStrategy();
     }
     
     //</editor-fold>

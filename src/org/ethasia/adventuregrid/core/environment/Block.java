@@ -5,6 +5,7 @@ public abstract class Block {
     //<editor-fold defaultstate="collapsed" desc="Fields">
     
     protected final BlockTypes blockType;
+    protected BlockFaceHidingStrategy faceHidingStrategy;
     
     //</editor-fold>
  
@@ -12,6 +13,10 @@ public abstract class Block {
     
     public BlockTypes getBlockType() {
         return blockType;
+    }
+    
+    public BlockFaceHidingStrategy getFaceHidingStrategy() {
+        return faceHidingStrategy;
     }
     
     //</editor-fold>    

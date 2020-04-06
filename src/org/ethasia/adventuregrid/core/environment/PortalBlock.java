@@ -6,6 +6,7 @@ public class PortalBlock extends Block {
     
     public PortalBlock() {
         super(BlockTypes.PORTAL);
+        faceHidingStrategy = new TransparentBlockFaceHidingStrategy();
     }
     
     //</editor-fold>

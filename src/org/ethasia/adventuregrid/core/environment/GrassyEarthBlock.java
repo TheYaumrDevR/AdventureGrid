@@ -6,6 +6,7 @@ public class GrassyEarthBlock extends Block {
     
     private GrassyEarthBlock() {
         super(BlockTypes.GRASSY_EARTH);
+        faceHidingStrategy = new SolidBlockFaceHidingStrategy();
     }
     
     //</editor-fold>

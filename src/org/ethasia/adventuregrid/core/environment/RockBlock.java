@@ -7,6 +7,7 @@ public class RockBlock extends Block {
     
     private RockBlock() {
         super(BlockTypes.ROCK);
+        faceHidingStrategy = new SolidBlockFaceHidingStrategy();
     }
     
     //</editor-fold>
