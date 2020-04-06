@@ -6,6 +6,7 @@ public class AirBlock extends Block {
     
     private AirBlock() {
         super(BlockTypes.AIR);
+        faceHidingStrategy = new SolidBlockFaceHidingStrategy();
     }
     
     //</editor-fold>

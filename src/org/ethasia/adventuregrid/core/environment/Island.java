@@ -77,55 +77,55 @@ public class Island {
         switch (faceType) {
             case LEFT:
                 if (x > 0) {
-                    boolean currentBlockFaceIsCovering = blocks[x][y][z].getLeftFaceIsCovering();
-                    boolean neighborBlockFaceIsCovering = blocks[x - 1][y][z].getRightFaceIsCovering();              
+                    Block currentBlock = blocks[x][y][z];
+                    Block neighborBlock = blocks[x - 1][y][z];              
         
-                    return currentBlockFaceIsCovering && neighborBlockFaceIsCovering;              
+                    return currentBlock.getFaceHidingStrategy().faceIsHidden(currentBlock, neighborBlock, faceType);
                 }    
                 
                 break;
             case FRONT:
                 if (z < xzDimension - 1) {
-                    boolean currentBlockFaceIsCovering = blocks[x][y][z].getFrontFaceIsCovering();
-                    boolean neighborBlockFaceIsCovering = blocks[x][y][z + 1].getBackFaceIsCovering();
+                    Block currentBlock = blocks[x][y][z];
+                    Block neighborBlock = blocks[x][y][z + 1];
                 
-                    return currentBlockFaceIsCovering && neighborBlockFaceIsCovering;                    
+                    return currentBlock.getFaceHidingStrategy().faceIsHidden(currentBlock, neighborBlock, faceType);                   
                 }
                 
                 break;
             case RIGHT:
                 if (x < xzDimension - 1) {
-                    boolean currentBlockFaceIsCovering = blocks[x][y][z].getRightFaceIsCovering();
-                    boolean neighborBlockFaceIsCovering = blocks[x + 1][y][z].getLeftFaceIsCovering();
+                    Block currentBlock = blocks[x][y][z];
+                    Block neighborBlock = blocks[x + 1][y][z];
                 
-                    return currentBlockFaceIsCovering && neighborBlockFaceIsCovering;                     
+                    return currentBlock.getFaceHidingStrategy().faceIsHidden(currentBlock, neighborBlock, faceType);                   
                 }
                 
                 break;
             case BACK:
                 if (z > 0) {
-                    boolean currentBlockFaceIsCovering = blocks[x][y][z].getBackFaceIsCovering();
-                    boolean neighborBlockFaceIsCovering = blocks[x][y][z - 1].getFrontFaceIsCovering();
+                    Block currentBlock = blocks[x][y][z];
+                    Block neighborBlock = blocks[x][y][z - 1];
                 
-                    return currentBlockFaceIsCovering && neighborBlockFaceIsCovering;      
+                    return currentBlock.getFaceHidingStrategy().faceIsHidden(currentBlock, neighborBlock, faceType);     
                 }
                 
                 break;
             case BOTTOM:
                 if (y > 0) {
-                    boolean currentBlockFaceIsCovering = blocks[x][y][z].getBottomFaceIsCovering();
-                    boolean neighborBlockFaceIsCovering = blocks[x][y - 1][z].getTopFaceIsCovering();
+                    Block currentBlock = blocks[x][y][z];
+                    Block neighborBlock = blocks[x][y - 1][z];
                 
-                    return currentBlockFaceIsCovering && neighborBlockFaceIsCovering;                      
+                    return currentBlock.getFaceHidingStrategy().faceIsHidden(currentBlock, neighborBlock, faceType);                    
                 }
                 
                 break;
             case TOP:                
                 if (y < HEIGHT_IN_BLOCKS - 1) {
-                    boolean currentBlockFaceIsCovering = blocks[x][y][z].getTopFaceIsCovering();
-                    boolean neighborBlockFaceIsCovering = blocks[x][y + 1][z].getBottomFaceIsCovering();
+                    Block currentBlock = blocks[x][y][z];
+                    Block neighborBlock = blocks[x][y + 1][z];
                     
-                    return currentBlockFaceIsCovering && neighborBlockFaceIsCovering;                     
+                    return currentBlock.getFaceHidingStrategy().faceIsHidden(currentBlock, neighborBlock, faceType);                    
                 }
                    
                 break;
