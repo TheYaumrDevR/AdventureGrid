@@ -1,6 +1,6 @@
 package org.ethasia.adventuregrid.core.environment;
 
-public class SolidBlockFaceCoveringStrategy implements BlockFaceCoveringStrategy {
+public class SolidBlockFaceHidingStrategy implements BlockFaceHidingStrategy {
     
     //<editor-fold defaultstate="collapsed" desc="Methods">
     

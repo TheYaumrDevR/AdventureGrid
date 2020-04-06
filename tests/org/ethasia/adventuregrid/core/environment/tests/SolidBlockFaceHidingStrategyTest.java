@@ -5,18 +5,18 @@ import org.ethasia.adventuregrid.core.environment.Block;
 import org.ethasia.adventuregrid.core.environment.BlockFaceDirections;
 import org.ethasia.adventuregrid.core.environment.EarthBlock;
 import org.ethasia.adventuregrid.core.environment.RockBlock;
-import org.ethasia.adventuregrid.core.environment.SolidBlockFaceCoveringStrategy;
+import org.ethasia.adventuregrid.core.environment.SolidBlockFaceHidingStrategy;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
 import org.junit.Test;
 
-public class SolidBlockFaceCoveringStrategyTest {
+public class SolidBlockFaceHidingStrategyTest {
     
     @Test
     public void testFaceIsHidden_leftFaceIsCovered_returnsTrue() {
-        SolidBlockFaceCoveringStrategy testCandidate = new SolidBlockFaceCoveringStrategy();
+        SolidBlockFaceHidingStrategy testCandidate = new SolidBlockFaceHidingStrategy();
         
         Block coveredBlock = RockBlock.getInstance();
         Block coveringBlock = EarthBlock.getInstance();
@@ -28,7 +28,7 @@ public class SolidBlockFaceCoveringStrategyTest {
     
     @Test
     public void testFaceIsHidden_leftFaceIsNotCovered_returnsFalse() {
-        SolidBlockFaceCoveringStrategy testCandidate = new SolidBlockFaceCoveringStrategy();
+        SolidBlockFaceHidingStrategy testCandidate = new SolidBlockFaceHidingStrategy();
         
         Block coveredBlock = RockBlock.getInstance();
         Block coveringBlock = AirBlock.getInstance();
@@ -40,7 +40,7 @@ public class SolidBlockFaceCoveringStrategyTest {
     
     @Test
     public void testFaceIsHidden_leftFaceIsNotCovering_returnsFalse() {
-        SolidBlockFaceCoveringStrategy testCandidate = new SolidBlockFaceCoveringStrategy();
+        SolidBlockFaceHidingStrategy testCandidate = new SolidBlockFaceHidingStrategy();
         
         Block coveredBlock = AirBlock.getInstance();
         Block coveringBlock = EarthBlock.getInstance();
