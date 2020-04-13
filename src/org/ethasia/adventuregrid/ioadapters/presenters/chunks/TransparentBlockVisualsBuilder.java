@@ -37,6 +37,7 @@ public class TransparentBlockVisualsBuilder {
     
     private Block blockToRender;
     private int chunkPosX, chunkPosY, chunkPosZ;
+    private int renderIndexOffsetInChunk;
     
     private boolean frontFaceOfBlockIsCovered;
     private boolean rightFaceOfBlockIsCovered;
@@ -46,6 +47,7 @@ public class TransparentBlockVisualsBuilder {
     private boolean topFaceOfBlockIsCovered;
     
     private float[] vertexBuffer;
+    private int[] indexBuffer;
     
     //</editor-fold>
     
@@ -72,7 +74,13 @@ public class TransparentBlockVisualsBuilder {
     public TransparentBlockVisualsBuilder setChunkPositionZ(int value) {
         chunkPosZ = value;
         return this;
-    }   
+    }
+    
+    // @Override
+    public TransparentBlockVisualsBuilder setRenderIndexInChunk(int value) {
+        renderIndexOffsetInChunk = value;
+        return this;
+    }     
     
     // @Override
     public TransparentBlockVisualsBuilder setFrontFaceOfBlockIsCovered(boolean value) {
@@ -113,13 +121,19 @@ public class TransparentBlockVisualsBuilder {
     public void build() {
         if (null == blockToRender) {
             vertexBuffer = new float[0];
+            indexBuffer = new int[0];
         } else {
             buildVertexBuffer();
+            buildIndexBuffer();
         }
     }
     
     public float[] getShapeVertices() {
         return vertexBuffer;
+    }
+    
+    public int[] getShapeIndices() {
+        return indexBuffer;
     }
     
     //</editor-fold>
@@ -130,6 +144,60 @@ public class TransparentBlockVisualsBuilder {
         translateVertices();
         fillVertexBuffer();
     }    
+    
+    private void buildIndexBuffer() {
+        int amountOfUnCoveredFaces = 6;
+        indexBuffer = new int[6 * amountOfUnCoveredFaces * 2];
+        
+        int faceOffset = 0;
+        int currentBufferIndex = 0;        
+        
+        addNextFaceIndicesToBuffer(currentBufferIndex, faceOffset);
+        currentBufferIndex += 6;
+        faceOffset += 4; 
+        
+        addNextFaceIndicesToBuffer(currentBufferIndex, faceOffset);
+        currentBufferIndex += 6;
+        faceOffset += 4;
+
+        addNextFaceIndicesToBuffer(currentBufferIndex, faceOffset);
+        currentBufferIndex += 6;
+        faceOffset += 4;
+
+        addNextFaceIndicesToBuffer(currentBufferIndex, faceOffset);
+        currentBufferIndex += 6;
+        faceOffset += 4;
+
+        addNextFaceIndicesToBuffer(currentBufferIndex, faceOffset);
+        currentBufferIndex += 6;
+        faceOffset += 4;
+
+        addNextFaceIndicesToBuffer(currentBufferIndex, faceOffset);
+        currentBufferIndex += 6;
+        faceOffset += 4;
+
+        addNextFaceIndicesToBuffer(currentBufferIndex, faceOffset);
+        currentBufferIndex += 6;
+        faceOffset += 4;
+
+        addNextFaceIndicesToBuffer(currentBufferIndex, faceOffset);
+        currentBufferIndex += 6;
+        faceOffset += 4;
+
+        addNextFaceIndicesToBuffer(currentBufferIndex, faceOffset);
+        currentBufferIndex += 6;
+        faceOffset += 4;
+
+        addNextFaceIndicesToBuffer(currentBufferIndex, faceOffset);
+        currentBufferIndex += 6;
+        faceOffset += 4;
+
+        addNextFaceIndicesToBuffer(currentBufferIndex, faceOffset);
+        currentBufferIndex += 6;
+        faceOffset += 4;
+
+        addNextFaceIndicesToBuffer(currentBufferIndex, faceOffset);       
+    }
     
     private void translateVertices() {
         Vector3 cubeCenter = new Vector3(0.25f + 0.5f * chunkPosX, 
@@ -454,6 +522,15 @@ public class TransparentBlockVisualsBuilder {
         vertexBuffer[currentBufferPosition + 9] = BV[2].getBufferedResultX();
         vertexBuffer[currentBufferPosition + 10] = BV[2].getBufferedResultY();
         vertexBuffer[currentBufferPosition + 11] = BV[2].getBufferedResultZ();            
+    } 
+    
+    private void addNextFaceIndicesToBuffer(int currentBufferIndex, int faceOffset) {
+        indexBuffer[currentBufferIndex] = 0 + faceOffset + renderIndexOffsetInChunk;
+        indexBuffer[currentBufferIndex + 1] = 1 + faceOffset + renderIndexOffsetInChunk;
+        indexBuffer[currentBufferIndex + 2] = 2 + faceOffset + renderIndexOffsetInChunk;
+        indexBuffer[currentBufferIndex + 3] = 2 + faceOffset + renderIndexOffsetInChunk;
+        indexBuffer[currentBufferIndex + 4] = 3 + faceOffset + renderIndexOffsetInChunk;
+        indexBuffer[currentBufferIndex + 5] = 0 + faceOffset + renderIndexOffsetInChunk;         
     }    
     
     //</editor-fold>
