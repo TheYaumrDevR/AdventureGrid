@@ -1,6 +1,7 @@
 package org.ethasia.adventuregrid.ioadapters.presenters.chunks;
 
 import org.ethasia.adventuregrid.core.environment.Block;
+import org.ethasia.adventuregrid.core.environment.GrassyEarthBlock;
 import org.ethasia.adventuregrid.core.environment.PortalBlock;
 import org.ethasia.adventuregrid.core.environment.RockBlock;
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -79,6 +80,213 @@ public class TransparentBlockVisualsBuilderTest {
         
         assertThat(result.length, is(expected.length)); 
         assertFloatsAreEqual(result, expected);    
+    }  
+    
+    @Test
+    public void testGetShapeVertices_frontFaceIsHidden_frontFaceVerticesMissingInResult() {
+        float[] expected = {
+            9.0f, 2.0f, 6.5f, 9.0f, 2.5f, 6.5f, 9.0f, 2.5f, 6.0f, 9.0f, 2.0f, 6.0f,
+            9.0f, 2.0f, 6.0f, 9.0f, 2.5f, 6.0f, 8.5f, 2.5f, 6.0f, 8.5f, 2.0f, 6.0f,
+            8.5f, 2.0f, 6.0f, 8.5f, 2.5f, 6.0f, 8.5f, 2.5f, 6.5f, 8.5f, 2.0f, 6.5f,
+            8.5f, 2.0f, 6.0f, 8.5f, 2.0f, 6.5f, 9.0f, 2.0f, 6.5f, 9.0f, 2.0f, 6.0f,
+            8.5f, 2.5f, 6.5f, 8.5f, 2.5f, 6.0f, 9.0f, 2.5f, 6.0f, 9.0f, 2.5f, 6.5f,
+            9.0f, 2.0f, 6.0f, 9.0f, 2.5f, 6.0f, 9.0f, 2.5f, 6.5f, 9.0f, 2.0f, 6.5f,
+            8.5f, 2.0f, 6.0f, 8.5f, 2.5f, 6.0f, 9.0f, 2.5f, 6.0f, 9.0f, 2.0f, 6.0f,
+            8.5f, 2.0f, 6.5f, 8.5f, 2.5f, 6.5f, 8.5f, 2.5f, 6.0f, 8.5f, 2.0f, 6.0f,
+            9.0f, 2.0f, 6.0f, 9.0f, 2.0f, 6.5f, 8.5f, 2.0f, 6.5f, 8.5f, 2.0f, 6.0f,
+            9.0f, 2.5f, 6.5f, 9.0f, 2.5f, 6.0f, 8.5f, 2.5f, 6.0f, 8.5f, 2.5f, 6.5f
+        };       
+        
+        TransparentBlockVisualsBuilder testCandidate = new TransparentBlockVisualsBuilder();
+        Block testBlock = RockBlock.getInstance();
+
+        testCandidate.setBlockToCreateDataFrom(testBlock)
+            .setChunkPositionX(17)
+            .setChunkPositionY(4)
+            .setChunkPositionZ(12)
+            .setFrontFaceOfBlockIsCovered(true)
+            .build();    
+        
+        float[] result = testCandidate.getShapeVertices();
+        
+        assertThat(result.length, is(expected.length)); 
+        assertFloatsAreEqual(result, expected);            
+    }
+
+    @Test
+    public void testGetShapeVertices_rightFaceIsHidden_rightFaceVerticesMissingInResult() {
+        float[] expected = {
+            8.5f, 2.0f, 6.5f, 8.5f, 2.5f, 6.5f, 9.0f, 2.5f, 6.5f, 9.0f, 2.0f, 6.5f,
+            9.0f, 2.0f, 6.0f, 9.0f, 2.5f, 6.0f, 8.5f, 2.5f, 6.0f, 8.5f, 2.0f, 6.0f,
+            8.5f, 2.0f, 6.0f, 8.5f, 2.5f, 6.0f, 8.5f, 2.5f, 6.5f, 8.5f, 2.0f, 6.5f,
+            8.5f, 2.0f, 6.0f, 8.5f, 2.0f, 6.5f, 9.0f, 2.0f, 6.5f, 9.0f, 2.0f, 6.0f,
+            8.5f, 2.5f, 6.5f, 8.5f, 2.5f, 6.0f, 9.0f, 2.5f, 6.0f, 9.0f, 2.5f, 6.5f,
+            9.0f, 2.0f, 6.5f, 9.0f, 2.5f, 6.5f, 8.5f, 2.5f, 6.5f, 8.5f, 2.0f, 6.5f,
+            8.5f, 2.0f, 6.0f, 8.5f, 2.5f, 6.0f, 9.0f, 2.5f, 6.0f, 9.0f, 2.0f, 6.0f,
+            8.5f, 2.0f, 6.5f, 8.5f, 2.5f, 6.5f, 8.5f, 2.5f, 6.0f, 8.5f, 2.0f, 6.0f,
+            9.0f, 2.0f, 6.0f, 9.0f, 2.0f, 6.5f, 8.5f, 2.0f, 6.5f, 8.5f, 2.0f, 6.0f,
+            9.0f, 2.5f, 6.5f, 9.0f, 2.5f, 6.0f, 8.5f, 2.5f, 6.0f, 8.5f, 2.5f, 6.5f
+        };       
+        
+        TransparentBlockVisualsBuilder testCandidate = new TransparentBlockVisualsBuilder();
+        Block testBlock = RockBlock.getInstance();
+
+        testCandidate.setBlockToCreateDataFrom(testBlock)
+            .setChunkPositionX(17)
+            .setChunkPositionY(4)
+            .setChunkPositionZ(12)
+            .setRightFaceOfBlockIsCovered(true)
+            .build();    
+        
+        float[] result = testCandidate.getShapeVertices();
+        
+        assertThat(result.length, is(expected.length)); 
+        assertFloatsAreEqual(result, expected);           
+    }    
+    
+    @Test
+    public void testGetShapeVertices_backFaceIsHidden_backFaceVerticesMissingInResult() {
+        float[] expected = {
+            8.5f, 2.0f, 6.5f, 8.5f, 2.5f, 6.5f, 9.0f, 2.5f, 6.5f, 9.0f, 2.0f, 6.5f,
+            9.0f, 2.0f, 6.5f, 9.0f, 2.5f, 6.5f, 9.0f, 2.5f, 6.0f, 9.0f, 2.0f, 6.0f,
+            8.5f, 2.0f, 6.0f, 8.5f, 2.5f, 6.0f, 8.5f, 2.5f, 6.5f, 8.5f, 2.0f, 6.5f,
+            8.5f, 2.0f, 6.0f, 8.5f, 2.0f, 6.5f, 9.0f, 2.0f, 6.5f, 9.0f, 2.0f, 6.0f,
+            8.5f, 2.5f, 6.5f, 8.5f, 2.5f, 6.0f, 9.0f, 2.5f, 6.0f, 9.0f, 2.5f, 6.5f,
+            9.0f, 2.0f, 6.5f, 9.0f, 2.5f, 6.5f, 8.5f, 2.5f, 6.5f, 8.5f, 2.0f, 6.5f,
+            9.0f, 2.0f, 6.0f, 9.0f, 2.5f, 6.0f, 9.0f, 2.5f, 6.5f, 9.0f, 2.0f, 6.5f,
+            8.5f, 2.0f, 6.5f, 8.5f, 2.5f, 6.5f, 8.5f, 2.5f, 6.0f, 8.5f, 2.0f, 6.0f,
+            9.0f, 2.0f, 6.0f, 9.0f, 2.0f, 6.5f, 8.5f, 2.0f, 6.5f, 8.5f, 2.0f, 6.0f,
+            9.0f, 2.5f, 6.5f, 9.0f, 2.5f, 6.0f, 8.5f, 2.5f, 6.0f, 8.5f, 2.5f, 6.5f
+        };       
+        
+        TransparentBlockVisualsBuilder testCandidate = new TransparentBlockVisualsBuilder();
+        Block testBlock = RockBlock.getInstance();
+
+        testCandidate.setBlockToCreateDataFrom(testBlock)
+            .setChunkPositionX(17)
+            .setChunkPositionY(4)
+            .setChunkPositionZ(12)
+            .setBackFaceOfBlockIsCovered(true)
+            .build();    
+        
+        float[] result = testCandidate.getShapeVertices();
+        
+        assertThat(result.length, is(expected.length)); 
+        assertFloatsAreEqual(result, expected);           
+    } 
+    
+    @Test
+    public void testGetShapeVertices_leftFaceIsHidden_leftFaceVerticesMissingInResult() {
+        float[] expected = {
+            8.5f, 2.0f, 6.5f, 8.5f, 2.5f, 6.5f, 9.0f, 2.5f, 6.5f, 9.0f, 2.0f, 6.5f,
+            9.0f, 2.0f, 6.5f, 9.0f, 2.5f, 6.5f, 9.0f, 2.5f, 6.0f, 9.0f, 2.0f, 6.0f,
+            9.0f, 2.0f, 6.0f, 9.0f, 2.5f, 6.0f, 8.5f, 2.5f, 6.0f, 8.5f, 2.0f, 6.0f,
+            8.5f, 2.0f, 6.0f, 8.5f, 2.0f, 6.5f, 9.0f, 2.0f, 6.5f, 9.0f, 2.0f, 6.0f,
+            8.5f, 2.5f, 6.5f, 8.5f, 2.5f, 6.0f, 9.0f, 2.5f, 6.0f, 9.0f, 2.5f, 6.5f,
+            9.0f, 2.0f, 6.5f, 9.0f, 2.5f, 6.5f, 8.5f, 2.5f, 6.5f, 8.5f, 2.0f, 6.5f,
+            9.0f, 2.0f, 6.0f, 9.0f, 2.5f, 6.0f, 9.0f, 2.5f, 6.5f, 9.0f, 2.0f, 6.5f,
+            8.5f, 2.0f, 6.0f, 8.5f, 2.5f, 6.0f, 9.0f, 2.5f, 6.0f, 9.0f, 2.0f, 6.0f,
+            9.0f, 2.0f, 6.0f, 9.0f, 2.0f, 6.5f, 8.5f, 2.0f, 6.5f, 8.5f, 2.0f, 6.0f,
+            9.0f, 2.5f, 6.5f, 9.0f, 2.5f, 6.0f, 8.5f, 2.5f, 6.0f, 8.5f, 2.5f, 6.5f
+        };       
+        
+        TransparentBlockVisualsBuilder testCandidate = new TransparentBlockVisualsBuilder();
+        Block testBlock = RockBlock.getInstance();
+
+        testCandidate.setBlockToCreateDataFrom(testBlock)
+            .setChunkPositionX(17)
+            .setChunkPositionY(4)
+            .setChunkPositionZ(12)
+            .setLeftFaceOfBlockIsCovered(true)
+            .build();    
+        
+        float[] result = testCandidate.getShapeVertices();
+        
+        assertThat(result.length, is(expected.length)); 
+        assertFloatsAreEqual(result, expected);         
+    }
+
+    @Test
+    public void testGetShapeVertices_bottomFaceIsHidden_bottomFaceVerticesMissingInResult() {
+        float[] expected = {
+            8.5f, 2.0f, 6.5f, 8.5f, 2.5f, 6.5f, 9.0f, 2.5f, 6.5f, 9.0f, 2.0f, 6.5f,
+            9.0f, 2.0f, 6.5f, 9.0f, 2.5f, 6.5f, 9.0f, 2.5f, 6.0f, 9.0f, 2.0f, 6.0f,
+            9.0f, 2.0f, 6.0f, 9.0f, 2.5f, 6.0f, 8.5f, 2.5f, 6.0f, 8.5f, 2.0f, 6.0f,
+            8.5f, 2.0f, 6.0f, 8.5f, 2.5f, 6.0f, 8.5f, 2.5f, 6.5f, 8.5f, 2.0f, 6.5f,
+            8.5f, 2.5f, 6.5f, 8.5f, 2.5f, 6.0f, 9.0f, 2.5f, 6.0f, 9.0f, 2.5f, 6.5f,
+            9.0f, 2.0f, 6.5f, 9.0f, 2.5f, 6.5f, 8.5f, 2.5f, 6.5f, 8.5f, 2.0f, 6.5f,
+            9.0f, 2.0f, 6.0f, 9.0f, 2.5f, 6.0f, 9.0f, 2.5f, 6.5f, 9.0f, 2.0f, 6.5f,
+            8.5f, 2.0f, 6.0f, 8.5f, 2.5f, 6.0f, 9.0f, 2.5f, 6.0f, 9.0f, 2.0f, 6.0f,
+            8.5f, 2.0f, 6.5f, 8.5f, 2.5f, 6.5f, 8.5f, 2.5f, 6.0f, 8.5f, 2.0f, 6.0f,
+            9.0f, 2.5f, 6.5f, 9.0f, 2.5f, 6.0f, 8.5f, 2.5f, 6.0f, 8.5f, 2.5f, 6.5f
+        };       
+        
+        TransparentBlockVisualsBuilder testCandidate = new TransparentBlockVisualsBuilder();
+        Block testBlock = RockBlock.getInstance();
+
+        testCandidate.setBlockToCreateDataFrom(testBlock)
+            .setChunkPositionX(17)
+            .setChunkPositionY(4)
+            .setChunkPositionZ(12)
+            .setBottomFaceOfBlockIsCovered(true)    
+            .build();    
+        
+        float[] result = testCandidate.getShapeVertices();
+        
+        assertThat(result.length, is(expected.length)); 
+        assertFloatsAreEqual(result, expected);         
+    } 
+    
+    @Test
+    public void testGetShapeVertices_topFaceIsHidden_topFaceVerticesMissingInResult() {
+        float[] expected = {
+            8.5f, 2.0f, 6.5f, 8.5f, 2.5f, 6.5f, 9.0f, 2.5f, 6.5f, 9.0f, 2.0f, 6.5f,
+            9.0f, 2.0f, 6.5f, 9.0f, 2.5f, 6.5f, 9.0f, 2.5f, 6.0f, 9.0f, 2.0f, 6.0f,
+            9.0f, 2.0f, 6.0f, 9.0f, 2.5f, 6.0f, 8.5f, 2.5f, 6.0f, 8.5f, 2.0f, 6.0f,
+            8.5f, 2.0f, 6.0f, 8.5f, 2.5f, 6.0f, 8.5f, 2.5f, 6.5f, 8.5f, 2.0f, 6.5f,
+            8.5f, 2.0f, 6.0f, 8.5f, 2.0f, 6.5f, 9.0f, 2.0f, 6.5f, 9.0f, 2.0f, 6.0f,
+            9.0f, 2.0f, 6.5f, 9.0f, 2.5f, 6.5f, 8.5f, 2.5f, 6.5f, 8.5f, 2.0f, 6.5f,
+            9.0f, 2.0f, 6.0f, 9.0f, 2.5f, 6.0f, 9.0f, 2.5f, 6.5f, 9.0f, 2.0f, 6.5f,
+            8.5f, 2.0f, 6.0f, 8.5f, 2.5f, 6.0f, 9.0f, 2.5f, 6.0f, 9.0f, 2.0f, 6.0f,
+            8.5f, 2.0f, 6.5f, 8.5f, 2.5f, 6.5f, 8.5f, 2.5f, 6.0f, 8.5f, 2.0f, 6.0f,
+            9.0f, 2.0f, 6.0f, 9.0f, 2.0f, 6.5f, 8.5f, 2.0f, 6.5f, 8.5f, 2.0f, 6.0f
+        };       
+        
+        TransparentBlockVisualsBuilder testCandidate = new TransparentBlockVisualsBuilder();
+        Block testBlock = RockBlock.getInstance();
+
+        testCandidate.setBlockToCreateDataFrom(testBlock)
+            .setChunkPositionX(17)
+            .setChunkPositionY(4)
+            .setChunkPositionZ(12)
+            .setTopFaceOfBlockIsCovered(true) 
+            .build();    
+        
+        float[] result = testCandidate.getShapeVertices();
+        
+        assertThat(result.length, is(expected.length)); 
+        assertFloatsAreEqual(result, expected);        
+    } 
+    
+    @Test
+    public void testGetShapeVertices_fourFacesAreHidden_resultOnlyHas48Vertices() {
+        TransparentBlockVisualsBuilder testCandidate = new TransparentBlockVisualsBuilder();
+        Block testBlock = GrassyEarthBlock.getInstance();
+        
+        testCandidate.setBlockToCreateDataFrom(testBlock)
+            .setChunkPositionX(5)
+            .setChunkPositionY(13)
+            .setChunkPositionZ(2)
+            .setTopFaceOfBlockIsCovered(true)
+            .setBottomFaceOfBlockIsCovered(true)
+            .setBackFaceOfBlockIsCovered(true)
+            .setLeftFaceOfBlockIsCovered(true)
+            .setBlockToCreateDataFrom(testBlock)
+            .build();   
+        
+        float[] result = testCandidate.getShapeVertices();
+
+        assertThat(result.length, is(48));        
     }    
     
     //<editor-fold defaultstate="collapsed" desc="Helper Methods">

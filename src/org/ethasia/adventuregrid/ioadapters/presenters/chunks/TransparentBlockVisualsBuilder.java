@@ -38,6 +38,13 @@ public class TransparentBlockVisualsBuilder {
     private Block blockToRender;
     private int chunkPosX, chunkPosY, chunkPosZ;
     
+    private boolean frontFaceOfBlockIsCovered;
+    private boolean rightFaceOfBlockIsCovered;
+    private boolean backFaceOfBlockIsCovered;
+    private boolean leftFaceOfBlockIsCovered;
+    private boolean bottomFaceOfBlockIsCovered;
+    private boolean topFaceOfBlockIsCovered;
+    
     private float[] vertexBuffer;
     
     //</editor-fold>
@@ -65,7 +72,43 @@ public class TransparentBlockVisualsBuilder {
     public TransparentBlockVisualsBuilder setChunkPositionZ(int value) {
         chunkPosZ = value;
         return this;
-    }     
+    }   
+    
+    // @Override
+    public TransparentBlockVisualsBuilder setFrontFaceOfBlockIsCovered(boolean value) {
+        frontFaceOfBlockIsCovered = value;
+        return this;
+    }    
+    
+    // @Override
+    public TransparentBlockVisualsBuilder setRightFaceOfBlockIsCovered(boolean value) {
+        rightFaceOfBlockIsCovered = value;
+        return this;
+    }
+    
+    // @Override
+    public TransparentBlockVisualsBuilder setBackFaceOfBlockIsCovered(boolean value) {
+        backFaceOfBlockIsCovered = value;
+        return this;
+    } 
+    
+    // @Override
+    public TransparentBlockVisualsBuilder setLeftFaceOfBlockIsCovered(boolean value) {
+        leftFaceOfBlockIsCovered = value;
+        return this;
+    }  
+
+    // @Override
+    public TransparentBlockVisualsBuilder setBottomFaceOfBlockIsCovered(boolean value) {
+        bottomFaceOfBlockIsCovered = value;
+        return this;
+    }
+    
+    // @Override
+    public TransparentBlockVisualsBuilder setTopFaceOfBlockIsCovered(boolean value) {
+        topFaceOfBlockIsCovered = value;
+        return this;
+    }    
     
     public void build() {
         if (null == blockToRender) {
@@ -103,45 +146,99 @@ public class TransparentBlockVisualsBuilder {
     }    
     
     private void fillVertexBuffer() {
-        int amountOfUncoveredFaces = 12;
-        vertexBuffer = new float[4 * 3 * amountOfUncoveredFaces];
+        int amountOfUncoveredFaces = getAmountOfUncoveredFaces();
+        vertexBuffer = new float[4 * 3 * amountOfUncoveredFaces * 2];
         int currentBufferPosition = 0;
         
-        setFrontFaceBackVertices(currentBufferPosition);
-        currentBufferPosition += 12;
+        if (!frontFaceOfBlockIsCovered) {
+            setFrontFaceBackVertices(currentBufferPosition);
+            currentBufferPosition += 12;            
+        }
+
+        if (!rightFaceOfBlockIsCovered) {
+            setRightFaceBackVertices(currentBufferPosition);
+            currentBufferPosition += 12;                      
+        }
         
-        setRightFaceBackVertices(currentBufferPosition);
-        currentBufferPosition += 12;    
+        if (!backFaceOfBlockIsCovered) {
+            setBackFaceBackVertices(currentBufferPosition);
+            currentBufferPosition += 12;                     
+        }
         
-        setBackFaceBackVertices(currentBufferPosition);
-        currentBufferPosition += 12;   
+        if (!leftFaceOfBlockIsCovered) {
+            setLeftFaceBackVertices(currentBufferPosition);
+            currentBufferPosition += 12;             
+        }
         
-        setLeftFaceBackVertices(currentBufferPosition);
-        currentBufferPosition += 12; 
+        if (!bottomFaceOfBlockIsCovered) {
+            setBottomFaceBackVertices(currentBufferPosition);
+            currentBufferPosition += 12;                     
+        }    
         
-        setBottomFaceBackVertices(currentBufferPosition);
-        currentBufferPosition += 12;     
+        if (!topFaceOfBlockIsCovered) {
+            setTopFaceBackVertices(currentBufferPosition);
+            currentBufferPosition += 12;                    
+        }
         
-        setTopFaceBackVertices(currentBufferPosition);
-        currentBufferPosition += 12;
+        if (!frontFaceOfBlockIsCovered) {
+            setFrontFaceVertices(currentBufferPosition);
+            currentBufferPosition += 12;                    
+        }
         
-        setFrontFaceVertices(currentBufferPosition);
-        currentBufferPosition += 12;
+        if (!rightFaceOfBlockIsCovered) {
+            setRightFaceVertices(currentBufferPosition);
+            currentBufferPosition += 12;                      
+        }        
+
+        if (!backFaceOfBlockIsCovered) {
+            setBackFaceVertices(currentBufferPosition);
+            currentBufferPosition += 12;              
+        }                          
         
-        setRightFaceVertices(currentBufferPosition);
-        currentBufferPosition += 12;        
+        if (!leftFaceOfBlockIsCovered) {
+            setLeftFaceVertices(currentBufferPosition);
+            currentBufferPosition += 12;             
+        }                       
         
-        setBackFaceVertices(currentBufferPosition);
-        currentBufferPosition += 12;                    
-        
-        setLeftFaceVertices(currentBufferPosition);
-        currentBufferPosition += 12;                
-        
-        setBottomFaceVertices(currentBufferPosition);
-        currentBufferPosition += 12;                    
+        if (!bottomFaceOfBlockIsCovered) {
+            setBottomFaceVertices(currentBufferPosition);
+            currentBufferPosition += 12;                      
+        }                          
          
-        setTopFaceVertices(currentBufferPosition);
+        if (!topFaceOfBlockIsCovered) {
+            setTopFaceVertices(currentBufferPosition);                    
+        }
     }
+    
+    private int getAmountOfUncoveredFaces() {
+        int result = 0;
+        
+        if (!frontFaceOfBlockIsCovered) {
+            result++;
+        } 
+        
+        if (!rightFaceOfBlockIsCovered) {
+            result++;
+        } 
+
+        if (!backFaceOfBlockIsCovered) {
+            result++;
+        }
+        
+        if (!leftFaceOfBlockIsCovered) {
+            result++;
+        } 
+        
+        if (!bottomFaceOfBlockIsCovered) {
+            result++;
+        } 
+
+        if (!topFaceOfBlockIsCovered) {
+            result++;
+        }          
+
+        return result;
+    }     
     
     private void setFrontFaceBackVertices(int currentBufferPosition) {
         vertexBuffer[currentBufferPosition] = BV[3].getBufferedResultX();
