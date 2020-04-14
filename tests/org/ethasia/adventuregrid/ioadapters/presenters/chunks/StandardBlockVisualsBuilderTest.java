@@ -440,7 +440,6 @@ public class StandardBlockVisualsBuilderTest {
     @Test
     public void testGetShapeNormals_noBlockIsSet_returnsEmptyBuffer() {
         StandardBlockVisualsBuilder testCandidate = new StandardBlockVisualsBuilder();
-        Block testBlock = EarthBlock.getInstance();
         
         testCandidate.build();
         

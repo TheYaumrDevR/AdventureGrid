@@ -524,6 +524,207 @@ public class TransparentBlockVisualsBuilderTest {
         int[] result = testCandidate.getShapeIndices();
         
         assertIntegersAreEqual(result, expected);        
+    } 
+    
+    @Test
+    public void testGetShapeNormals_noBlockIsSet_returnsEmptyBuffer() {
+        TransparentBlockVisualsBuilder testCandidate = new TransparentBlockVisualsBuilder();
+        
+        testCandidate.build();
+        
+        float[] result = testCandidate.getShapeNormals();
+        
+        assertThat(result.length, is(0));
+    } 
+    
+    @Test
+    public void testGetShapeNormals_noBlockFacesCovered_returnsFullNormalsBuffer() {
+        float[] expected = {
+            0.f, 0.f, -1.f, 0.f, 0.f, -1.f, 0.f, 0.f, -1.f, 0.f, 0.f, -1.f,
+            -1.f, 0.f, 0.f, -1.f, 0.f, 0.f, -1.f, 0.f, 0.f, -1.f, 0.f, 0.f,
+            0.f, 0.f, 1.f, 0.f, 0.f, 1.f, 0.f, 0.f, 1.f, 0.f, 0.f, 1.f,
+            1.f, 0.f, 0.f, 1.f, 0.f, 0.f, 1.f, 0.f, 0.f, 1.f, 0.f, 0.f,
+            0.f, 1.f, 0.f, 0.f, 1.f, 0.f, 0.f, 1.f, 0.f, 0.f, 1.f, 0.f,
+            0.f, -1.f, 0.f, 0.f, -1.f, 0.f, 0.f, -1.f, 0.f, 0.f, -1.f, 0.f,
+            0.f, 0.f, 1.f, 0.f, 0.f, 1.f, 0.f, 0.f, 1.f, 0.f, 0.f, 1.f,
+            1.f, 0.f, 0.f, 1.f, 0.f, 0.f, 1.f, 0.f, 0.f, 1.f, 0.f, 0.f,
+            0.f, 0.f, -1.f, 0.f, 0.f, -1.f, 0.f, 0.f, -1.f, 0.f, 0.f, -1.f,
+            -1.f, 0.f, 0.f, -1.f, 0.f, 0.f, -1.f, 0.f, 0.f, -1.f, 0.f, 0.f,
+            0.f, -1.f, 0.f, 0.f, -1.f, 0.f, 0.f, -1.f, 0.f, 0.f, -1.f, 0.f,
+            0.f, 1.f, 0.f, 0.f, 1.f, 0.f, 0.f, 1.f, 0.f, 0.f, 1.f, 0.f
+        };
+        
+        TransparentBlockVisualsBuilder testCandidate = new TransparentBlockVisualsBuilder();
+        Block testBlock = EarthBlock.getInstance();   
+        
+        testCandidate.setBlockToCreateDataFrom(testBlock)
+            .build();
+        
+        float[] result = testCandidate.getShapeNormals();
+        
+        assertFloatsAreEqual(result, expected);
+    }   
+    
+    @Test
+    public void testGetShapeNormals_frontFaceIsCovered_frontFaceNormalsAreNotReturned() {
+        float[] expected = {
+            -1.f, 0.f, 0.f, -1.f, 0.f, 0.f, -1.f, 0.f, 0.f, -1.f, 0.f, 0.f,
+            0.f, 0.f, 1.f, 0.f, 0.f, 1.f, 0.f, 0.f, 1.f, 0.f, 0.f, 1.f,
+            1.f, 0.f, 0.f, 1.f, 0.f, 0.f, 1.f, 0.f, 0.f, 1.f, 0.f, 0.f,
+            0.f, 1.f, 0.f, 0.f, 1.f, 0.f, 0.f, 1.f, 0.f, 0.f, 1.f, 0.f,
+            0.f, -1.f, 0.f, 0.f, -1.f, 0.f, 0.f, -1.f, 0.f, 0.f, -1.f, 0.f,
+            1.f, 0.f, 0.f, 1.f, 0.f, 0.f, 1.f, 0.f, 0.f, 1.f, 0.f, 0.f,
+            0.f, 0.f, -1.f, 0.f, 0.f, -1.f, 0.f, 0.f, -1.f, 0.f, 0.f, -1.f,
+            -1.f, 0.f, 0.f, -1.f, 0.f, 0.f, -1.f, 0.f, 0.f, -1.f, 0.f, 0.f,
+            0.f, -1.f, 0.f, 0.f, -1.f, 0.f, 0.f, -1.f, 0.f, 0.f, -1.f, 0.f,
+            0.f, 1.f, 0.f, 0.f, 1.f, 0.f, 0.f, 1.f, 0.f, 0.f, 1.f, 0.f
+        };
+        
+        TransparentBlockVisualsBuilder testCandidate = new TransparentBlockVisualsBuilder();
+        Block testBlock = RockBlock.getInstance();   
+        
+        testCandidate.setBlockToCreateDataFrom(testBlock)
+            .setFrontFaceOfBlockIsCovered(true)
+            .build();
+        
+        float[] result = testCandidate.getShapeNormals();
+        
+        assertFloatsAreEqual(result, expected);
+    }   
+    
+    @Test
+    public void testGetShapeNormals_rightFaceIsCovered_rightFaceNormalsAreNotReturned() {
+        float[] expected = {
+            0.f, 0.f, -1.f, 0.f, 0.f, -1.f, 0.f, 0.f, -1.f, 0.f, 0.f, -1.f,
+            0.f, 0.f, 1.f, 0.f, 0.f, 1.f, 0.f, 0.f, 1.f, 0.f, 0.f, 1.f,
+            1.f, 0.f, 0.f, 1.f, 0.f, 0.f, 1.f, 0.f, 0.f, 1.f, 0.f, 0.f,
+            0.f, 1.f, 0.f, 0.f, 1.f, 0.f, 0.f, 1.f, 0.f, 0.f, 1.f, 0.f,
+            0.f, -1.f, 0.f, 0.f, -1.f, 0.f, 0.f, -1.f, 0.f, 0.f, -1.f, 0.f,
+            0.f, 0.f, 1.f, 0.f, 0.f, 1.f, 0.f, 0.f, 1.f, 0.f, 0.f, 1.f,
+            0.f, 0.f, -1.f, 0.f, 0.f, -1.f, 0.f, 0.f, -1.f, 0.f, 0.f, -1.f,
+            -1.f, 0.f, 0.f, -1.f, 0.f, 0.f, -1.f, 0.f, 0.f, -1.f, 0.f, 0.f,
+            0.f, -1.f, 0.f, 0.f, -1.f, 0.f, 0.f, -1.f, 0.f, 0.f, -1.f, 0.f,
+            0.f, 1.f, 0.f, 0.f, 1.f, 0.f, 0.f, 1.f, 0.f, 0.f, 1.f, 0.f
+        };
+        
+        TransparentBlockVisualsBuilder testCandidate = new TransparentBlockVisualsBuilder();
+        Block testBlock = EarthBlock.getInstance();   
+        
+        testCandidate.setBlockToCreateDataFrom(testBlock)
+            .setRightFaceOfBlockIsCovered(true)
+            .build();
+        
+        float[] result = testCandidate.getShapeNormals();
+        
+        assertFloatsAreEqual(result, expected);
+    }
+
+    @Test
+    public void testGetShapeNormals_backFaceIsCovered_backFaceNormalsAreNotReturned() {
+        float[] expected = {
+            0.f, 0.f, -1.f, 0.f, 0.f, -1.f, 0.f, 0.f, -1.f, 0.f, 0.f, -1.f,
+            -1.f, 0.f, 0.f, -1.f, 0.f, 0.f, -1.f, 0.f, 0.f, -1.f, 0.f, 0.f,
+            1.f, 0.f, 0.f, 1.f, 0.f, 0.f, 1.f, 0.f, 0.f, 1.f, 0.f, 0.f,
+            0.f, 1.f, 0.f, 0.f, 1.f, 0.f, 0.f, 1.f, 0.f, 0.f, 1.f, 0.f,
+            0.f, -1.f, 0.f, 0.f, -1.f, 0.f, 0.f, -1.f, 0.f, 0.f, -1.f, 0.f,
+            0.f, 0.f, 1.f, 0.f, 0.f, 1.f, 0.f, 0.f, 1.f, 0.f, 0.f, 1.f,
+            1.f, 0.f, 0.f, 1.f, 0.f, 0.f, 1.f, 0.f, 0.f, 1.f, 0.f, 0.f,
+            -1.f, 0.f, 0.f, -1.f, 0.f, 0.f, -1.f, 0.f, 0.f, -1.f, 0.f, 0.f,
+            0.f, -1.f, 0.f, 0.f, -1.f, 0.f, 0.f, -1.f, 0.f, 0.f, -1.f, 0.f,
+            0.f, 1.f, 0.f, 0.f, 1.f, 0.f, 0.f, 1.f, 0.f, 0.f, 1.f, 0.f
+        };
+        
+        TransparentBlockVisualsBuilder testCandidate = new TransparentBlockVisualsBuilder();
+        Block testBlock = EarthBlock.getInstance();   
+        
+        testCandidate.setBlockToCreateDataFrom(testBlock)
+            .setBackFaceOfBlockIsCovered(true)
+            .build();
+        
+        float[] result = testCandidate.getShapeNormals();
+        
+        assertFloatsAreEqual(result, expected);
+    }  
+    
+    @Test
+    public void testGetShapeNormals_leftFaceIsCovered_leftFaceNormalsAreNotReturned() {
+        float[] expected = {
+            0.f, 0.f, -1.f, 0.f, 0.f, -1.f, 0.f, 0.f, -1.f, 0.f, 0.f, -1.f,
+            -1.f, 0.f, 0.f, -1.f, 0.f, 0.f, -1.f, 0.f, 0.f, -1.f, 0.f, 0.f,
+            0.f, 0.f, 1.f, 0.f, 0.f, 1.f, 0.f, 0.f, 1.f, 0.f, 0.f, 1.f,
+            0.f, 1.f, 0.f, 0.f, 1.f, 0.f, 0.f, 1.f, 0.f, 0.f, 1.f, 0.f,
+            0.f, -1.f, 0.f, 0.f, -1.f, 0.f, 0.f, -1.f, 0.f, 0.f, -1.f, 0.f,
+            0.f, 0.f, 1.f, 0.f, 0.f, 1.f, 0.f, 0.f, 1.f, 0.f, 0.f, 1.f,
+            1.f, 0.f, 0.f, 1.f, 0.f, 0.f, 1.f, 0.f, 0.f, 1.f, 0.f, 0.f,
+            0.f, 0.f, -1.f, 0.f, 0.f, -1.f, 0.f, 0.f, -1.f, 0.f, 0.f, -1.f,
+            0.f, -1.f, 0.f, 0.f, -1.f, 0.f, 0.f, -1.f, 0.f, 0.f, -1.f, 0.f,
+            0.f, 1.f, 0.f, 0.f, 1.f, 0.f, 0.f, 1.f, 0.f, 0.f, 1.f, 0.f
+        };
+        
+        TransparentBlockVisualsBuilder testCandidate = new TransparentBlockVisualsBuilder();
+        Block testBlock = EarthBlock.getInstance();   
+        
+        testCandidate.setBlockToCreateDataFrom(testBlock)
+            .setLeftFaceOfBlockIsCovered(true)
+            .build();
+        
+        float[] result = testCandidate.getShapeNormals();
+        
+        assertFloatsAreEqual(result, expected);
+    }
+
+    @Test
+    public void testGetShapeNormals_bottomFaceIsCovered_bottomFaceNormalsAreNotReturned() {
+        float[] expected = {
+            0.f, 0.f, -1.f, 0.f, 0.f, -1.f, 0.f, 0.f, -1.f, 0.f, 0.f, -1.f,
+            -1.f, 0.f, 0.f, -1.f, 0.f, 0.f, -1.f, 0.f, 0.f, -1.f, 0.f, 0.f,
+            0.f, 0.f, 1.f, 0.f, 0.f, 1.f, 0.f, 0.f, 1.f, 0.f, 0.f, 1.f,
+            1.f, 0.f, 0.f, 1.f, 0.f, 0.f, 1.f, 0.f, 0.f, 1.f, 0.f, 0.f,
+            0.f, -1.f, 0.f, 0.f, -1.f, 0.f, 0.f, -1.f, 0.f, 0.f, -1.f, 0.f,
+            0.f, 0.f, 1.f, 0.f, 0.f, 1.f, 0.f, 0.f, 1.f, 0.f, 0.f, 1.f,
+            1.f, 0.f, 0.f, 1.f, 0.f, 0.f, 1.f, 0.f, 0.f, 1.f, 0.f, 0.f,
+            0.f, 0.f, -1.f, 0.f, 0.f, -1.f, 0.f, 0.f, -1.f, 0.f, 0.f, -1.f,
+            -1.f, 0.f, 0.f, -1.f, 0.f, 0.f, -1.f, 0.f, 0.f, -1.f, 0.f, 0.f,
+            0.f, 1.f, 0.f, 0.f, 1.f, 0.f, 0.f, 1.f, 0.f, 0.f, 1.f, 0.f
+        };
+        
+        TransparentBlockVisualsBuilder testCandidate = new TransparentBlockVisualsBuilder();
+        Block testBlock = EarthBlock.getInstance();   
+        
+        testCandidate.setBlockToCreateDataFrom(testBlock)
+            .setBottomFaceOfBlockIsCovered(true)
+            .build();
+        
+        float[] result = testCandidate.getShapeNormals();
+        
+        assertFloatsAreEqual(result, expected);
+    }   
+    
+    @Test
+    public void testGetShapeNormals_topFaceIsCovered_topFaceNormalsAreNotReturned() {
+        float[] expected = {
+            0.f, 0.f, -1.f, 0.f, 0.f, -1.f, 0.f, 0.f, -1.f, 0.f, 0.f, -1.f,
+            -1.f, 0.f, 0.f, -1.f, 0.f, 0.f, -1.f, 0.f, 0.f, -1.f, 0.f, 0.f,
+            0.f, 0.f, 1.f, 0.f, 0.f, 1.f, 0.f, 0.f, 1.f, 0.f, 0.f, 1.f,
+            1.f, 0.f, 0.f, 1.f, 0.f, 0.f, 1.f, 0.f, 0.f, 1.f, 0.f, 0.f,
+            0.f, 1.f, 0.f, 0.f, 1.f, 0.f, 0.f, 1.f, 0.f, 0.f, 1.f, 0.f,
+            0.f, 0.f, 1.f, 0.f, 0.f, 1.f, 0.f, 0.f, 1.f, 0.f, 0.f, 1.f,
+            1.f, 0.f, 0.f, 1.f, 0.f, 0.f, 1.f, 0.f, 0.f, 1.f, 0.f, 0.f,
+            0.f, 0.f, -1.f, 0.f, 0.f, -1.f, 0.f, 0.f, -1.f, 0.f, 0.f, -1.f,
+            -1.f, 0.f, 0.f, -1.f, 0.f, 0.f, -1.f, 0.f, 0.f, -1.f, 0.f, 0.f,
+            0.f, -1.f, 0.f, 0.f, -1.f, 0.f, 0.f, -1.f, 0.f, 0.f, -1.f, 0.f,
+        };
+        
+        TransparentBlockVisualsBuilder testCandidate = new TransparentBlockVisualsBuilder();
+        Block testBlock = EarthBlock.getInstance();   
+        
+        testCandidate.setBlockToCreateDataFrom(testBlock)
+            .setTopFaceOfBlockIsCovered(true)
+            .build();
+        
+        float[] result = testCandidate.getShapeNormals();
+        
+        assertFloatsAreEqual(result, expected);
     }    
     
     //<editor-fold defaultstate="collapsed" desc="Helper Methods">

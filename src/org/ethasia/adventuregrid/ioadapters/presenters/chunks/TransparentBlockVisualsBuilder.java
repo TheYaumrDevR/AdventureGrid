@@ -48,6 +48,7 @@ public class TransparentBlockVisualsBuilder {
     
     private float[] vertexBuffer;
     private int[] indexBuffer;
+    private float[] normalBuffer;
     
     //</editor-fold>
     
@@ -122,9 +123,11 @@ public class TransparentBlockVisualsBuilder {
         if (null == blockToRender) {
             vertexBuffer = new float[0];
             indexBuffer = new int[0];
+            normalBuffer = new float[0];
         } else {
             buildVertexBuffer();
             buildIndexBuffer();
+            buildNormalBuffer();
         }
     }
     
@@ -134,6 +137,10 @@ public class TransparentBlockVisualsBuilder {
     
     public int[] getShapeIndices() {
         return indexBuffer;
+    }
+    
+    public float[] getShapeNormals() {
+        return normalBuffer;
     }
     
     //</editor-fold>
@@ -221,6 +228,75 @@ public class TransparentBlockVisualsBuilder {
         if (!topFaceOfBlockIsCovered) {
             addNextFaceIndicesToBuffer(currentBufferIndex, faceOffset);          
         }       
+    }
+    
+    private void buildNormalBuffer() {
+        int faces = getAmountOfUncoveredFaces();
+        int verticesPerFace = 4;
+        
+        normalBuffer = new float[faces * 2 * verticesPerFace * 3];
+        
+        int currentBufferIndex = 0;
+        
+        if (!frontFaceOfBlockIsCovered) {
+            addNormalForFaceWithValueStartingAtIndex(0.f, 0.f, -1.f, currentBufferIndex); 
+            currentBufferIndex += 12;
+        }
+        
+        if (!rightFaceOfBlockIsCovered) {
+            addNormalForFaceWithValueStartingAtIndex(-1.f, 0.f, 0.f, currentBufferIndex); 
+            currentBufferIndex += 12;
+        }
+
+        if (!backFaceOfBlockIsCovered) {
+            addNormalForFaceWithValueStartingAtIndex(0.f, 0.f, 1.f, currentBufferIndex); 
+            currentBufferIndex += 12;            
+        }
+
+        if (!leftFaceOfBlockIsCovered) {
+            addNormalForFaceWithValueStartingAtIndex(1.f, 0.f, 0.f, currentBufferIndex); 
+            currentBufferIndex += 12;            
+        }        
+
+        if (!bottomFaceOfBlockIsCovered) {
+            addNormalForFaceWithValueStartingAtIndex(0.f, 1.f, 0.f, currentBufferIndex); 
+            currentBufferIndex += 12;            
+        }        
+
+        if (!topFaceOfBlockIsCovered) {
+            addNormalForFaceWithValueStartingAtIndex(0.f, -1.f, 0.f, currentBufferIndex);     
+            currentBufferIndex += 12;
+        }        
+        
+        if (!frontFaceOfBlockIsCovered) {
+            addNormalForFaceWithValueStartingAtIndex(0.f, 0.f, 1.f, currentBufferIndex); 
+            currentBufferIndex += 12;
+        }
+        
+        if (!rightFaceOfBlockIsCovered) {
+            addNormalForFaceWithValueStartingAtIndex(1.f, 0.f, 0.f, currentBufferIndex); 
+            currentBufferIndex += 12;
+        }
+
+        if (!backFaceOfBlockIsCovered) {
+            addNormalForFaceWithValueStartingAtIndex(0.f, 0.f, -1.f, currentBufferIndex); 
+            currentBufferIndex += 12;            
+        }
+
+        if (!leftFaceOfBlockIsCovered) {
+            addNormalForFaceWithValueStartingAtIndex(-1.f, 0.f, 0.f, currentBufferIndex); 
+            currentBufferIndex += 12;            
+        }        
+
+        if (!bottomFaceOfBlockIsCovered) {
+            addNormalForFaceWithValueStartingAtIndex(0.f, -1.f, 0.f, currentBufferIndex); 
+            currentBufferIndex += 12;            
+        }        
+
+        if (!topFaceOfBlockIsCovered) {
+            addNormalForFaceWithValueStartingAtIndex(0.f, 1.f, 0.f, currentBufferIndex);     
+            currentBufferIndex += 12;
+        }         
     }
     
     private void translateVertices() {
@@ -555,6 +631,21 @@ public class TransparentBlockVisualsBuilder {
         indexBuffer[currentBufferIndex + 3] = 2 + faceOffset + renderIndexOffsetInChunk;
         indexBuffer[currentBufferIndex + 4] = 3 + faceOffset + renderIndexOffsetInChunk;
         indexBuffer[currentBufferIndex + 5] = 0 + faceOffset + renderIndexOffsetInChunk;         
+    }
+
+    private void addNormalForFaceWithValueStartingAtIndex(float normalX, float normalY, float normalZ, int index) {
+        normalBuffer[index] = normalX;
+        normalBuffer[index + 1] = normalY;
+        normalBuffer[index + 2] = normalZ;
+        normalBuffer[index + 3] = normalX;
+        normalBuffer[index + 4] = normalY;
+        normalBuffer[index + 5] = normalZ;
+        normalBuffer[index + 6] = normalX;
+        normalBuffer[index + 7] = normalY;
+        normalBuffer[index + 8] = normalZ;
+        normalBuffer[index + 9] = normalX;
+        normalBuffer[index + 10] = normalY;
+        normalBuffer[index + 11] = normalZ;         
     }    
     
     //</editor-fold>
