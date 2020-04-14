@@ -26,6 +26,7 @@ public abstract class BlockUvCoordinates {
     //<editor-fold defaultstate="collapsed" desc="Abstract Methods">
     
     public abstract float[] getUvCoordinates();    
+    public abstract float[] getBackUvCoordinates(); 
     
     //</editor-fold>
 }

@@ -27,6 +27,15 @@ public class PortalBlockUvCoordinates extends BlockUvCoordinates {
         0.9375f, 0.0625f, 0.9375f, 0.046875f, 0.875f, 0.046875f, 0.875f, 0.0625f,
     };
     
+    private final float[] backUvCoordinates = {
+        0.875f, 0.0625f, 0.875f, 0.046875f, 0.9375f, 0.046875f, 0.9375f, 0.0625f,
+        0.875f, 0.0625f, 0.875f, 0.046875f, 0.9375f, 0.046875f, 0.9375f, 0.0625f,
+        0.875f, 0.0625f, 0.875f, 0.046875f, 0.9375f, 0.046875f, 0.9375f, 0.0625f,
+        0.875f, 0.0625f, 0.875f, 0.046875f, 0.9375f, 0.046875f, 0.9375f, 0.0625f,
+        0.875f, 0.0625f, 0.875f, 0.046875f, 0.9375f, 0.046875f, 0.9375f, 0.0625f,
+        0.875f, 0.0625f, 0.875f, 0.046875f, 0.9375f, 0.046875f, 0.9375f, 0.0625f,
+    };     
+    
     //</editor-fold>     
     
     //<editor-fold defaultstate="collapsed" desc="Constructors">
@@ -40,6 +49,11 @@ public class PortalBlockUvCoordinates extends BlockUvCoordinates {
     @Override
     public float[] getUvCoordinates() {
         return uvCoordinates;
+    } 
+    
+    @Override
+    public float[] getBackUvCoordinates() {
+        return backUvCoordinates;
     }    
     
     //</editor-fold>    
