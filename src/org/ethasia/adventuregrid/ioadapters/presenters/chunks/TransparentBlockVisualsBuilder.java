@@ -146,57 +146,81 @@ public class TransparentBlockVisualsBuilder {
     }    
     
     private void buildIndexBuffer() {
-        int amountOfUnCoveredFaces = 6;
+        int amountOfUnCoveredFaces = getAmountOfUncoveredFaces();
         indexBuffer = new int[6 * amountOfUnCoveredFaces * 2];
         
         int faceOffset = 0;
         int currentBufferIndex = 0;        
         
-        addNextFaceIndicesToBuffer(currentBufferIndex, faceOffset);
-        currentBufferIndex += 6;
-        faceOffset += 4; 
+        if (!frontFaceOfBlockIsCovered) {
+            addNextFaceIndicesToBuffer(currentBufferIndex, faceOffset);
+            currentBufferIndex += 6;
+            faceOffset += 4;             
+        }
         
-        addNextFaceIndicesToBuffer(currentBufferIndex, faceOffset);
-        currentBufferIndex += 6;
-        faceOffset += 4;
+        if (!rightFaceOfBlockIsCovered) {
+            addNextFaceIndicesToBuffer(currentBufferIndex, faceOffset);
+            currentBufferIndex += 6;
+            faceOffset += 4;
+        }
+        
+        if (!backFaceOfBlockIsCovered) {
+            addNextFaceIndicesToBuffer(currentBufferIndex, faceOffset);
+            currentBufferIndex += 6;
+            faceOffset += 4;            
+        }
 
-        addNextFaceIndicesToBuffer(currentBufferIndex, faceOffset);
-        currentBufferIndex += 6;
-        faceOffset += 4;
+        if (!leftFaceOfBlockIsCovered) {
+            addNextFaceIndicesToBuffer(currentBufferIndex, faceOffset);
+            currentBufferIndex += 6;
+            faceOffset += 4;            
+        }
 
-        addNextFaceIndicesToBuffer(currentBufferIndex, faceOffset);
-        currentBufferIndex += 6;
-        faceOffset += 4;
+        if (!bottomFaceOfBlockIsCovered) {
+            addNextFaceIndicesToBuffer(currentBufferIndex, faceOffset);
+            currentBufferIndex += 6;
+            faceOffset += 4;            
+        }
 
-        addNextFaceIndicesToBuffer(currentBufferIndex, faceOffset);
-        currentBufferIndex += 6;
-        faceOffset += 4;
+        if (!topFaceOfBlockIsCovered) {
+            addNextFaceIndicesToBuffer(currentBufferIndex, faceOffset);
+            currentBufferIndex += 6;
+            faceOffset += 4;            
+        }
 
-        addNextFaceIndicesToBuffer(currentBufferIndex, faceOffset);
-        currentBufferIndex += 6;
-        faceOffset += 4;
+        if (!frontFaceOfBlockIsCovered) {
+            addNextFaceIndicesToBuffer(currentBufferIndex, faceOffset);
+            currentBufferIndex += 6;
+            faceOffset += 4;             
+        }
+        
+        if (!rightFaceOfBlockIsCovered) {
+            addNextFaceIndicesToBuffer(currentBufferIndex, faceOffset);
+            currentBufferIndex += 6;
+            faceOffset += 4;
+        }
+        
+        if (!backFaceOfBlockIsCovered) {
+            addNextFaceIndicesToBuffer(currentBufferIndex, faceOffset);
+            currentBufferIndex += 6;
+            faceOffset += 4;            
+        }
 
-        addNextFaceIndicesToBuffer(currentBufferIndex, faceOffset);
-        currentBufferIndex += 6;
-        faceOffset += 4;
+        if (!leftFaceOfBlockIsCovered) {
+            addNextFaceIndicesToBuffer(currentBufferIndex, faceOffset);
+            currentBufferIndex += 6;
+            faceOffset += 4;            
+        }
 
-        addNextFaceIndicesToBuffer(currentBufferIndex, faceOffset);
-        currentBufferIndex += 6;
-        faceOffset += 4;
+        if (!bottomFaceOfBlockIsCovered) {
+            addNextFaceIndicesToBuffer(currentBufferIndex, faceOffset);
+            currentBufferIndex += 6;
+            faceOffset += 4;            
+        }
 
-        addNextFaceIndicesToBuffer(currentBufferIndex, faceOffset);
-        currentBufferIndex += 6;
-        faceOffset += 4;
-
-        addNextFaceIndicesToBuffer(currentBufferIndex, faceOffset);
-        currentBufferIndex += 6;
-        faceOffset += 4;
-
-        addNextFaceIndicesToBuffer(currentBufferIndex, faceOffset);
-        currentBufferIndex += 6;
-        faceOffset += 4;
-
-        addNextFaceIndicesToBuffer(currentBufferIndex, faceOffset);       
+        if (!topFaceOfBlockIsCovered) {
+            addNextFaceIndicesToBuffer(currentBufferIndex, faceOffset);          
+        }       
     }
     
     private void translateVertices() {
