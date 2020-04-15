@@ -527,6 +527,48 @@ public class TransparentBlockVisualsBuilderTest {
     } 
     
     @Test
+    public void testGetAmountOfAddedIndices_allFacesVisible_added48() {        
+        TransparentBlockVisualsBuilder testCandidate = new TransparentBlockVisualsBuilder();
+        Block testBlock = EarthBlock.getInstance();
+        
+        testCandidate.setBlockToCreateDataFrom(testBlock)
+            .build();        
+        
+        int result = testCandidate.getAmountOfAddedIndices();
+        
+        assertThat(result, is(48));
+    }
+    
+    @Test
+    public void testGetAmountOfAddedIndices_oneFaceHidden_added40() {        
+        TransparentBlockVisualsBuilder testCandidate = new TransparentBlockVisualsBuilder();
+        Block testBlock = EarthBlock.getInstance();
+        
+        testCandidate.setBlockToCreateDataFrom(testBlock)
+            .setLeftFaceOfBlockIsCovered(true)
+            .build();        
+        
+        int result = testCandidate.getAmountOfAddedIndices();
+        
+        assertThat(result, is(40));
+    } 
+    
+    @Test
+    public void testGetAmountOfAddedIndices_oneFaceHidden_added32() {        
+        TransparentBlockVisualsBuilder testCandidate = new TransparentBlockVisualsBuilder();
+        Block testBlock = EarthBlock.getInstance();
+        
+        testCandidate.setBlockToCreateDataFrom(testBlock)
+            .setLeftFaceOfBlockIsCovered(true)
+            .setTopFaceOfBlockIsCovered(true)
+            .build();        
+        
+        int result = testCandidate.getAmountOfAddedIndices();
+        
+        assertThat(result, is(32));
+    }    
+    
+    @Test
     public void testGetShapeNormals_noBlockIsSet_returnsEmptyBuffer() {
         TransparentBlockVisualsBuilder testCandidate = new TransparentBlockVisualsBuilder();
         
@@ -751,7 +793,7 @@ public class TransparentBlockVisualsBuilderTest {
         float[] result = testCandidate.getBlockUvCoordinates();
         
         assertFloatsAreEqual(result, expected);        
-    }    
+    }      
     
     //<editor-fold defaultstate="collapsed" desc="Helper Methods">
     

@@ -3,7 +3,7 @@ package org.ethasia.adventuregrid.ioadapters.presenters.chunks;
 import org.ethasia.adventuregrid.core.environment.Block;
 import org.ethasia.adventuregrid.core.math.Vector3;
 
-public class TransparentBlockVisualsBuilder {
+public class TransparentBlockVisualsBuilder extends BlockVisualsBuilder {
     
     //<editor-fold defaultstate="collapsed" desc="Constants">
     
@@ -55,71 +55,73 @@ public class TransparentBlockVisualsBuilder {
     
     //<editor-fold defaultstate="collapsed" desc="Methods">
     
+    @Override
     public TransparentBlockVisualsBuilder setBlockToCreateDataFrom(Block value) {
         blockToRender = value;
         return this;
     }    
     
-    // @Override
+    @Override
     public TransparentBlockVisualsBuilder setChunkPositionX(int value) {
         chunkPosX = value;
         return this;
     }
     
-    // @Override
+    @Override
     public TransparentBlockVisualsBuilder setChunkPositionY(int value) {
         chunkPosY = value;
         return this;
     }
 
-    // @Override
+    @Override
     public TransparentBlockVisualsBuilder setChunkPositionZ(int value) {
         chunkPosZ = value;
         return this;
     }
     
-    // @Override
+    @Override
     public TransparentBlockVisualsBuilder setRenderIndexInChunk(int value) {
         renderIndexOffsetInChunk = value;
         return this;
     }     
     
-    // @Override
+    @Override
     public TransparentBlockVisualsBuilder setFrontFaceOfBlockIsCovered(boolean value) {
         frontFaceOfBlockIsCovered = value;
         return this;
     }    
     
-    // @Override
+    @Override
     public TransparentBlockVisualsBuilder setRightFaceOfBlockIsCovered(boolean value) {
         rightFaceOfBlockIsCovered = value;
         return this;
     }
     
-    // @Override
+    @Override
     public TransparentBlockVisualsBuilder setBackFaceOfBlockIsCovered(boolean value) {
         backFaceOfBlockIsCovered = value;
         return this;
     } 
     
-    // @Override
+    @Override
     public TransparentBlockVisualsBuilder setLeftFaceOfBlockIsCovered(boolean value) {
         leftFaceOfBlockIsCovered = value;
         return this;
     }  
 
-    // @Override
+    @Override
     public TransparentBlockVisualsBuilder setBottomFaceOfBlockIsCovered(boolean value) {
         bottomFaceOfBlockIsCovered = value;
         return this;
     }
     
-    // @Override
+    @Override
     public TransparentBlockVisualsBuilder setTopFaceOfBlockIsCovered(boolean value) {
         topFaceOfBlockIsCovered = value;
         return this;
     }    
     
+    @Override
     public void build() {
         if (null == blockToRender) {
             vertexBuffer = new float[0];
@@ -134,20 +136,29 @@ public class TransparentBlockVisualsBuilder {
         }
     }
     
+    @Override
     public float[] getShapeVertices() {
         return vertexBuffer;
     }
     
+    @Override
     public int[] getShapeIndices() {
         return indexBuffer;
     }
     
+    @Override
     public float[] getShapeNormals() {
         return normalBuffer;
     }
     
+    @Override
     public float[] getBlockUvCoordinates() {
         return uvCoordinatesBuffer;
+    }
+    
+    @Override
+    public int getAmountOfAddedIndices() {
+        return getAmountOfUncoveredFaces() * 8;
     }
     
     //</editor-fold>

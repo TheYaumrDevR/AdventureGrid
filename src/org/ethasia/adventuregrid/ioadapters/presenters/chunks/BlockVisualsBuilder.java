@@ -32,17 +32,17 @@ public abstract class BlockVisualsBuilder {
 
     //<editor-fold defaultstate="collapsed" desc="Abstract Methods">
     
-    public abstract StandardBlockVisualsBuilder setBlockToCreateDataFrom(Block value); 
-    public abstract StandardBlockVisualsBuilder setChunkPositionX(int value);
-    public abstract StandardBlockVisualsBuilder setChunkPositionY(int value);
-    public abstract StandardBlockVisualsBuilder setChunkPositionZ(int value);   
-    public abstract StandardBlockVisualsBuilder setFrontFaceOfBlockIsCovered(boolean value);
-    public abstract StandardBlockVisualsBuilder setRightFaceOfBlockIsCovered(boolean value); 
-    public abstract StandardBlockVisualsBuilder setBackFaceOfBlockIsCovered(boolean value);
-    public abstract StandardBlockVisualsBuilder setLeftFaceOfBlockIsCovered(boolean value);
-    public abstract StandardBlockVisualsBuilder setBottomFaceOfBlockIsCovered(boolean value);
-    public abstract StandardBlockVisualsBuilder setTopFaceOfBlockIsCovered(boolean value); 
-    public abstract StandardBlockVisualsBuilder setRenderIndexInChunk(int value);
+    public abstract BlockVisualsBuilder setBlockToCreateDataFrom(Block value); 
+    public abstract BlockVisualsBuilder setChunkPositionX(int value);
+    public abstract BlockVisualsBuilder setChunkPositionY(int value);
+    public abstract BlockVisualsBuilder setChunkPositionZ(int value);   
+    public abstract BlockVisualsBuilder setFrontFaceOfBlockIsCovered(boolean value);
+    public abstract BlockVisualsBuilder setRightFaceOfBlockIsCovered(boolean value); 
+    public abstract BlockVisualsBuilder setBackFaceOfBlockIsCovered(boolean value);
+    public abstract BlockVisualsBuilder setLeftFaceOfBlockIsCovered(boolean value);
+    public abstract BlockVisualsBuilder setBottomFaceOfBlockIsCovered(boolean value);
+    public abstract BlockVisualsBuilder setTopFaceOfBlockIsCovered(boolean value); 
+    public abstract BlockVisualsBuilder setRenderIndexInChunk(int value);
     
     public abstract void build();
     public abstract float[] getShapeVertices();  
