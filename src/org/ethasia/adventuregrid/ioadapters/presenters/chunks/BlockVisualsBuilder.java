@@ -8,6 +8,7 @@ public abstract class BlockVisualsBuilder {
     //<editor-fold defaultstate="collapsed" desc="Static Fields">
     
     private static StandardBlockVisualsBuilder standardBlockVisualsBuilder = new StandardBlockVisualsBuilder();
+    private static TransparentBlockVisualsBuilder transparentBlockVisualsBuilder = new TransparentBlockVisualsBuilder();
     
     //</editor-fold>
     
@@ -22,7 +23,7 @@ public abstract class BlockVisualsBuilder {
             case ROCK:
                 return standardBlockVisualsBuilder;
             case PORTAL:
-                return standardBlockVisualsBuilder;
+                return transparentBlockVisualsBuilder;
         }
         
         throw new RuntimeException("BlockVisualsBuilder#fromBlockType does not return an instance for block type: " + blockType);
