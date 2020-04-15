@@ -727,6 +727,32 @@ public class TransparentBlockVisualsBuilderTest {
         assertFloatsAreEqual(result, expected);
     }    
     
+    @Test
+    public void testGetBlockUvCoordinates_noBlockIsSet_returnsEmptyBuffer() {
+        TransparentBlockVisualsBuilder testCandidate = new TransparentBlockVisualsBuilder();
+        
+        testCandidate.build();
+        
+        float[] result = testCandidate.getBlockUvCoordinates();
+        
+        assertThat(result.length, is(0));
+    }
+
+    @Test
+    public void testGetBlockUvCoordinates_portalBlockIsSet_returnsPortalBlockUvs() {
+        float[] expected = mergeArrays(PortalBlockUvCoordinates.getInstance().getBackUvCoordinates(), PortalBlockUvCoordinates.getInstance().getUvCoordinates());
+        
+        TransparentBlockVisualsBuilder testCandidate = new TransparentBlockVisualsBuilder();
+        Block testBlock = PortalBlock.getInstance(); 
+
+        testCandidate.setBlockToCreateDataFrom(testBlock)
+            .build();     
+        
+        float[] result = testCandidate.getBlockUvCoordinates();
+        
+        assertFloatsAreEqual(result, expected);        
+    }    
+    
     //<editor-fold defaultstate="collapsed" desc="Helper Methods">
     
     private void assertFloatsAreEqual(float[] result, float[] expected) {
@@ -744,6 +770,14 @@ public class TransparentBlockVisualsBuilderTest {
             assertThat(result[i], is(equalTo(expected[i])));
         }        
     }    
+    
+    private float[] mergeArrays(float[] firstArray, float[] secondArray) {
+        float[] result = new float[firstArray.length + secondArray.length];
+        System.arraycopy(firstArray, 0, result, 0, firstArray.length);  
+        System.arraycopy(secondArray, 0, result, firstArray.length, secondArray.length);  
+        
+        return result;
+    }
     
     //</editor-fold>
 }
