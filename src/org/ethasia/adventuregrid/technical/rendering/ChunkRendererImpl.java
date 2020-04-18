@@ -84,9 +84,13 @@ public class ChunkRendererImpl implements ChunkRenderer {
         
         Geometry geometry = new Geometry(uniqueChunkName, chunkMesh);
         Material material = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md"); 
-        material.getAdditionalRenderState().setBlendMode(RenderState.BlendMode.Alpha);
+        
+        if (!chunkData.isOpaqueChunk()) {
+            material.getAdditionalRenderState().setBlendMode(RenderState.BlendMode.Alpha);
+            material.setFloat("AlphaDiscardThreshold", 0.00961f);            
+        }
+        
         material.setTexture("ColorMap", blockTextureAtlas);
-        material.setFloat("AlphaDiscardThreshold", 0.00961f);
         geometry.setMaterial(material);
         
         geometry.setLocalTranslation(chunkData.getWorldX() * StandardIslandPresenter.CHUNK_EDGE_LENGTH_IN_BLOCKS * 0.5f, 0, chunkData.getWorldY() * StandardIslandPresenter.CHUNK_EDGE_LENGTH_IN_BLOCKS * 0.5f);
