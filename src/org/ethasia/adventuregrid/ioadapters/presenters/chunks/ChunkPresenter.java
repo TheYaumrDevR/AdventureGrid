@@ -1,7 +1,9 @@
 package org.ethasia.adventuregrid.ioadapters.presenters.chunks;
 
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 import static org.ethasia.adventuregrid.ioadapters.presenters.StandardIslandPresenter.CHUNK_EDGE_LENGTH_IN_BLOCKS;
 
@@ -14,18 +16,36 @@ import org.ethasia.adventuregrid.ioadapters.presenters.output.ChunkRenderer;
 
 public class ChunkPresenter {
     
+    //<editor-fold defaultstate="collapsed" desc="Constants">
+    
+    private static final Set<BlockTypes> SEMI_TRANSPARENT_BLOCK_TYPES;
+    
+    //</editor-fold>
+    
     //<editor-fold defaultstate="collapsed" desc="Fields">
     
-    List<float[]> floatBuffersOfBlocksInChunk;
-    List<int[]> intBuffersOfBlocksInChunk;    
+    private List<float[]> floatBuffersOfSemiTransparentBlocksInChunk;
+    private List<int[]> intBuffersOfSemiTransparentBlocksInChunk; 
+    
+    private List<float[]> floatBuffersOfOpaqueBlocksInChunk;
+    private List<int[]> intBuffersOfOpaqueBlocksInChunk;    
     
     //</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="Constructors">
     
+    static {
+        SEMI_TRANSPARENT_BLOCK_TYPES = new HashSet<>();
+        
+        SEMI_TRANSPARENT_BLOCK_TYPES.add(BlockTypes.PORTAL);
+    }
+    
     public ChunkPresenter() {
-        floatBuffersOfBlocksInChunk = new LinkedList<>();
-        intBuffersOfBlocksInChunk = new LinkedList<>(); 
+        floatBuffersOfSemiTransparentBlocksInChunk = new LinkedList<>();
+        intBuffersOfSemiTransparentBlocksInChunk = new LinkedList<>();
+        
+        floatBuffersOfOpaqueBlocksInChunk = new LinkedList<>();
+        intBuffersOfOpaqueBlocksInChunk = new LinkedList<>(); 
     }
     
     //</editor-fold>
@@ -33,11 +53,16 @@ public class ChunkPresenter {
     //<editor-fold defaultstate="collapsed" desc="Methods">
     
     public void presentChunk(Island island, int chunkPositionXInIsland, int chunkPositionYInIsland) {
-        VisualChunkData chunkRenderData = clearRenderDataForNewChunk();
+        VisualChunkData opaqueChunkRenderData = clearRenderDataForNewChunk();
+        VisualChunkData semiTransparentChunkRenderData = clearRenderDataForNewChunk();
         fillRenderDataForOneChunk(island, chunkPositionXInIsland, chunkPositionYInIsland);
-                
-        if (intBuffersOfBlocksInChunk.size() > 0) {
-            renderChunk(chunkRenderData, chunkPositionXInIsland, chunkPositionYInIsland);
+               
+        if (intBuffersOfSemiTransparentBlocksInChunk.size() > 0) {
+            renderSemiTransparentChunk(semiTransparentChunkRenderData, chunkPositionXInIsland, chunkPositionYInIsland);
+        }        
+        
+        if (intBuffersOfOpaqueBlocksInChunk.size() > 0) {
+            renderOpaqueChunk(opaqueChunkRenderData, chunkPositionXInIsland, chunkPositionYInIsland);
         }
     }
     
@@ -46,14 +71,18 @@ public class ChunkPresenter {
     //<editor-fold defaultstate="collapsed" desc="Helper Methods">
     
     private VisualChunkData clearRenderDataForNewChunk() {
-        floatBuffersOfBlocksInChunk.clear();
-        intBuffersOfBlocksInChunk.clear(); 
+        floatBuffersOfSemiTransparentBlocksInChunk.clear();
+        intBuffersOfSemiTransparentBlocksInChunk.clear();
+        
+        floatBuffersOfOpaqueBlocksInChunk.clear();
+        intBuffersOfOpaqueBlocksInChunk.clear(); 
         
         return new VisualChunkData();
     } 
     
     private void fillRenderDataForOneChunk(Island island, int chunkPositionXInIsland, int chunkPositionYInIsland) {
-        int amountOfVerticesAdded = 0;
+        int amountOfOpaqueBlockVerticesAdded = 0;
+        int amountOfSemiTransparentBlockVerticesAdded = 0;
         
         for (int islandX = CHUNK_EDGE_LENGTH_IN_BLOCKS * chunkPositionXInIsland; islandX < CHUNK_EDGE_LENGTH_IN_BLOCKS * (chunkPositionXInIsland + 1); islandX++) {
             for (int islandZ = CHUNK_EDGE_LENGTH_IN_BLOCKS * chunkPositionYInIsland; islandZ < CHUNK_EDGE_LENGTH_IN_BLOCKS * (chunkPositionYInIsland + 1); islandZ++) {
@@ -63,12 +92,16 @@ public class ChunkPresenter {
                             int inChunkX = islandX - CHUNK_EDGE_LENGTH_IN_BLOCKS * chunkPositionXInIsland;
                             int inChunkZ = islandZ - CHUNK_EDGE_LENGTH_IN_BLOCKS * chunkPositionYInIsland;
                                     
-                            BlockVisualsBuilder blockVisualsBuilder = buildBlockVisualsFromBlock(island, islandX, islandY, islandZ, inChunkX, inChunkZ, amountOfVerticesAdded);
+                            BlockVisualsBuilder blockVisualsBuilder = buildBlockVisualsFromBlock(island, islandX, islandY, islandZ, inChunkX, inChunkZ, amountOfOpaqueBlockVerticesAdded);
                                     
                             if (blockVisualsBuilder.getShapeVertices().length > 0) {
-                                fillBuffersWithVisualRenderData(blockVisualsBuilder);
-                                    
-                                amountOfVerticesAdded += blockVisualsBuilder.getAmountOfAddedIndices();                                        
+                                if (SEMI_TRANSPARENT_BLOCK_TYPES.contains(island.getBlockAt(islandX, islandY, islandZ).getBlockType())) {
+                                    fillSemiTransparentBlockBuffersWithVisualRenderData(blockVisualsBuilder); 
+                                    amountOfSemiTransparentBlockVerticesAdded += blockVisualsBuilder.getAmountOfAddedIndices();                                     
+                                } else {
+                                    fillOpaqueBlockBuffersWithVisualRenderData(blockVisualsBuilder); 
+                                    amountOfOpaqueBlockVerticesAdded += blockVisualsBuilder.getAmountOfAddedIndices();                                     
+                                }                                       
                             }
                         }
                     }    
@@ -77,20 +110,40 @@ public class ChunkPresenter {
         }        
     }  
     
-    private void renderChunk(VisualChunkData chunkRenderData, int chunkPosX, int chunkPosY) {
+    private void renderSemiTransparentChunk(VisualChunkData chunkRenderData, int chunkPosX, int chunkPosY) {
         ChunkRenderer chunkRenderer = TechnicalsFactory.getInstance().getChunkRendererInstance();        
         
-        chunkRenderData.setUpWithNumberOfBlocksInChunk(intBuffersOfBlocksInChunk.size());
+        chunkRenderData.setUpWithNumberOfBlocksInChunk(intBuffersOfSemiTransparentBlocksInChunk.size());
         chunkRenderData.setWorldPosition(chunkPosX, chunkPosY);
                 
-        for (int k = 0; k < floatBuffersOfBlocksInChunk.size(); k += 3) {
-            chunkRenderData.addVerticesToTemporaryBuffer(floatBuffersOfBlocksInChunk.get(k));
-            chunkRenderData.addNormalsToTemporaryBuffer(floatBuffersOfBlocksInChunk.get(k + 1));
-            chunkRenderData.addUvCoordinatesToTemporaryBuffer(floatBuffersOfBlocksInChunk.get(k + 2));
+        for (int k = 0; k < floatBuffersOfSemiTransparentBlocksInChunk.size(); k += 3) {
+            chunkRenderData.addVerticesToTemporaryBuffer(floatBuffersOfSemiTransparentBlocksInChunk.get(k));
+            chunkRenderData.addNormalsToTemporaryBuffer(floatBuffersOfSemiTransparentBlocksInChunk.get(k + 1));
+            chunkRenderData.addUvCoordinatesToTemporaryBuffer(floatBuffersOfSemiTransparentBlocksInChunk.get(k + 2));
         }
                 
-        for (int k = 0; k < intBuffersOfBlocksInChunk.size(); k++) {
-            chunkRenderData.addIndicesToTemporaryBuffer(intBuffersOfBlocksInChunk.get(k));
+        for (int k = 0; k < intBuffersOfSemiTransparentBlocksInChunk.size(); k++) {
+            chunkRenderData.addIndicesToTemporaryBuffer(intBuffersOfSemiTransparentBlocksInChunk.get(k));
+        }
+                
+        chunkRenderData.buildChunkData();
+        chunkRenderer.renderChunk(chunkRenderData);          
+    }
+    
+    private void renderOpaqueChunk(VisualChunkData chunkRenderData, int chunkPosX, int chunkPosY) {
+        ChunkRenderer chunkRenderer = TechnicalsFactory.getInstance().getChunkRendererInstance();        
+        
+        chunkRenderData.setUpWithNumberOfBlocksInChunk(intBuffersOfOpaqueBlocksInChunk.size());
+        chunkRenderData.setWorldPosition(chunkPosX, chunkPosY);
+                
+        for (int k = 0; k < floatBuffersOfOpaqueBlocksInChunk.size(); k += 3) {
+            chunkRenderData.addVerticesToTemporaryBuffer(floatBuffersOfOpaqueBlocksInChunk.get(k));
+            chunkRenderData.addNormalsToTemporaryBuffer(floatBuffersOfOpaqueBlocksInChunk.get(k + 1));
+            chunkRenderData.addUvCoordinatesToTemporaryBuffer(floatBuffersOfOpaqueBlocksInChunk.get(k + 2));
+        }
+                
+        for (int k = 0; k < intBuffersOfOpaqueBlocksInChunk.size(); k++) {
+            chunkRenderData.addIndicesToTemporaryBuffer(intBuffersOfOpaqueBlocksInChunk.get(k));
         }
                 
         chunkRenderData.buildChunkData();
@@ -115,12 +168,19 @@ public class ChunkPresenter {
         
         return blockVisualsBuilder;
     }
+    
+    private void fillSemiTransparentBlockBuffersWithVisualRenderData(BlockVisualsBuilder blockRenderDataBuilder) {
+        floatBuffersOfSemiTransparentBlocksInChunk.add(blockRenderDataBuilder.getShapeVertices());
+        floatBuffersOfSemiTransparentBlocksInChunk.add(blockRenderDataBuilder.getShapeNormals());
+        floatBuffersOfSemiTransparentBlocksInChunk.add(blockRenderDataBuilder.getBlockUvCoordinates());
+        intBuffersOfSemiTransparentBlocksInChunk.add(blockRenderDataBuilder.getShapeIndices());        
+    }     
 
-    private void fillBuffersWithVisualRenderData(BlockVisualsBuilder blockRenderDataBuilder) {
-        floatBuffersOfBlocksInChunk.add(blockRenderDataBuilder.getShapeVertices());
-        floatBuffersOfBlocksInChunk.add(blockRenderDataBuilder.getShapeNormals());
-        floatBuffersOfBlocksInChunk.add(blockRenderDataBuilder.getBlockUvCoordinates());
-        intBuffersOfBlocksInChunk.add(blockRenderDataBuilder.getShapeIndices());        
+    private void fillOpaqueBlockBuffersWithVisualRenderData(BlockVisualsBuilder blockRenderDataBuilder) {
+        floatBuffersOfOpaqueBlocksInChunk.add(blockRenderDataBuilder.getShapeVertices());
+        floatBuffersOfOpaqueBlocksInChunk.add(blockRenderDataBuilder.getShapeNormals());
+        floatBuffersOfOpaqueBlocksInChunk.add(blockRenderDataBuilder.getBlockUvCoordinates());
+        intBuffersOfOpaqueBlocksInChunk.add(blockRenderDataBuilder.getShapeIndices());        
     }    
     
     //</editor-fold>

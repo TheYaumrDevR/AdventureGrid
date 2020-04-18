@@ -1,8 +1,10 @@
 package org.ethasia.adventuregrid.ioadapters.presenters.chunks;
 
+import java.util.List;
 import org.ethasia.adventuregrid.core.environment.EarthBlock;
 import org.ethasia.adventuregrid.core.environment.GrassyEarthBlock;
 import org.ethasia.adventuregrid.core.environment.Island;
+import org.ethasia.adventuregrid.core.environment.PortalBlock;
 import org.ethasia.adventuregrid.core.environment.RockBlock;
 import org.ethasia.adventuregrid.ioadapters.presenters.TechnicalsFactory;
 import org.ethasia.adventuregrid.ioadapters.presenters.mocks.ChunkRendererMock;
@@ -11,6 +13,7 @@ import org.ethasia.adventuregrid.ioadapters.presenters.mocks.TechnicalsMockFacto
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.assertThat;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -20,6 +23,11 @@ public class ChunkPresenterTest {
     public static void initDependencies() {
         TechnicalsFactory.setInstance(new TechnicalsMockFactory());
     }    
+    
+    @Before
+    public void resetMocks() {
+        ChunkRendererMock.resetMock();
+    }
     
     @Test
     public void testPresentChunk_eightBlocksInFirstChunk_callsRendererWithProperChunkData() {
@@ -124,5 +132,31 @@ public class ChunkPresenterTest {
         assertThat(lastRenderedChunkData.getIndices().length, is(324));
         assertThat(lastRenderedChunkData.getNormals().length, is(648));
         assertThat(lastRenderedChunkData.getUvCoordinates().length, is(432));
-    }    
+    }  
+    
+    @Test
+    public void testPresentChunk_normalAndTransparentBlocksPresent_rendersTransparentBlocksInSeparateChunk() {
+        Island islandToRender = new Island(31);  
+        
+        islandToRender.placeBlockAt(GrassyEarthBlock.getInstance(), 18, 2, 18);
+        islandToRender.placeBlockAt(GrassyEarthBlock.getInstance(), 19, 2, 18);
+        islandToRender.placeBlockAt(GrassyEarthBlock.getInstance(), 18, 2, 19);
+        islandToRender.placeBlockAt(PortalBlock.getInstance(), 20, 2, 19);
+        islandToRender.placeBlockAt(RockBlock.getInstance(), 18, 1, 18);
+        islandToRender.placeBlockAt(RockBlock.getInstance(), 19, 1, 18);
+        islandToRender.placeBlockAt(RockBlock.getInstance(), 18, 1, 19);
+        islandToRender.placeBlockAt(PortalBlock.getInstance(), 20, 1, 19);    
+        
+        ChunkPresenter testCandidate = new ChunkPresenter();
+        
+        testCandidate.presentChunk(islandToRender, 1, 1);        
+        
+        List<VisualChunkData> presentedChunkData = ChunkRendererMock.getRenderedChunkData();
+        
+        assertThat(presentedChunkData.size(), is(2));
+        assertThat(presentedChunkData.get(0).getVertices().length, is(240));
+        assertThat(presentedChunkData.get(0).getIndices().length, is(120));
+        assertThat(presentedChunkData.get(0).getNormals().length, is(240));
+        assertThat(presentedChunkData.get(0).getUvCoordinates().length, is(160));
+    }
 }
