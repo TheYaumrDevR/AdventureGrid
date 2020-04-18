@@ -4,6 +4,8 @@ public class VisualChunkData {
     
     //<editor-fold defaultstate="collapsed" desc="Fields">
     
+    private boolean isOpaqueChunk;
+    
     private int worldX;
     private int worldY;
     
@@ -30,6 +32,14 @@ public class VisualChunkData {
     //</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="Methods">
+    
+    public boolean isOpaqueChunk() {
+        return isOpaqueChunk;
+    }
+    
+    public void setIsOpaqueChunk(boolean value) {
+        isOpaqueChunk = value;
+    }
     
     public void setWorldPosition(int x, int y) {
         worldX = x;

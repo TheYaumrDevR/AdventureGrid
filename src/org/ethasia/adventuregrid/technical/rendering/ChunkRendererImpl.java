@@ -104,7 +104,9 @@ public class ChunkRendererImpl implements ChunkRenderer {
         int chunkPositionX = chunkData.getWorldX();
         int chunkPositionY = chunkData.getWorldY();
         
-        return "Chunk: " + chunkPositionX + ", " + chunkPositionY;        
+        String prefix = chunkData.isOpaqueChunk() ? "Opaque Chunk: " : "Transparent Chunk: ";
+        
+        return prefix + chunkPositionX + ", " + chunkPositionY;        
     }    
     
     //</editor-fold>

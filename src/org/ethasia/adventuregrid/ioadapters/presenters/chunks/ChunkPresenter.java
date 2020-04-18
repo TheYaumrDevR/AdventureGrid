@@ -55,6 +55,10 @@ public class ChunkPresenter {
     public void presentChunk(Island island, int chunkPositionXInIsland, int chunkPositionYInIsland) {
         VisualChunkData opaqueChunkRenderData = clearRenderDataForNewChunk();
         VisualChunkData semiTransparentChunkRenderData = clearRenderDataForNewChunk();
+        
+        opaqueChunkRenderData.setIsOpaqueChunk(true);
+        semiTransparentChunkRenderData.setIsOpaqueChunk(false);
+        
         fillRenderDataForOneChunk(island, chunkPositionXInIsland, chunkPositionYInIsland);
                
         if (intBuffersOfSemiTransparentBlocksInChunk.size() > 0) {
@@ -91,9 +95,14 @@ public class ChunkPresenter {
                         if (island.getBlockAt(islandX, islandY, islandZ).getBlockType() != BlockTypes.AIR) {                                    
                             int inChunkX = islandX - CHUNK_EDGE_LENGTH_IN_BLOCKS * chunkPositionXInIsland;
                             int inChunkZ = islandZ - CHUNK_EDGE_LENGTH_IN_BLOCKS * chunkPositionYInIsland;
-                                    
-                            BlockVisualsBuilder blockVisualsBuilder = buildBlockVisualsFromBlock(island, islandX, islandY, islandZ, inChunkX, inChunkZ, amountOfOpaqueBlockVerticesAdded);
-                                    
+                                  
+                            BlockVisualsBuilder blockVisualsBuilder;
+                            if (SEMI_TRANSPARENT_BLOCK_TYPES.contains(island.getBlockAt(islandX, islandY, islandZ).getBlockType())) {
+                                blockVisualsBuilder = buildBlockVisualsFromBlock(island, islandX, islandY, islandZ, inChunkX, inChunkZ, amountOfSemiTransparentBlockVerticesAdded);
+                            } else {
+                                blockVisualsBuilder = buildBlockVisualsFromBlock(island, islandX, islandY, islandZ, inChunkX, inChunkZ, amountOfOpaqueBlockVerticesAdded);
+                            }
+                                                                
                             if (blockVisualsBuilder.getShapeVertices().length > 0) {
                                 if (SEMI_TRANSPARENT_BLOCK_TYPES.contains(island.getBlockAt(islandX, islandY, islandZ).getBlockType())) {
                                     fillSemiTransparentBlockBuffersWithVisualRenderData(blockVisualsBuilder); 
