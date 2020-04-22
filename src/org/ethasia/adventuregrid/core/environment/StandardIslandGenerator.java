@@ -59,7 +59,7 @@ public class StandardIslandGenerator implements IslandGenerator {
         result.placeBlockAt(blockToPlace, 61, 128, 31);
         result.placeBlockAt(blockToPlace, 61, 129, 31);
         result.placeBlockAt(blockToPlace, 61, 128, 32);
-        result.placeBlockAt(blockToPlace, 61, 129, 32);        
+        result.placeBlockAt(blockToPlace, 61, 129, 32); 
     }
     
     //</editor-fold>
