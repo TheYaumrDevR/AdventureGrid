@@ -40,21 +40,58 @@ public class StandardIslandGenerator implements IslandGenerator {
     
     private void addPortals() {
         Block blockToPlace = PortalBlock.getInstance();
+        Block rockBlock = RockBlock.getInstance();
+        
+        result.placeBlockAt(rockBlock, 30, 128, 2);
+        result.placeBlockAt(rockBlock, 30, 129, 2);
+        result.placeBlockAt(rockBlock, 30, 130, 2);
+        result.placeBlockAt(rockBlock, 31, 130, 2);
+        result.placeBlockAt(rockBlock, 32, 130, 2);
+        result.placeBlockAt(rockBlock, 33, 128, 2);
+        result.placeBlockAt(rockBlock, 33, 129, 2);
+        result.placeBlockAt(rockBlock, 33, 130, 2);        
         
         result.placeBlockAt(blockToPlace, 31, 128, 2);
         result.placeBlockAt(blockToPlace, 31, 129, 2);
         result.placeBlockAt(blockToPlace, 32, 128, 2);
         result.placeBlockAt(blockToPlace, 32, 129, 2);
         
+        result.placeBlockAt(rockBlock, 2, 128, 30);
+        result.placeBlockAt(rockBlock, 2, 129, 30);
+        result.placeBlockAt(rockBlock, 2, 130, 30);
+        result.placeBlockAt(rockBlock, 2, 130, 31);
+        result.placeBlockAt(rockBlock, 2, 130, 32);
+        result.placeBlockAt(rockBlock, 2, 128, 33);
+        result.placeBlockAt(rockBlock, 2, 129, 33);
+        result.placeBlockAt(rockBlock, 2, 130, 33);            
+        
         result.placeBlockAt(blockToPlace, 2, 128, 31);
         result.placeBlockAt(blockToPlace, 2, 129, 31);
         result.placeBlockAt(blockToPlace, 2, 128, 32);
         result.placeBlockAt(blockToPlace, 2, 129, 32);  
         
+        result.placeBlockAt(rockBlock, 30, 128, 61);
+        result.placeBlockAt(rockBlock, 30, 129, 61);
+        result.placeBlockAt(rockBlock, 30, 130, 61);
+        result.placeBlockAt(rockBlock, 31, 130, 61);
+        result.placeBlockAt(rockBlock, 32, 130, 61);
+        result.placeBlockAt(rockBlock, 33, 128, 61);
+        result.placeBlockAt(rockBlock, 33, 129, 61);
+        result.placeBlockAt(rockBlock, 33, 130, 61);  
+        
         result.placeBlockAt(blockToPlace, 31, 128, 61);
         result.placeBlockAt(blockToPlace, 31, 129, 61);
         result.placeBlockAt(blockToPlace, 32, 128, 61);
         result.placeBlockAt(blockToPlace, 32, 129, 61);       
+        
+        result.placeBlockAt(rockBlock, 61, 128, 30);
+        result.placeBlockAt(rockBlock, 61, 129, 30);
+        result.placeBlockAt(rockBlock, 61, 130, 30);
+        result.placeBlockAt(rockBlock, 61, 130, 31);
+        result.placeBlockAt(rockBlock, 61, 130, 32);
+        result.placeBlockAt(rockBlock, 61, 128, 33);
+        result.placeBlockAt(rockBlock, 61, 129, 33);
+        result.placeBlockAt(rockBlock, 61, 130, 33);         
         
         result.placeBlockAt(blockToPlace, 61, 128, 31);
         result.placeBlockAt(blockToPlace, 61, 129, 31);
