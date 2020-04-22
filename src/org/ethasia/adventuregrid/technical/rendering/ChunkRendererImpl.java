@@ -48,7 +48,11 @@ public class ChunkRendererImpl implements ChunkRenderer {
             rootNode.attachChild(chunkGeometry);
         } else {
             Geometry chunkGeometry = createChunkGeometry(chunkData);
-            addCollisionShapeToChunk(chunkGeometry);
+            
+            if (chunkData.isOpaqueChunk()) {
+                addCollisionShapeToChunk(chunkGeometry);                
+            }
+            
             rootNode.attachChild(chunkGeometry);
         }        
     }
