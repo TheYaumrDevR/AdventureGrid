@@ -32,7 +32,7 @@ public class PlayerCharacterControl implements ActionListener {
     //<editor-fold defaultstate="collapsed" desc="Constructor">
     
     public PlayerCharacterControl() {
-        CapsuleCollisionShape playerCollisionShape = new CapsuleCollisionShape(0.25f, 1.f);
+        CapsuleCollisionShape playerCollisionShape = new CapsuleCollisionShape(0.25f, 0.55f);
         player = new CharacterControl(playerCollisionShape, 0.05f);
         
         walkDirection = new Vector3f();
@@ -51,7 +51,7 @@ public class PlayerCharacterControl implements ActionListener {
         player.setJumpSpeed(20);
         player.setFallSpeed(30);
         player.setGravity(new Vector3f(0,-30f,0));
-        player.setPhysicsLocation(new Vector3f(16.f, 66.f, 16.f));          
+        player.setPhysicsLocation(new Vector3f(16.f, 65.f, 16.f));          
     }
     
     public void bindControlToKeys(InputManager inputManager) {
@@ -101,7 +101,7 @@ public class PlayerCharacterControl implements ActionListener {
         }        
         
         player.setWalkDirection(walkDirection);
-        camera.setLocation(player.getPhysicsLocation());
+        camera.setLocation(player.getPhysicsLocation().addLocal(0, 0.25f, 0));
     }
     
     //</editor-fold>
