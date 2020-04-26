@@ -82,23 +82,30 @@ public class PlayerCharacterControl implements ActionListener {
         camDir.set(camera.getLeft()).crossLocal(Vector3f.UNIT_Y).multLocal(0.0421875f);
         camLeft.set(camera.getLeft()).multLocal(0.028125f);
         walkDirection.set(0, 0, 0);
+        boolean isMovingSideWays = false;
+        boolean isMovingForwardBackward = false;
         
         if (moveLeft) {
             walkDirection.addLocal(camLeft);
-            soundEffects.playWalkOnRockSoundEffect();
+            isMovingSideWays = !isMovingSideWays;
         }
         if (moveRight) {
             walkDirection.addLocal(camLeft.negate());
-            soundEffects.playWalkOnRockSoundEffect();
+            isMovingSideWays = !isMovingSideWays;
         }
         if (moveUp) {
             walkDirection.addLocal(camDir);
-            soundEffects.playWalkOnRockSoundEffect();
+            isMovingForwardBackward = !isMovingForwardBackward;
         }
         if (moveDown) {
             walkDirection.addLocal(camDir.negate());
+            isMovingForwardBackward = !isMovingForwardBackward;
+        }     
+        
+        final boolean playWalkingSoundEffect = player.onGround() && (isMovingSideWays || isMovingForwardBackward);
+        if (playWalkingSoundEffect) {
             soundEffects.playWalkOnRockSoundEffect();
-        }        
+        }
         
         player.setWalkDirection(walkDirection);
         camera.setLocation(player.getPhysicsLocation().addLocal(0, 0.25f, 0));
