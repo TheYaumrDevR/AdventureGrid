@@ -1,5 +1,8 @@
 package org.ethasia.adventuregrid.ioadapters.presenters.chunks;
 
+import java.util.LinkedList;
+import java.util.List;
+
 public class VisualChunkData {
     
     //<editor-fold defaultstate="collapsed" desc="Fields">
@@ -28,6 +31,16 @@ public class VisualChunkData {
     private int[] allIndicesFlattened;
     private float[] allNormalsFlattened;
     private float[] allUvCoordinatesFlattened;
+    
+    private List<ParticleEffectByCoordinate> particleEffects;
+    
+    //</editor-fold>
+    
+    //<editor-fold defaultstate="collapsed" desc="Constructors">
+    
+    public VisualChunkData() {
+        particleEffects = new LinkedList<>();
+    }
     
     //</editor-fold>
     
@@ -70,6 +83,10 @@ public class VisualChunkData {
         return allUvCoordinatesFlattened;
     }
     
+    public List<ParticleEffectByCoordinate> getParticleEffects() {
+        return  particleEffects;
+    }
+    
     public void setUpWithNumberOfBlocksInChunk(int numberOfBlocksInChunk) {
         verticesOfBlocks = new float[numberOfBlocksInChunk][];
         indicesOfBlocks = new int[numberOfBlocksInChunk][];
@@ -99,6 +116,10 @@ public class VisualChunkData {
         uvCoordinatesOfBlocks[numberOfTimesUvAdded] = uvCoordinates;
         currentUvAmount += uvCoordinates.length;
         numberOfTimesUvAdded++;        
+    }
+    
+    public void addParticleEffectAt(ParticleEffects particleEffect, int posX, int posY, int posZ) {
+        particleEffects.add(new ParticleEffectByCoordinate(posX, posY, posZ, particleEffect));
     }
     
     public void buildChunkData() {

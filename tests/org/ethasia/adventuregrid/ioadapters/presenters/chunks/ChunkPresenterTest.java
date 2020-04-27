@@ -154,9 +154,9 @@ public class ChunkPresenterTest {
         List<VisualChunkData> presentedChunkData = ChunkRendererMock.getRenderedChunkData();
         
         assertThat(presentedChunkData.size(), is(2));
-        assertThat(presentedChunkData.get(0).getVertices().length, is(240));
-        assertThat(presentedChunkData.get(0).getIndices().length, is(120));
-        assertThat(presentedChunkData.get(0).getNormals().length, is(240));
-        assertThat(presentedChunkData.get(0).getUvCoordinates().length, is(160));
+        assertThat(presentedChunkData.get(0).getVertices().length, is(120));
+        assertThat(presentedChunkData.get(0).getIndices().length, is(60));
+        assertThat(presentedChunkData.get(0).getNormals().length, is(120));
+        assertThat(presentedChunkData.get(0).getUvCoordinates().length, is(80));
     }
 }
