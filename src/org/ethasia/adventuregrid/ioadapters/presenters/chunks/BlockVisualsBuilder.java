@@ -12,6 +12,12 @@ public abstract class BlockVisualsBuilder {
     
     //</editor-fold>
     
+    //<editor-fold defaultstate="collapsed" desc="Fields">
+    
+    protected ParticleEffects particleEffect = ParticleEffects.NONE;
+    
+    //</editor-fold>    
+    
     //<editor-fold defaultstate="collapsed" desc="Static Methods">
     
     public static BlockVisualsBuilder fromBlockType(BlockTypes blockType) {
@@ -51,6 +57,19 @@ public abstract class BlockVisualsBuilder {
     public abstract float[] getShapeNormals();
     public abstract float[] getBlockUvCoordinates();   
     public abstract int getAmountOfAddedIndices();
+    
+    //</editor-fold>
+    
+    //<editor-fold defaultstate="collapsed" desc="Methods">
+    
+    public BlockVisualsBuilder setParticleEffect(ParticleEffects value) {
+        particleEffect = value;
+        return this;
+    }
+    
+    public ParticleEffects getParticleEffect() {
+        return particleEffect;
+    }
     
     //</editor-fold>
 }

@@ -32,7 +32,7 @@ public class VisualChunkData {
     private float[] allNormalsFlattened;
     private float[] allUvCoordinatesFlattened;
     
-    private List<ParticleEffectByCoordinate> particleEffects;
+    private final List<ParticleEffectByCoordinate> particleEffects;
     
     //</editor-fold>
     
@@ -118,8 +118,10 @@ public class VisualChunkData {
         numberOfTimesUvAdded++;        
     }
     
-    public void addParticleEffectAt(ParticleEffects particleEffect, int posX, int posY, int posZ) {
-        particleEffects.add(new ParticleEffectByCoordinate(posX, posY, posZ, particleEffect));
+    public void addParticleEffectsFrom(List<ParticleEffectByCoordinate> source) {
+        for (ParticleEffectByCoordinate particleEffectByPosition : source) {
+            particleEffects.add(particleEffectByPosition);
+        }
     }
     
     public void buildChunkData() {

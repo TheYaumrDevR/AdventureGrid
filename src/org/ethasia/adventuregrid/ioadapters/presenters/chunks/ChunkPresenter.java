@@ -24,11 +24,13 @@ public class ChunkPresenter {
     
     //<editor-fold defaultstate="collapsed" desc="Fields">
     
-    private List<float[]> floatBuffersOfSemiTransparentBlocksInChunk;
-    private List<int[]> intBuffersOfSemiTransparentBlocksInChunk; 
+    private final List<float[]> floatBuffersOfSemiTransparentBlocksInChunk;
+    private final List<int[]> intBuffersOfSemiTransparentBlocksInChunk; 
     
-    private List<float[]> floatBuffersOfOpaqueBlocksInChunk;
-    private List<int[]> intBuffersOfOpaqueBlocksInChunk;    
+    private final List<float[]> floatBuffersOfOpaqueBlocksInChunk;
+    private final List<int[]> intBuffersOfOpaqueBlocksInChunk;    
+    
+    private final List<ParticleEffectByCoordinate> particleEffectsInChunk;
     
     //</editor-fold>
     
@@ -46,6 +48,8 @@ public class ChunkPresenter {
         
         floatBuffersOfOpaqueBlocksInChunk = new LinkedList<>();
         intBuffersOfOpaqueBlocksInChunk = new LinkedList<>(); 
+        
+        particleEffectsInChunk = new LinkedList<>(); 
     }
     
     //</editor-fold>
@@ -81,6 +85,8 @@ public class ChunkPresenter {
         floatBuffersOfOpaqueBlocksInChunk.clear();
         intBuffersOfOpaqueBlocksInChunk.clear(); 
         
+        particleEffectsInChunk.clear();
+        
         return new VisualChunkData();
     } 
     
@@ -104,6 +110,10 @@ public class ChunkPresenter {
                             }
                                                                 
                             if (blockVisualsBuilder.getShapeVertices().length > 0) {
+                                if (blockVisualsBuilder.getParticleEffect() != ParticleEffects.NONE) {
+                                    particleEffectsInChunk.add(new ParticleEffectByCoordinate(islandX, islandY, islandZ, blockVisualsBuilder.getParticleEffect()));
+                                }
+                                
                                 if (SEMI_TRANSPARENT_BLOCK_TYPES.contains(island.getBlockAt(islandX, islandY, islandZ).getBlockType())) {
                                     fillSemiTransparentBlockBuffersWithVisualRenderData(blockVisualsBuilder); 
                                     amountOfSemiTransparentBlockVerticesAdded += blockVisualsBuilder.getAmountOfAddedIndices();                                     
@@ -135,6 +145,7 @@ public class ChunkPresenter {
             chunkRenderData.addIndicesToTemporaryBuffer(intBuffersOfSemiTransparentBlocksInChunk.get(k));
         }
                 
+        chunkRenderData.addParticleEffectsFrom(particleEffectsInChunk);
         chunkRenderData.buildChunkData();
         chunkRenderer.renderChunk(chunkRenderData);          
     }
@@ -155,6 +166,7 @@ public class ChunkPresenter {
             chunkRenderData.addIndicesToTemporaryBuffer(intBuffersOfOpaqueBlocksInChunk.get(k));
         }
                 
+        chunkRenderData.addParticleEffectsFrom(particleEffectsInChunk);
         chunkRenderData.buildChunkData();
         chunkRenderer.renderChunk(chunkRenderData);          
     }
@@ -162,6 +174,7 @@ public class ChunkPresenter {
     private BlockVisualsBuilder buildBlockVisualsFromBlock(Island island, int x, int y, int z, int inChunkX, int inChunkZ, int currentBlockRenderIndex) {
         Block currentBlock = island.getBlockAt(x, y, z);
         BlockVisualsBuilder blockVisualsBuilder = BlockVisualsBuilder.fromBlockType(currentBlock.getBlockType());
+        ParticleEffects blockParticleEffect = ParticleEffectByBlock.getParticleEffectFromBlockType(currentBlock.getBlockType());
         blockVisualsBuilder.setBlockToCreateDataFrom(currentBlock)
             .setChunkPositionX(inChunkX)
             .setChunkPositionY(y)
@@ -173,6 +186,7 @@ public class ChunkPresenter {
             .setLeftFaceOfBlockIsCovered(island.blockFaceAtPositionIsHidden(BlockFaceDirections.LEFT, x, y, z))
             .setBottomFaceOfBlockIsCovered(island.blockFaceAtPositionIsHidden(BlockFaceDirections.BOTTOM, x, y, z))
             .setTopFaceOfBlockIsCovered(island.blockFaceAtPositionIsHidden(BlockFaceDirections.TOP, x, y, z))
+            .setParticleEffect(blockParticleEffect)
             .build();     
         
         return blockVisualsBuilder;

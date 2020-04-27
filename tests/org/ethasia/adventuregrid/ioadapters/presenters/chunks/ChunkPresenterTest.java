@@ -159,4 +159,84 @@ public class ChunkPresenterTest {
         assertThat(presentedChunkData.get(0).getNormals().length, is(120));
         assertThat(presentedChunkData.get(0).getUvCoordinates().length, is(80));
     }
+    
+    @Test
+    public void testPresentChunk_portalBlockIsAdded_addsParticleEffect() {
+        Island islandToRender = new Island(31);  
+        
+        islandToRender.placeBlockAt(GrassyEarthBlock.getInstance(), 1, 15, 1);
+        islandToRender.placeBlockAt(GrassyEarthBlock.getInstance(), 2, 15, 1);
+        islandToRender.placeBlockAt(GrassyEarthBlock.getInstance(), 3, 15, 1);
+        islandToRender.placeBlockAt(GrassyEarthBlock.getInstance(), 1, 15, 2);
+        islandToRender.placeBlockAt(PortalBlock.getInstance(), 2, 15, 2);
+        islandToRender.placeBlockAt(GrassyEarthBlock.getInstance(), 3, 15, 2);
+        islandToRender.placeBlockAt(GrassyEarthBlock.getInstance(), 1, 15, 3);
+        islandToRender.placeBlockAt(GrassyEarthBlock.getInstance(), 2, 15, 3);
+        islandToRender.placeBlockAt(GrassyEarthBlock.getInstance(), 3, 15, 3);    
+        
+        islandToRender.placeBlockAt(GrassyEarthBlock.getInstance(), 1, 14, 1);
+        islandToRender.placeBlockAt(GrassyEarthBlock.getInstance(), 2, 14, 1);
+        islandToRender.placeBlockAt(GrassyEarthBlock.getInstance(), 3, 14, 1);
+        islandToRender.placeBlockAt(GrassyEarthBlock.getInstance(), 1, 14, 2);
+        islandToRender.placeBlockAt(GrassyEarthBlock.getInstance(), 2, 14, 2);
+        islandToRender.placeBlockAt(GrassyEarthBlock.getInstance(), 3, 14, 2);
+        islandToRender.placeBlockAt(GrassyEarthBlock.getInstance(), 1, 14, 3);
+        islandToRender.placeBlockAt(GrassyEarthBlock.getInstance(), 2, 14, 3);
+        islandToRender.placeBlockAt(GrassyEarthBlock.getInstance(), 3, 14, 3);   
+        
+        ChunkPresenter testCandidate = new ChunkPresenter();
+        
+        testCandidate.presentChunk(islandToRender, 0, 0);        
+        
+        List<VisualChunkData> presentedChunkData = ChunkRendererMock.getRenderedChunkData(); 
+        
+        assertThat(presentedChunkData.get(0).getParticleEffects().size(), is(1));
+        assertThat(presentedChunkData.get(0).getParticleEffects().get(0).getPosX(), is(2));
+        assertThat(presentedChunkData.get(0).getParticleEffects().get(0).getPosY(), is(15));
+        assertThat(presentedChunkData.get(0).getParticleEffects().get(0).getPosZ(), is(2));
+        assertThat(presentedChunkData.get(0).getParticleEffects().get(0).getParticleEffect(), is(ParticleEffects.PORTAL));
+    }
+    
+    @Test
+    public void testPresentChunk_portalBlockIsCovered_noParticleEffect() {
+        Island islandToRender = new Island(31);  
+        
+        islandToRender.placeBlockAt(GrassyEarthBlock.getInstance(), 1, 15, 1);
+        islandToRender.placeBlockAt(GrassyEarthBlock.getInstance(), 2, 15, 1);
+        islandToRender.placeBlockAt(GrassyEarthBlock.getInstance(), 3, 15, 1);
+        islandToRender.placeBlockAt(GrassyEarthBlock.getInstance(), 1, 15, 2);
+        islandToRender.placeBlockAt(PortalBlock.getInstance(), 2, 15, 2);
+        islandToRender.placeBlockAt(GrassyEarthBlock.getInstance(), 3, 15, 2);
+        islandToRender.placeBlockAt(GrassyEarthBlock.getInstance(), 1, 15, 3);
+        islandToRender.placeBlockAt(GrassyEarthBlock.getInstance(), 2, 15, 3);
+        islandToRender.placeBlockAt(GrassyEarthBlock.getInstance(), 3, 15, 3);    
+        
+        islandToRender.placeBlockAt(GrassyEarthBlock.getInstance(), 1, 14, 1);
+        islandToRender.placeBlockAt(GrassyEarthBlock.getInstance(), 2, 14, 1);
+        islandToRender.placeBlockAt(GrassyEarthBlock.getInstance(), 3, 14, 1);
+        islandToRender.placeBlockAt(GrassyEarthBlock.getInstance(), 1, 14, 2);
+        islandToRender.placeBlockAt(GrassyEarthBlock.getInstance(), 2, 14, 2);
+        islandToRender.placeBlockAt(GrassyEarthBlock.getInstance(), 3, 14, 2);
+        islandToRender.placeBlockAt(GrassyEarthBlock.getInstance(), 1, 14, 3);
+        islandToRender.placeBlockAt(GrassyEarthBlock.getInstance(), 2, 14, 3);
+        islandToRender.placeBlockAt(GrassyEarthBlock.getInstance(), 3, 14, 3); 
+        
+        islandToRender.placeBlockAt(GrassyEarthBlock.getInstance(), 1, 16, 1);
+        islandToRender.placeBlockAt(GrassyEarthBlock.getInstance(), 2, 16, 1);
+        islandToRender.placeBlockAt(GrassyEarthBlock.getInstance(), 3, 16, 1);
+        islandToRender.placeBlockAt(GrassyEarthBlock.getInstance(), 1, 16, 2);
+        islandToRender.placeBlockAt(GrassyEarthBlock.getInstance(), 2, 16, 2);
+        islandToRender.placeBlockAt(GrassyEarthBlock.getInstance(), 3, 16, 2);
+        islandToRender.placeBlockAt(GrassyEarthBlock.getInstance(), 1, 16, 3);
+        islandToRender.placeBlockAt(GrassyEarthBlock.getInstance(), 2, 16, 3);
+        islandToRender.placeBlockAt(GrassyEarthBlock.getInstance(), 3, 16, 3);         
+        
+        ChunkPresenter testCandidate = new ChunkPresenter();
+        
+        testCandidate.presentChunk(islandToRender, 0, 0);        
+        
+        List<VisualChunkData> presentedChunkData = ChunkRendererMock.getRenderedChunkData(); 
+        
+        assertThat(presentedChunkData.get(0).getParticleEffects().size(), is(0));
+    }    
 }
