@@ -30,7 +30,8 @@ public class ChunkPresenter {
     private final List<float[]> floatBuffersOfOpaqueBlocksInChunk;
     private final List<int[]> intBuffersOfOpaqueBlocksInChunk;    
     
-    private final List<ParticleEffectByCoordinate> particleEffectsInChunk;
+    private final List<ParticleEffectByCoordinate> particleEffectsInOpaqueChunk;
+    private final List<ParticleEffectByCoordinate> particleEffectsInTransparentChunk;
     
     //</editor-fold>
     
@@ -49,7 +50,8 @@ public class ChunkPresenter {
         floatBuffersOfOpaqueBlocksInChunk = new LinkedList<>();
         intBuffersOfOpaqueBlocksInChunk = new LinkedList<>(); 
         
-        particleEffectsInChunk = new LinkedList<>(); 
+        particleEffectsInOpaqueChunk = new LinkedList<>(); 
+        particleEffectsInTransparentChunk = new LinkedList<>(); 
     }
     
     //</editor-fold>
@@ -85,7 +87,8 @@ public class ChunkPresenter {
         floatBuffersOfOpaqueBlocksInChunk.clear();
         intBuffersOfOpaqueBlocksInChunk.clear(); 
         
-        particleEffectsInChunk.clear();
+        particleEffectsInOpaqueChunk.clear();
+        particleEffectsInTransparentChunk.clear();
         
         return new VisualChunkData();
     } 
@@ -109,17 +112,21 @@ public class ChunkPresenter {
                                 blockVisualsBuilder = buildBlockVisualsFromBlock(island, islandX, islandY, islandZ, inChunkX, inChunkZ, amountOfOpaqueBlockVerticesAdded);
                             }
                                                                 
-                            if (blockVisualsBuilder.getShapeVertices().length > 0) {
-                                if (blockVisualsBuilder.getParticleEffect() != ParticleEffects.NONE) {
-                                    particleEffectsInChunk.add(new ParticleEffectByCoordinate(islandX, islandY, islandZ, blockVisualsBuilder.getParticleEffect()));
-                                }
-                                
+                            if (blockVisualsBuilder.getShapeVertices().length > 0) {                                
                                 if (SEMI_TRANSPARENT_BLOCK_TYPES.contains(island.getBlockAt(islandX, islandY, islandZ).getBlockType())) {
                                     fillSemiTransparentBlockBuffersWithVisualRenderData(blockVisualsBuilder); 
-                                    amountOfSemiTransparentBlockVerticesAdded += blockVisualsBuilder.getAmountOfAddedIndices();                                     
+                                    amountOfSemiTransparentBlockVerticesAdded += blockVisualsBuilder.getAmountOfAddedIndices(); 
+
+                                    if (blockVisualsBuilder.getParticleEffect() != ParticleEffects.NONE) {
+                                        particleEffectsInTransparentChunk.add(new ParticleEffectByCoordinate(islandX, islandY, islandZ, blockVisualsBuilder.getParticleEffect()));
+                                    }                                    
                                 } else {
                                     fillOpaqueBlockBuffersWithVisualRenderData(blockVisualsBuilder); 
-                                    amountOfOpaqueBlockVerticesAdded += blockVisualsBuilder.getAmountOfAddedIndices();                                     
+                                    amountOfOpaqueBlockVerticesAdded += blockVisualsBuilder.getAmountOfAddedIndices(); 
+
+                                    if (blockVisualsBuilder.getParticleEffect() != ParticleEffects.NONE) {
+                                        particleEffectsInOpaqueChunk.add(new ParticleEffectByCoordinate(islandX, islandY, islandZ, blockVisualsBuilder.getParticleEffect()));
+                                    }                                     
                                 }                                       
                             }
                         }
@@ -145,7 +152,7 @@ public class ChunkPresenter {
             chunkRenderData.addIndicesToTemporaryBuffer(intBuffersOfSemiTransparentBlocksInChunk.get(k));
         }
                 
-        chunkRenderData.addParticleEffectsFrom(particleEffectsInChunk);
+        chunkRenderData.addParticleEffectsFrom(particleEffectsInTransparentChunk);
         chunkRenderData.buildChunkData();
         chunkRenderer.renderChunk(chunkRenderData);          
     }
@@ -166,7 +173,7 @@ public class ChunkPresenter {
             chunkRenderData.addIndicesToTemporaryBuffer(intBuffersOfOpaqueBlocksInChunk.get(k));
         }
                 
-        chunkRenderData.addParticleEffectsFrom(particleEffectsInChunk);
+        chunkRenderData.addParticleEffectsFrom(particleEffectsInOpaqueChunk);
         chunkRenderData.buildChunkData();
         chunkRenderer.renderChunk(chunkRenderData);          
     }

@@ -5,6 +5,7 @@ import com.jme3.asset.TextureKey;
 import com.jme3.bullet.collision.shapes.CollisionShape;
 import com.jme3.bullet.control.RigidBodyControl;
 import com.jme3.bullet.util.CollisionShapeFactory;
+import com.jme3.effect.ParticleEmitter;
 import com.jme3.material.Material;
 import com.jme3.material.RenderState;
 import com.jme3.scene.Geometry;
@@ -12,6 +13,7 @@ import com.jme3.scene.Node;
 import com.jme3.texture.Texture;
 import com.jme3.texture.Texture2D;
 import org.ethasia.adventuregrid.ioadapters.presenters.StandardIslandPresenter;
+import org.ethasia.adventuregrid.ioadapters.presenters.chunks.ParticleEffectByCoordinate;
 import org.ethasia.adventuregrid.ioadapters.presenters.chunks.VisualChunkData;
 
 import org.ethasia.adventuregrid.ioadapters.presenters.output.ChunkRenderer;
@@ -45,6 +47,11 @@ public class ChunkRendererImpl implements ChunkRenderer {
         if (null != rootNode.getChild(uniqueChunkName)) {
             Geometry chunkGeometry = createChunkGeometry(chunkData);
             rootNode.detachChildNamed(uniqueChunkName);
+            
+            if (chunkData.isOpaqueChunk()) {
+                addCollisionShapeToChunk(chunkGeometry);                
+            }            
+            
             rootNode.attachChild(chunkGeometry);
         } else {
             Geometry chunkGeometry = createChunkGeometry(chunkData);
@@ -54,7 +61,9 @@ public class ChunkRendererImpl implements ChunkRenderer {
             }
             
             rootNode.attachChild(chunkGeometry);
-        }        
+        }    
+        
+        createBlockParticleEffects(chunkData);
     }
 
     @Override
@@ -116,6 +125,14 @@ public class ChunkRendererImpl implements ChunkRenderer {
         
         return prefix + chunkPositionX + ", " + chunkPositionY;        
     }    
+    
+    private void createBlockParticleEffects(VisualChunkData chunkData) {
+        for (ParticleEffectByCoordinate particleEffectWithPosition : chunkData.getParticleEffects()) {
+            ParticleEmitterFromEffectFactory.setAssetManager(assetManager);
+            ParticleEmitter particleEmitter = ParticleEmitterFromEffectFactory.createParticleEmitterFromEffectData(particleEffectWithPosition);
+            rootNode.attachChild(particleEmitter);
+        }
+    }
     
     //</editor-fold>
 }
